@@ -124,85 +124,6 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Light rays */
-        .light-rays {
-            position: fixed;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150%;
-            height: 80%;
-            background: conic-gradient(
-                from 180deg at 50% 0%,
-                transparent 0deg,
-                rgba(201, 169, 98, 0.03) 10deg,
-                transparent 20deg,
-                rgba(201, 169, 98, 0.05) 40deg,
-                transparent 50deg,
-                rgba(201, 169, 98, 0.03) 70deg,
-                transparent 80deg,
-                rgba(201, 169, 98, 0.04) 100deg,
-                transparent 110deg,
-                rgba(201, 169, 98, 0.03) 130deg,
-                transparent 140deg,
-                transparent 360deg
-            );
-            pointer-events: none;
-            z-index: 6;
-            animation: raysPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes raysPulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 7;
-        }
-
-        .particle {
-            position: absolute;
-            background: var(--gold);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 15s ease-in-out infinite;
-        }
-
-        .particle.dust {
-            width: 2px;
-            height: 2px;
-            background: var(--cream);
-            box-shadow: 0 0 3px var(--cream);
-        }
-
-        .particle.firefly {
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            box-shadow: 0 0 8px var(--gold), 0 0 15px var(--gold), 0 0 25px var(--gold-light);
-        }
-
-        @keyframes particleFloat {
-            0% { 
-                opacity: 0; 
-                transform: translateY(100vh) translateX(0); 
-            }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { 
-                opacity: 0; 
-                transform: translateY(-20vh) translateX(50px); 
-            }
-        }
-
         /* Main content wrapper */
         .main-wrapper {
             position: relative;
@@ -222,8 +143,8 @@
         }
 
         .logo-mark {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 91px;
             margin: 0 auto 15px;
             opacity: 0.9;
             filter: drop-shadow(0 0 30px rgba(201, 169, 98, 0.5));
@@ -605,6 +526,7 @@
             background: var(--deep-forest);
             z-index: 1000;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             opacity: 0;
@@ -617,17 +539,46 @@
             pointer-events: auto;
         }
 
-        .transition-text {
-            font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            letter-spacing: 10px;
-            color: var(--gold);
-            animation: transitionPulse 1.5s ease-in-out infinite;
+        .transition-tree {
+            width: 120px;
+            height: 160px;
+            margin-bottom: 30px;
         }
 
-        @keyframes transitionPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+        /* Page transition tree animation */
+        .transition-tree path,
+        .transition-tree circle {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+        }
+
+        .page-transition.active .transition-tree path,
+        .page-transition.active .transition-tree circle {
+            animation: drawTree 2.5s ease-out forwards;
+        }
+
+        @keyframes drawTree {
+            0% { stroke-dashoffset: 400; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .transition-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 10px;
+            color: var(--gold);
+            opacity: 0;
+            text-transform: uppercase;
+        }
+
+        .page-transition.active .transition-text {
+            animation: fadeInTransition 0.8s ease-out 1.5s forwards;
+        }
+
+        @keyframes fadeInTransition {
+            to {
+                opacity: 1;
+            }
         }
 
         /* Preloader */
@@ -637,7 +588,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
+            background: #0a0f0a;
             z-index: 2000;
             display: flex;
             flex-direction: column;
@@ -651,39 +602,79 @@
             visibility: hidden;
         }
 
-        .preloader-ring {
-            width: 80px;
-            height: 80px;
-            border: 2px solid transparent;
-            border-top-color: var(--gold);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .preloader-tree {
+            width: 100px;
+            height: 130px;
             margin-bottom: 30px;
         }
 
-        .preloader-ring::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            border: 2px solid transparent;
-            border-top-color: var(--sage);
-            border-radius: 50%;
-            animation: spin 2s linear infinite reverse;
+        /* Preloader tree animation */
+        .preloader-tree path,
+        .preloader-tree circle {
+            stroke-dasharray: 350;
+            stroke-dashoffset: 350;
+            animation: drawPreloaderTree 2.5s ease-out forwards;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes drawPreloaderTree {
+            0% { stroke-dashoffset: 350; }
+            100% { stroke-dashoffset: 0; }
         }
 
         .preloader-text {
             font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            letter-spacing: 6px;
+            font-size: 0.85rem;
+            letter-spacing: 12px;
             color: var(--gold);
-            opacity: 0.7;
+            opacity: 0;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            animation: fadeInPreloader 0.8s ease-out 2s forwards;
+        }
+
+        .preloader-dots {
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            animation: fadeInPreloader 0.5s ease-out 2.2s forwards;
+        }
+
+        .preloader-dots span {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: dotPulse 1.4s ease-in-out infinite;
+            animation-delay: 2.2s;
+        }
+
+        .preloader-dots span:nth-child(1) {
+            animation-delay: 2.2s;
+        }
+
+        .preloader-dots span:nth-child(2) {
+            animation-delay: 2.4s;
+        }
+
+        .preloader-dots span:nth-child(3) {
+            animation-delay: 2.6s;
+        }
+
+        @keyframes fadeInPreloader {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { 
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            40% { 
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         /* Animations */
@@ -718,8 +709,28 @@
 <body>
     <!-- Preloader -->
     <div class="preloader" id="preloader">
-        <div class="preloader-ring"></div>
-        <div class="preloader-text">Entering The Forest</div>
+        <svg class="preloader-tree" viewBox="0 0 100 130" fill="none">
+            <!-- Trunk -->
+            <path d="M50 125 L50 85" stroke="#c9a962" stroke-width="3" stroke-linecap="round"/>
+            <!-- Main tree shape -->
+            <path d="M50 90 Q22 78 30 50 Q20 28 50 8 Q80 28 70 50 Q78 78 50 90" stroke="#c9a962" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Left branch -->
+            <path d="M38 95 Q15 85 25 60" stroke="#c9a962" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Right branch -->
+            <path d="M62 95 Q85 85 75 60" stroke="#c9a962" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Inner details -->
+            <path d="M50 70 L50 40" stroke="#c9a962" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+            <path d="M40 55 Q50 45 60 55" stroke="#c9a962" stroke-width="1" opacity="0.4" fill="none"/>
+            <!-- Center glow -->
+            <circle cx="50" cy="50" r="8" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.8"/>
+            <circle cx="50" cy="50" r="4" fill="#c9a962"/>
+        </svg>
+        <div class="preloader-text">Dublin Tree Haven</div>
+        <div class="preloader-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 
     <!-- Cinematic bars -->
@@ -739,22 +750,24 @@
         <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1920&q=80" alt="">
     </div>
 
-    <!-- Light rays -->
-    <div class="light-rays"></div>
-
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
-
     <!-- Main wrapper -->
     <div class="main-wrapper">
         <!-- Header -->
         <header class="header">
-            <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="45" stroke="#c9a962" stroke-width="1" opacity="0.4"/>
-                <circle cx="50" cy="50" r="35" stroke="#c9a962" stroke-width="0.5" opacity="0.2"/>
-                <path d="M50 10 Q30 30 35 50 Q30 70 50 90 Q70 70 65 50 Q70 30 50 10" stroke="#c9a962" stroke-width="1.5" fill="none"/>
-                <path d="M50 20 L50 80" stroke="#c9a962" stroke-width="0.5" opacity="0.4"/>
-                <path d="M35 50 Q50 40 65 50" stroke="#c9a962" stroke-width="0.5" fill="none" opacity="0.4"/>
+            <svg class="logo-mark" viewBox="0 0 100 130" fill="none">
+                <!-- Trunk -->
+                <path d="M50 125 L50 85" stroke="#c9a962" stroke-width="3" stroke-linecap="round"/>
+                <!-- Main tree shape -->
+                <path d="M50 90 Q22 78 30 50 Q20 28 50 8 Q80 28 70 50 Q78 78 50 90" stroke="#c9a962" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <!-- Left branch -->
+                <path d="M38 95 Q15 85 25 60" stroke="#c9a962" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <!-- Right branch -->
+                <path d="M62 95 Q85 85 75 60" stroke="#c9a962" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <!-- Inner details -->
+                <path d="M50 70 L50 40" stroke="#c9a962" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
+                <path d="M40 55 Q50 45 60 55" stroke="#c9a962" stroke-width="1" opacity="0.4" fill="none"/>
+                <!-- Center glow -->
+                <circle cx="50" cy="50" r="8" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.8"/>
                 <circle cx="50" cy="50" r="4" fill="#c9a962"/>
             </svg>
             <div class="brand-text">Dublin Tree Haven</div>
@@ -866,7 +879,34 @@
 
     <!-- Page transition -->
     <div class="page-transition" id="pageTransition">
-        <span class="transition-text">Entering The Haven...</span>
+        <svg class="transition-tree" viewBox="0 0 120 160" fill="none">
+            <!-- Trunk -->
+            <path d="M60 155 L60 105" stroke="#c9a962" stroke-width="4" stroke-linecap="round"/>
+            <!-- Roots -->
+            <path d="M60 155 Q45 160 35 155" stroke="#c9a962" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+            <path d="M60 155 Q75 160 85 155" stroke="#c9a962" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+            <!-- Main tree shape -->
+            <path d="M60 110 Q25 95 35 60 Q22 32 60 8 Q98 32 85 60 Q95 95 60 110" stroke="#c9a962" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <!-- Left branch -->
+            <path d="M45 115 Q12 100 28 65" stroke="#c9a962" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Right branch -->
+            <path d="M75 115 Q108 100 92 65" stroke="#c9a962" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Inner branches -->
+            <path d="M60 85 L60 45" stroke="#c9a962" stroke-width="2" opacity="0.7" stroke-linecap="round"/>
+            <path d="M60 70 Q45 60 40 50" stroke="#c9a962" stroke-width="1.5" opacity="0.5" fill="none" stroke-linecap="round"/>
+            <path d="M60 70 Q75 60 80 50" stroke="#c9a962" stroke-width="1.5" opacity="0.5" fill="none" stroke-linecap="round"/>
+            <!-- Decorative curves -->
+            <path d="M45 55 Q60 42 75 55" stroke="#c9a962" stroke-width="1.5" opacity="0.4" fill="none"/>
+            <!-- Center elements -->
+            <circle cx="60" cy="55" r="12" stroke="#c9a962" stroke-width="2" fill="none" opacity="0.8"/>
+            <circle cx="60" cy="55" r="6" fill="#c9a962"/>
+            <!-- Small accent circles -->
+            <circle cx="40" cy="45" r="3" fill="#c9a962" opacity="0.5"/>
+            <circle cx="80" cy="45" r="3" fill="#c9a962" opacity="0.5"/>
+            <circle cx="50" cy="30" r="2" fill="#c9a962" opacity="0.4"/>
+            <circle cx="70" cy="30" r="2" fill="#c9a962" opacity="0.4"/>
+        </svg>
+        <span class="transition-text">Entering The Haven</span>
     </div>
 
     <!-- Background audio -->
@@ -875,26 +915,11 @@
     </audio>
 
     <script>
-        // Create particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const count = 40;
-            
-            for (let i = 0; i < count; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle ' + (Math.random() > 0.7 ? 'firefly' : 'dust');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-                container.appendChild(particle);
-            }
-        }
-
         // Preloader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
-            }, 2000);
+            }, 3500);
         });
 
         // Unlock gate
@@ -917,7 +942,7 @@
             
             setTimeout(() => {
                 window.location.href = this.href;
-            }, 1500);
+            }, 3000);
         });
 
         // Sound toggle
@@ -938,16 +963,6 @@
             }
         }
 
-        // Initialize
-        createParticles();
-
-        // Parallax effect on mouse move
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 20;
-            const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            
-            document.querySelector('.light-rays').style.transform = `translateX(calc(-50% + ${x}px))`;
-        });
     </script>
 </body>
 </html>
