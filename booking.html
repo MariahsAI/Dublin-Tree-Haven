@@ -194,16 +194,172 @@
 
         /* Responsive */
         @media (max-width: 900px) {
-            .booking-main { grid-template-columns: 1fr; padding: 20px; }
+            .booking-main { grid-template-columns: 1fr; padding: 15px; gap: 20px; }
             .booking-summary { position: relative; top: 0; order: -1; }
+            .sidebar-widgets { display: none; }
             .form-row { grid-template-columns: 1fr; }
+            .summary-property { flex-direction: column; text-align: center; }
+            .property-image { width: 100%; height: 150px; }
+            .property-info { text-align: center; }
+            .property-location { justify-content: center; }
+            .property-rating { justify-content: center; }
         }
         @media (max-width: 600px) {
-            .booking-header { padding: 12px 20px; }
+            .booking-header { padding: 12px 15px; }
             .header-logo span { display: none; }
+            .progress-bar { padding: 15px; }
             .progress-steps { gap: 8px; }
             .step-label { display: none; }
-            .step-connector { width: 30px; }
+            .step-connector { width: 25px; }
+            .form-section { padding: 20px 15px; }
+            .section-title { font-size: 1.25rem; }
+            .trip-dates { flex-direction: column; gap: 10px; }
+            .date-arrow { transform: rotate(90deg); padding: 5px 0; }
+            .date-box { padding: 15px; }
+            .summary-pricing { padding: 15px; }
+            .price-row { font-size: 0.85rem; }
+            .policies { font-size: 0.85rem; }
+            .policy-header { padding: 12px 15px; }
+            .policy-content { padding: 0 15px 15px; }
+            .btn-book { padding: 14px; font-size: 0.95rem; }
+        }
+        
+        /* Mobile-first price highlight */
+        @media (max-width: 900px) {
+            .summary-card {
+                border: 2px solid var(--gold);
+            }
+            .summary-pricing {
+                background: var(--cream);
+                border-radius: 8px;
+                margin: 10px;
+            }
+            .price-row.total {
+                font-size: 1.2rem;
+                color: var(--deep-forest);
+            }
+            .booking-cta {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+                padding: 15px 20px;
+                z-index: 100;
+                border-top: 1px solid var(--cream-dark);
+            }
+            .booking-main {
+                padding-bottom: 100px;
+            }
+            .policies {
+                display: none;
+            }
+        }
+
+        /* Mobile Price Banner */
+        .mobile-price-banner {
+            display: none;
+            background: linear-gradient(135deg, var(--deep-forest) 0%, var(--moss) 100%);
+            padding: 15px 20px;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+        }
+        .mobile-price-info {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .mobile-price-label {
+            color: var(--cream);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        .mobile-price-amount {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .mobile-price-nights {
+            color: var(--cream);
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        @media (max-width: 900px) {
+            .mobile-price-banner {
+                display: flex;
+            }
+            .booking-summary {
+                display: none;
+            }
+            .booking-forms {
+                order: 1;
+            }
+        }
+
+        /* Mobile Sticky Footer */
+        .mobile-sticky-footer {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 12px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 100;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--cream-dark);
+        }
+        .mobile-footer-price {
+            display: flex;
+            flex-direction: column;
+        }
+        .mobile-footer-total {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--deep-forest);
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .mobile-footer-label {
+            font-size: 0.75rem;
+            color: var(--sage);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .mobile-footer-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 30px;
+            background: var(--gold);
+            color: var(--deep-forest);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .mobile-footer-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        @media (max-width: 900px) {
+            .mobile-sticky-footer {
+                display: flex;
+            }
+            .booking-main {
+                padding-bottom: 90px;
+            }
+            .booking-cta {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -238,6 +394,15 @@
                 <span class="step-label">Confirm</span>
             </div>
         </div>
+    </div>
+
+    <!-- Mobile Price Banner (shows only on mobile) -->
+    <div class="mobile-price-banner" id="mobilePriceBanner">
+        <div class="mobile-price-info">
+            <span class="mobile-price-label">Total</span>
+            <span class="mobile-price-amount" id="mobile-total">$3,105</span>
+        </div>
+        <div class="mobile-price-nights" id="mobile-nights">7 nights</div>
     </div>
 
     <!-- Main Content -->
@@ -587,6 +752,18 @@
         </aside>
     </main>
 
+    <!-- Mobile Sticky Footer -->
+    <div class="mobile-sticky-footer" id="mobileFooter">
+        <div class="mobile-footer-price">
+            <span class="mobile-footer-total" id="mobile-footer-total">$3,105</span>
+            <span class="mobile-footer-label">total</span>
+        </div>
+        <button class="mobile-footer-btn" onclick="confirmBooking()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Book Now
+        </button>
+    </div>
+
     <script>
         // =====================================================
         // BLOCKED DATES - Sync these from your Airbnb calendar
@@ -775,6 +952,14 @@
             
             document.getElementById('price-total').textContent = `$${pricing.total.toLocaleString()}`;
             document.getElementById('btn-total').textContent = `Book now`;
+            
+            // Update mobile price banner
+            const mobileTotal = document.getElementById('mobile-total');
+            const mobileNights = document.getElementById('mobile-nights');
+            const mobileFooterTotal = document.getElementById('mobile-footer-total');
+            if (mobileTotal) mobileTotal.textContent = `$${pricing.total.toLocaleString()}`;
+            if (mobileNights) mobileNights.textContent = `${nights} night${nights !== 1 ? 's' : ''}`;
+            if (mobileFooterTotal) mobileFooterTotal.textContent = `$${pricing.total.toLocaleString()}`;
 
             // Update cancellation policy dates (7 days before checkin)
             const cancelDate = new Date(state.checkin);
