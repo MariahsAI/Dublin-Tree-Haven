@@ -76,10 +76,30 @@
         .trip-details { background: var(--cream); border-radius: 8px; padding: 18px; margin-bottom: 20px; }
         .trip-dates { display: flex; align-items: center; gap: 12px; }
         .date-box { flex: 1; text-align: center; padding: 12px; background: var(--white); border-radius: 8px; }
-        .date-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage); margin-bottom: 4px; }
-        .date-value { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--deep-forest); font-weight: 600; }
-        .date-arrow svg { width: 20px; height: 20px; stroke: var(--gold); }
-        .trip-guests { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--cream-dark); display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+        .date-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage); margin-bottom: 8px; }
+        .date-value { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--deep-forest); font-weight: 600; }
+        .date-input { position: absolute; opacity: 0; width: 100%; height: 100%; top: 0; left: 0; cursor: pointer; z-index: 5; }
+        .date-box { flex: 1; text-align: center; padding: 20px 15px; background: var(--white); border-radius: 10px; position: relative; cursor: pointer; transition: all 0.2s; border: 2px solid var(--cream-dark); }
+        .date-box:hover { border-color: var(--gold); box-shadow: 0 4px 12px rgba(201,169,98,0.15); }
+        .date-box:focus-within { border-color: var(--gold); box-shadow: 0 4px 12px rgba(201,169,98,0.2); }
+        .trip-details { background: var(--cream); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .trip-dates { display: flex; align-items: center; gap: 15px; }
+        .date-arrow { color: var(--gold); padding: 0 5px; }
+        .date-arrow svg { width: 24px; height: 24px; stroke: var(--gold); }
+        .trip-guests { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--cream-dark); display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; position: relative; }
+        .guest-picker { position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 15px; margin-top: 10px; z-index: 10; }
+        .guest-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--cream-dark); }
+        .guest-row:last-of-type { border-bottom: none; }
+        .guest-counter { display: flex; align-items: center; gap: 15px; }
+        .guest-counter button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--sage); background: var(--white); color: var(--deep-forest); font-size: 1.3rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .guest-counter button:hover { border-color: var(--gold); background: var(--gold); }
+        .guest-counter span { font-weight: 600; min-width: 24px; text-align: center; font-size: 1.1rem; }
+        .guest-done { width: 100%; margin-top: 12px; padding: 12px; background: var(--gold); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+        .availability-notice { display: flex; align-items: center; gap: 10px; padding: 12px 15px; background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; margin-bottom: 20px; font-size: 0.85rem; color: #92400e; }
+        .availability-notice.error { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .availability-notice.success { background: #d1fae5; border-color: #10b981; color: #065f46; }
+        .availability-notice svg { width: 20px; height: 20px; flex-shrink: 0; }
+        .blocked-date { background: #fee2e2 !important; color: #991b1b !important; cursor: not-allowed !important; text-decoration: line-through; }
         .guests-info { display: flex; align-items: center; gap: 8px; }
         .guests-info svg { width: 18px; height: 18px; stroke: var(--sage); }
         .edit-link { color: var(--gold); text-decoration: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
@@ -120,7 +140,6 @@
         .price-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
         .price-row.discount { color: var(--success); }
         .price-row.total { margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--cream-dark); font-size: 1.05rem; font-weight: 600; }
-        .booking-cta { padding: 18px; background: var(--cream); }
         .btn-book { width: 100%; padding: 16px; background: var(--gold); color: var(--deep-forest); border: none; border-radius: 8px; font-family: 'Raleway', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; }
         .btn-book:hover { background: var(--deep-forest); color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,46,26,0.2); }
         .secure-note { text-align: center; margin-top: 12px; font-size: 0.8rem; color: var(--sage); }
@@ -149,7 +168,7 @@
         .legal-agreement a:hover { text-decoration: underline; }
         .btn-book { display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-book svg { width: 18px; height: 18px; }
-        .booking-cta { padding: 18px; background: var(--white); }
+        .booking-cta { padding: 18px; background: var(--white); border-top: 1px solid var(--cream-dark); }
 
         /* Policies */
         .policies { padding: 18px; border-top: 1px solid var(--cream-dark); }
@@ -233,25 +252,53 @@
                 </h2>
                 <div class="trip-details">
                     <div class="trip-dates">
-                        <div class="date-box">
-                            <div class="date-label">Check-in</div>
-                            <div class="date-value">Fri, Dec 13</div>
+                        <div class="date-box" onclick="document.getElementById('checkin-date').showPicker()">
+                            <div class="date-label">CHECK-IN</div>
+                            <div class="date-value" id="checkin-display">Fri, Dec 13</div>
+                            <input type="date" id="checkin-date" class="date-input" value="2025-12-13">
                         </div>
                         <div class="date-arrow">
                             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                         </div>
-                        <div class="date-box">
-                            <div class="date-label">Check-out</div>
-                            <div class="date-value">Sat, Dec 20</div>
+                        <div class="date-box" onclick="document.getElementById('checkout-date').showPicker()">
+                            <div class="date-label">CHECK-OUT</div>
+                            <div class="date-value" id="checkout-display">Sat, Dec 20</div>
+                            <input type="date" id="checkout-date" class="date-input" value="2025-12-20">
                         </div>
                     </div>
                     <div class="trip-guests">
                         <div class="guests-info">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                            <span>2 Guests • 7 Nights</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            <span id="guests-nights">2 Guests • 7 Nights</span>
                         </div>
-                        <a class="edit-link" onclick="history.back()">Edit</a>
+                        <a class="edit-link" onclick="openGuestPicker()">Edit</a>
                     </div>
+                    <!-- Guest Picker Popup -->
+                    <div id="guest-picker" class="guest-picker" style="display:none;">
+                        <div class="guest-row">
+                            <span>Adults</span>
+                            <div class="guest-counter">
+                                <button type="button" onclick="adjustGuests('adults', -1)">−</button>
+                                <span id="adult-count">2</span>
+                                <button type="button" onclick="adjustGuests('adults', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="guest-row">
+                            <span>Children</span>
+                            <div class="guest-counter">
+                                <button type="button" onclick="adjustGuests('children', -1)">−</button>
+                                <span id="child-count">0</span>
+                                <button type="button" onclick="adjustGuests('children', 1)">+</button>
+                            </div>
+                        </div>
+                        <button type="button" class="guest-done" onclick="closeGuestPicker()">Done</button>
+                    </div>
+                </div>
+                
+                <!-- Availability Notice -->
+                <div class="availability-notice" id="availability-notice" style="display:none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span id="availability-message">Checking availability...</span>
                 </div>
 
                 <div class="form-row">
@@ -426,22 +473,22 @@
                 <div class="summary-dates">
                     <div class="summary-date-row">
                         <span class="summary-date-label">Check-in</span>
-                        <span class="summary-date-value">Fri, Dec 13, 2025</span>
+                        <span class="summary-date-value" id="summary-checkin">Fri, Dec 13, 2025</span>
                     </div>
                     <div class="summary-date-row">
                         <span class="summary-date-label">Check-out</span>
-                        <span class="summary-date-value">Sat, Dec 20, 2025</span>
+                        <span class="summary-date-value" id="summary-checkout">Sat, Dec 20, 2025</span>
                     </div>
                     <div class="summary-date-row">
                         <span class="summary-date-label">Guests</span>
-                        <span class="summary-date-value">2 Adults</span>
+                        <span class="summary-date-value" id="summary-guests">2 Adults</span>
                     </div>
                 </div>
 
                 <div class="summary-pricing">
                     <div class="price-row">
-                        <span>$450 × 7 nights</span>
-                        <span>$3,150</span>
+                        <span id="price-nights">$450 × 7 nights</span>
+                        <span id="price-subtotal">$3,150</span>
                     </div>
                     <div class="price-row">
                         <span>Cleaning fee</span>
@@ -451,21 +498,13 @@
                         <span>Service fee</span>
                         <span>$120</span>
                     </div>
-                    <div class="price-row discount">
-                        <span>Weekly discount (10%)</span>
-                        <span>-$315</span>
+                    <div class="price-row discount" id="discount-row">
+                        <span id="discount-label">Weekly discount (10%)</span>
+                        <span id="discount-amount">-$315</span>
                     </div>
                     <div class="price-row total">
                         <span>Total (USD)</span>
-                        <span>$3,105</span>
-                    </div>
-                </div>
-
-                <div class="booking-cta">
-                    <button class="btn-book" onclick="confirmBooking()">Confirm & Pay $3,105</button>
-                    <div class="secure-note">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        Your payment is secure and encrypted
+                        <span id="price-total">$3,105</span>
                     </div>
                 </div>
 
@@ -478,8 +517,8 @@
                         </div>
                         <div class="policy-tag">Partially refundable</div>
                         <div class="policy-content expanded">
-                            <p>Cancellations or changes made before 11:59pm (property local time) on Dec 6, 2025 or no-shows are subject to a property fee equal to 50% of the total amount paid for the reservation.</p>
-                            <p>Cancellations or changes made after 11:59pm (property local time) on Dec 6, 2025 or no-shows are subject to a property fee equal to 100% of the total amount paid for the reservation.</p>
+                            <p>Cancellations or changes made before 11:59pm (property local time) on <span id="cancel-date-50">Dec 6, 2025</span> or no-shows are subject to a property fee equal to 50% of the total amount paid for the reservation.</p>
+                            <p>Cancellations or changes made after 11:59pm (property local time) on <span id="cancel-date-100">Dec 6, 2025</span> or no-shows are subject to a property fee equal to 100% of the total amount paid for the reservation.</p>
                             <p>Service Fee is only refundable when the booking is fully refundable.</p>
                         </div>
                     </div>
@@ -535,7 +574,7 @@
                 <div class="booking-cta">
                     <button class="btn-book" onclick="confirmBooking()">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        Book now
+                        <span id="btn-total">Book now</span>
                     </button>
                     <div class="secure-note">
                         Our secure encryption protects your personal details at every step.
@@ -549,30 +588,260 @@
     </main>
 
     <script>
+        // =====================================================
+        // BLOCKED DATES - Sync these from your Airbnb calendar
+        // To get your Airbnb iCal URL:
+        // 1. Go to Airbnb > Your Listings > Calendar
+        // 2. Click "Availability" > "Sync calendars"
+        // 3. Copy the "Export Calendar" link
+        // 4. Use a server/service to parse the iCal and update this array
+        // =====================================================
+        const BLOCKED_DATES = [
+            // Format: 'YYYY-MM-DD'
+            // Example blocked dates (replace with your actual bookings)
+            '2025-12-24', '2025-12-25', '2025-12-26', '2025-12-27', '2025-12-28',
+            '2025-12-31', '2026-01-01', '2026-01-02',
+            '2026-01-15', '2026-01-16', '2026-01-17', '2026-01-18', '2026-01-19',
+        ];
+
+        // Booking state
+        const NIGHTLY_RATE = 450;
+        const CLEANING_FEE = 150;
+        const SERVICE_FEE = 120;
+        
+        let state = {
+            checkin: new Date('2025-12-13'),
+            checkout: new Date('2025-12-20'),
+            adults: 2,
+            children: 0
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up date input listeners
+            document.getElementById('checkin-date').addEventListener('change', function(e) {
+                state.checkin = new Date(e.target.value + 'T00:00:00');
+                // Ensure checkout is after checkin
+                if (state.checkout <= state.checkin) {
+                    state.checkout = new Date(state.checkin);
+                    state.checkout.setDate(state.checkout.getDate() + 1);
+                    document.getElementById('checkout-date').value = formatDateForInput(state.checkout);
+                }
+                updateAllDisplays();
+                checkAvailability();
+            });
+            
+            document.getElementById('checkout-date').addEventListener('change', function(e) {
+                const newCheckout = new Date(e.target.value + 'T00:00:00');
+                if (newCheckout > state.checkin) {
+                    state.checkout = newCheckout;
+                    updateAllDisplays();
+                    checkAvailability();
+                } else {
+                    alert('Check-out must be after check-in date');
+                    e.target.value = formatDateForInput(state.checkout);
+                }
+            });
+
+            // Set minimum dates
+            const today = new Date();
+            document.getElementById('checkin-date').min = formatDateForInput(today);
+            
+            updateAllDisplays();
+            checkAvailability();
+        });
+
+        function formatDateForInput(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function formatDateShort(date) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}`;
+        }
+
+        function formatDateLong(date) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${days[date.getDay()]}, ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        }
+
+        function formatDatePolicy(date) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+        }
+
+        function getNights() {
+            const diffTime = Math.abs(state.checkout - state.checkin);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+
+        // Check if a date range overlaps with blocked dates
+        function getBlockedDatesInRange(startDate, endDate) {
+            const blocked = [];
+            const current = new Date(startDate);
+            
+            while (current < endDate) {
+                const dateStr = formatDateForInput(current);
+                if (BLOCKED_DATES.includes(dateStr)) {
+                    blocked.push(dateStr);
+                }
+                current.setDate(current.getDate() + 1);
+            }
+            
+            return blocked;
+        }
+
+        function checkAvailability() {
+            const notice = document.getElementById('availability-notice');
+            const message = document.getElementById('availability-message');
+            const bookBtn = document.querySelector('.btn-book');
+            
+            const blockedInRange = getBlockedDatesInRange(state.checkin, state.checkout);
+            
+            if (blockedInRange.length > 0) {
+                notice.style.display = 'flex';
+                notice.className = 'availability-notice error';
+                message.textContent = `Sorry, ${blockedInRange.length} date(s) in your selection are unavailable. Please choose different dates.`;
+                bookBtn.disabled = true;
+                bookBtn.style.opacity = '0.5';
+                bookBtn.style.cursor = 'not-allowed';
+            } else {
+                notice.style.display = 'flex';
+                notice.className = 'availability-notice success';
+                message.textContent = 'Great news! Your selected dates are available.';
+                bookBtn.disabled = false;
+                bookBtn.style.opacity = '1';
+                bookBtn.style.cursor = 'pointer';
+                
+                // Hide success message after 3 seconds
+                setTimeout(() => {
+                    notice.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function calculatePricing() {
+            const nights = getNights();
+            const subtotal = nights * NIGHTLY_RATE;
+            
+            // Weekly discount (10% if 7+ nights)
+            let discount = 0;
+            let discountLabel = '';
+            if (nights >= 7) {
+                discount = Math.round(subtotal * 0.10);
+                discountLabel = 'Weekly discount (10%)';
+            }
+            
+            const total = subtotal + CLEANING_FEE + SERVICE_FEE - discount;
+            
+            return { nights, subtotal, discount, discountLabel, total };
+        }
+
+        function updateAllDisplays() {
+            const nights = getNights();
+            const pricing = calculatePricing();
+            const totalGuests = state.adults + state.children;
+
+            // Update trip details section
+            document.getElementById('checkin-display').textContent = formatDateShort(state.checkin);
+            document.getElementById('checkout-display').textContent = formatDateShort(state.checkout);
+            document.getElementById('guests-nights').textContent = `${totalGuests} Guest${totalGuests !== 1 ? 's' : ''} • ${nights} Night${nights !== 1 ? 's' : ''}`;
+
+            // Update summary sidebar
+            document.getElementById('summary-checkin').textContent = formatDateLong(state.checkin);
+            document.getElementById('summary-checkout').textContent = formatDateLong(state.checkout);
+            
+            let guestText = `${state.adults} Adult${state.adults !== 1 ? 's' : ''}`;
+            if (state.children > 0) {
+                guestText += `, ${state.children} Child${state.children !== 1 ? 'ren' : ''}`;
+            }
+            document.getElementById('summary-guests').textContent = guestText;
+
+            // Update pricing
+            document.getElementById('price-nights').textContent = `$${NIGHTLY_RATE} × ${nights} night${nights !== 1 ? 's' : ''}`;
+            document.getElementById('price-subtotal').textContent = `$${pricing.subtotal.toLocaleString()}`;
+            
+            // Show/hide discount row
+            const discountRow = document.getElementById('discount-row');
+            if (pricing.discount > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('discount-label').textContent = pricing.discountLabel;
+                document.getElementById('discount-amount').textContent = `-$${pricing.discount.toLocaleString()}`;
+            } else {
+                discountRow.style.display = 'none';
+            }
+            
+            document.getElementById('price-total').textContent = `$${pricing.total.toLocaleString()}`;
+            document.getElementById('btn-total').textContent = `Book now`;
+
+            // Update cancellation policy dates (7 days before checkin)
+            const cancelDate = new Date(state.checkin);
+            cancelDate.setDate(cancelDate.getDate() - 7);
+            const cancelDateStr = formatDatePolicy(cancelDate);
+            document.getElementById('cancel-date-50').textContent = cancelDateStr;
+            document.getElementById('cancel-date-100').textContent = cancelDateStr;
+
+            // Update checkout minimum date
+            const minCheckout = new Date(state.checkin);
+            minCheckout.setDate(minCheckout.getDate() + 1);
+            document.getElementById('checkout-date').min = formatDateForInput(minCheckout);
+        }
+
+        // Guest picker functions
+        function openGuestPicker() {
+            document.getElementById('guest-picker').style.display = 'block';
+        }
+
+        function closeGuestPicker() {
+            document.getElementById('guest-picker').style.display = 'none';
+            updateAllDisplays();
+        }
+
+        function adjustGuests(type, delta) {
+            if (type === 'adults') {
+                state.adults = Math.max(1, Math.min(10, state.adults + delta));
+                document.getElementById('adult-count').textContent = state.adults;
+            } else {
+                state.children = Math.max(0, Math.min(6, state.children + delta));
+                document.getElementById('child-count').textContent = state.children;
+            }
+        }
+
+        // Payment selection
         function selectPayment(el) {
             document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
             el.classList.add('selected');
         }
 
+        // Policy accordion
         function togglePolicy(header) {
             const section = header.parentElement;
             const content = section.querySelector('.policy-content');
             const isOpen = header.classList.contains('open');
             
-            // Close all others
             document.querySelectorAll('.policy-header').forEach(h => {
                 h.classList.remove('open');
-                h.parentElement.querySelector('.policy-content').style.display = 'none';
+                const c = h.parentElement.querySelector('.policy-content');
+                if (c) c.style.display = 'none';
             });
             
-            // Toggle this one
             if (!isOpen) {
                 header.classList.add('open');
                 content.style.display = 'block';
             }
         }
 
+        // Form submission
         function confirmBooking() {
+            // Check availability first
+            const blockedInRange = getBlockedDatesInRange(state.checkin, state.checkout);
+            if (blockedInRange.length > 0) {
+                alert('Sorry, the selected dates are not available. Please choose different dates.');
+                return;
+            }
+
             const required = document.querySelectorAll('input[required]');
             let valid = true;
             required.forEach(input => {
@@ -585,7 +854,8 @@
             });
 
             if (valid) {
-                alert('Thank you for your booking! A confirmation email will be sent shortly. We look forward to welcoming you to Dublin Tree Haven.');
+                const pricing = calculatePricing();
+                alert(`Thank you for your booking!\n\nCheck-in: ${formatDateLong(state.checkin)}\nCheck-out: ${formatDateLong(state.checkout)}\nTotal: $${pricing.total.toLocaleString()}\n\nA confirmation email will be sent shortly. We look forward to welcoming you to Dublin Tree Haven.`);
             } else {
                 alert('Please fill in all required fields.');
             }
@@ -607,10 +877,15 @@
             e.target.value = value;
         });
 
-        // Show first policy expanded
-        document.addEventListener('DOMContentLoaded', function() {
-            const firstPolicy = document.querySelector('.policy-section .policy-content');
-            if (firstPolicy) firstPolicy.classList.add('expanded');
+        // Close guest picker when clicking outside
+        document.addEventListener('click', function(e) {
+            const picker = document.getElementById('guest-picker');
+            const editLink = document.querySelector('.edit-link');
+            if (picker.style.display === 'block' && 
+                !picker.contains(e.target) && 
+                e.target !== editLink) {
+                closeGuestPicker();
+            }
         });
     </script>
 </body>
