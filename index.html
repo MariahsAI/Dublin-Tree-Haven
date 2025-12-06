@@ -864,13 +864,14 @@
             cursor: pointer;
         }
 
+        /* First item (now Ski) gets 2x2 */
         .gallery-item:nth-child(1) {
             grid-column: span 2;
             grid-row: span 2;
         }
 
-        /* Skiing item spans 2 columns */
-        .ski-gallery-item {
+        /* Forest item (last) spans 2 columns */
+        .forest-gallery-item {
             grid-column: span 2;
         }
 
@@ -2075,12 +2076,23 @@
             <div class="section-divider"></div>
         </div>
         <div class="gallery-grid">
-            <div class="gallery-item">
+            <div class="gallery-item ski-gallery-item" onclick="window.location.href='ski.html'" style="cursor:pointer;">
                 <video autoplay muted loop playsinline>
-                    <source src="https://assets.mixkit.co/videos/529/529-720.mp4" type="video/mp4">
+                    <source src="https://assets.mixkit.co/videos/3342/3342-720.mp4" type="video/mp4">
                 </video>
+                <div class="ski-overlay"></div>
+                <div class="ski-snow-particles">
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                </div>
                 <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Ancient Forest Trails</div>
+                    <div class="gallery-item-title">Ski Holiday Valley</div>
                 </div>
             </div>
             <div class="gallery-item scope-gallery-item" onclick="window.location.href='hunt.html'" style="cursor:pointer;">
@@ -2174,23 +2186,12 @@
                     <div class="gallery-item-title">Magical Sunrises</div>
                 </div>
             </div>
-            <div class="gallery-item ski-gallery-item" onclick="window.location.href='ski.html'" style="cursor:pointer;">
+            <div class="gallery-item forest-gallery-item">
                 <video autoplay muted loop playsinline>
-                    <source src="https://assets.mixkit.co/videos/3342/3342-720.mp4" type="video/mp4">
+                    <source src="https://assets.mixkit.co/videos/529/529-720.mp4" type="video/mp4">
                 </video>
-                <div class="ski-overlay"></div>
-                <div class="ski-snow-particles">
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                    <div class="snow-particle"></div>
-                </div>
                 <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Ski Holiday Valley</div>
+                    <div class="gallery-item-title">Ancient Forest Trails</div>
                 </div>
             </div>
         </div>
