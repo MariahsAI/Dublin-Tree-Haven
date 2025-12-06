@@ -65,6 +65,12 @@
             transform: translate(-50%, -50%); 
             object-fit: cover;
         }
+        @media (max-width: 768px) {
+            .video-bg {
+                width: 100%;
+                height: 100%;
+            }
+        }
         .video-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: 
@@ -218,6 +224,10 @@
             font-size: 60px;
             animation: bounce 1s ease-in-out infinite;
         }
+        @media (max-width: 480px) {
+            .preloader-icon { font-size: 45px; }
+            .preloader-text { font-size: 0.85rem; letter-spacing: 4px; }
+        }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
@@ -235,14 +245,84 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* Tablet */
+        @media (max-width: 900px) {
+            .ski-stats { gap: 40px; }
+            .stat-value { font-size: 2.2rem; }
+            .main-title { font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: 5px; }
+        }
+        
+        /* Mobile */
         @media (max-width: 768px) {
-            .cinematic-bar { height: 40px; }
-            .main-wrapper { padding: 55px 20px; }
-            .header { flex-direction: column; gap: 15px; text-align: center; padding-left: 0; }
-            .footer { flex-direction: column; gap: 10px; text-align: center; }
-            .back-btn { top: 50px; left: 20px; padding: 8px 15px; }
-            .ski-stats { gap: 30px; }
-            .stat-value { font-size: 2rem; }
+            .cinematic-bar { height: 35px; }
+            .main-wrapper { padding: 50px 15px; }
+            .header { flex-direction: column; gap: 10px; text-align: center; padding-left: 0; }
+            .nav-hint { font-size: 0.8rem; letter-spacing: 2px; }
+            .footer { flex-direction: column; gap: 8px; text-align: center; font-size: 0.75rem; }
+            .back-btn { 
+                top: 45px; 
+                left: 15px; 
+                padding: 8px 12px; 
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+            .back-btn svg { width: 14px; height: 14px; }
+            .ski-stats { 
+                gap: 20px; 
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .stat-item { min-width: 80px; }
+            .stat-value { font-size: 1.8rem; }
+            .stat-label { font-size: 0.75rem; }
+            .main-title { 
+                font-size: 1.6rem; 
+                letter-spacing: 4px; 
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+            .main-title .accent { 
+                font-size: 0.5em; 
+                letter-spacing: 3px;
+                margin-top: 10px;
+            }
+            .cta-btn { margin-top: 30px; }
+            .cta-btn a { 
+                padding: 14px 35px; 
+                font-size: 0.75rem; 
+                letter-spacing: 4px;
+            }
+            .center-content { justify-content: center; }
+        }
+        
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .cinematic-bar { height: 30px; }
+            .main-wrapper { padding: 40px 10px; }
+            .back-btn { 
+                top: 38px; 
+                left: 10px; 
+                padding: 6px 10px;
+                font-size: 0.65rem;
+            }
+            .ski-stats { gap: 15px; }
+            .stat-value { font-size: 1.5rem; }
+            .stat-label { font-size: 0.7rem; letter-spacing: 1px; }
+            .main-title { 
+                font-size: 1.3rem; 
+                letter-spacing: 3px;
+            }
+            .main-title .accent { 
+                font-size: 0.55em;
+                letter-spacing: 2px;
+            }
+            .cta-btn a { 
+                padding: 12px 25px; 
+                font-size: 0.7rem;
+                letter-spacing: 3px;
+            }
+            .footer { font-size: 0.7rem; letter-spacing: 2px; }
+            .nav-hint { font-size: 0.7rem; }
         }
     </style>
 </head>
