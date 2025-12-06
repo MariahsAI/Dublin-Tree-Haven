@@ -1,10 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dublin Tree Haven | Enter The Forest</title>
+    
+    <!-- Meta Tags for SEO and Social Sharing -->
+    <meta name="description" content="Dublin Tree Haven - A luxury forest retreat where ancient trees hold timeless secrets. Find peace where the wild grows.">
+    <meta name="keywords" content="Dublin Tree Haven, luxury retreat, forest, nature, wellness, Ireland">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mariahsai.github.io/Dublin-Tree-Haven/">
+    <meta property="og:title" content="Dublin Tree Haven | Enter The Forest">
+    <meta property="og:description" content="A luxury forest retreat where ancient trees hold timeless secrets. Find peace where the wild grows.">
+    <meta property="og:image" content="https://mariahsai.github.io/Dublin-Tree-Haven/dublin-tree-haven-logo.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="1200">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://mariahsai.github.io/Dublin-Tree-Haven/">
+    <meta name="twitter:title" content="Dublin Tree Haven | Enter The Forest">
+    <meta name="twitter:description" content="A luxury forest retreat where ancient trees hold timeless secrets. Find peace where the wild grows.">
+    <meta name="twitter:image" content="https://mariahsai.github.io/Dublin-Tree-Haven/dublin-tree-haven-logo.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="dublin-tree-haven-logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
@@ -23,7 +45,9 @@
             --gold-bright: #dfc07a;
             --gold-light: #e4d4a5;
             --cream: #f5f2eb;
-            --mist: rgba(200, 210, 200, 0.1);
+            --bronze: #8B7355;
+            --dark-wood: #2a1810;
+            --wood: #4a3020;
         }
 
         html, body {
@@ -36,6 +60,19 @@
             background: var(--deep-forest);
             color: var(--cream);
         }
+
+        /* Thin Cinematic bars */
+        .cinematic-bar {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 35px;
+            background: #000;
+            z-index: 100;
+        }
+
+        .cinematic-bar.top { top: 0; }
+        .cinematic-bar.bottom { bottom: 0; }
 
         /* Video Background */
         .video-container {
@@ -58,6 +95,7 @@
             height: auto;
             transform: translate(-50%, -50%);
             object-fit: cover;
+            filter: brightness(0.6) saturate(1.1);
         }
 
         .video-overlay {
@@ -66,29 +104,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(ellipse at center, transparent 0%, var(--deep-forest) 70%),
-                linear-gradient(to bottom, 
-                    rgba(10, 15, 10, 0.3) 0%, 
-                    rgba(10, 15, 10, 0.1) 30%,
-                    rgba(10, 15, 10, 0.2) 70%,
-                    rgba(10, 15, 10, 0.95) 100%);
+            background: linear-gradient(to bottom, 
+                    rgba(10, 15, 10, 0.2) 0%, 
+                    transparent 20%,
+                    transparent 80%,
+                    rgba(10, 15, 10, 0.8) 100%);
         }
 
-        /* Cinematic bars */
-        .cinematic-bar {
-            position: fixed;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            background: #000;
-            z-index: 100;
-        }
-
-        .cinematic-bar.top { top: 0; }
-        .cinematic-bar.bottom { bottom: 0; }
-
-        /* Animated fog layers */
+        /* Animated fog layer */
         .fog-layer {
             position: fixed;
             width: 200%;
@@ -97,32 +120,57 @@
             left: -50%;
             pointer-events: none;
             z-index: 5;
+            opacity: 0.12;
+            background: url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1920&q=80');
+            background-size: cover;
+            animation: fogMove 80s linear infinite;
         }
 
-        .fog-layer img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.15;
-        }
-
-        .fog-1 {
-            animation: fogMove1 80s linear infinite;
-        }
-
-        .fog-2 {
-            animation: fogMove2 60s linear infinite;
-            opacity: 0.08;
-        }
-
-        @keyframes fogMove1 {
+        @keyframes fogMove {
             0% { transform: translateX(0); }
             100% { transform: translateX(50%); }
         }
 
-        @keyframes fogMove2 {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        /* Light rays removed */
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 7;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 15s ease-in-out infinite;
+        }
+
+        .particle.dust {
+            width: 2px;
+            height: 2px;
+            background: var(--cream);
+            box-shadow: 0 0 3px var(--cream);
+        }
+
+        .particle.firefly {
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold), 0 0 15px var(--gold), 0 0 25px var(--gold-light);
+        }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) translateX(0); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-20vh) translateX(50px); }
         }
 
         /* Main content wrapper */
@@ -132,21 +180,21 @@
             display: flex;
             flex-direction: column;
             z-index: 10;
-            padding: 80px 40px;
+            padding: 50px 40px 40px;
             overflow: hidden;
         }
 
         /* Header */
         .header {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 10px;
             animation: fadeInDown 2s ease-out;
         }
 
         .logo-mark {
             width: 70px;
-            height: 91px;
-            margin: 0 auto 15px;
+            height: 70px;
+            margin: 0 auto 12px;
             opacity: 0.9;
             filter: drop-shadow(0 0 30px rgba(201, 169, 98, 0.5));
             animation: logoPulse 4s ease-in-out infinite;
@@ -178,11 +226,11 @@
 
         .main-title {
             font-family: 'Cinzel', serif;
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(2.2rem, 7vw, 4.5rem);
             font-weight: 400;
             letter-spacing: 8px;
             line-height: 1.1;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             animation: titleReveal 2s ease-out 0.5s both;
             text-shadow: 0 0 80px rgba(0,0,0,0.8), 0 4px 30px rgba(0,0,0,0.5);
         }
@@ -204,62 +252,45 @@
         }
 
         @keyframes titleReveal {
-            0% { 
-                opacity: 0; 
-                transform: translateY(50px) scale(0.95);
-                letter-spacing: 20px;
-            }
-            100% { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-                letter-spacing: 8px;
-            }
+            0% { opacity: 0; transform: translateY(50px) scale(0.95); letter-spacing: 20px; }
+            100% { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 8px; }
         }
 
         .subtitle {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-style: italic;
             color: var(--sage);
             letter-spacing: 4px;
-            margin-bottom: 60px;
+            margin-bottom: 30px;
             opacity: 0;
             animation: fadeInUp 1.5s ease-out 1.2s forwards;
         }
 
-        /* Gate portal */
-        .portal-container {
+        /* ========== EPIC GATE ========== */
+        .gate-container {
             position: relative;
             width: 320px;
-            height: 420px;
-            margin: 0 auto;
+            height: 400px;
+            margin: -20px auto 0;
             opacity: 0;
-            animation: portalAppear 2s ease-out 1.5s forwards;
+            animation: gateAppear 2s ease-out 1.5s forwards;
+            perspective: 1200px;
         }
 
-        @keyframes portalAppear {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Gate frame with ornate design */
-        .gate-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+        @keyframes gateAppear {
+            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         /* Portal interior - forest scene */
         .portal-interior {
             position: absolute;
             top: 35px;
-            left: 25px;
-            right: 25px;
-            bottom: 10px;
-            border-radius: 135px 135px 0 0;
+            left: 28px;
+            right: 28px;
+            bottom: 12px;
+            border-radius: 130px 130px 0 0;
             overflow: hidden;
             background: #000;
         }
@@ -268,13 +299,14 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.7;
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            opacity: 0.6;
+            transition: all 1s ease;
+            transform: scale(1.1);
         }
 
-        .portal-container:hover .portal-video {
-            opacity: 1;
-            transform: scale(1.05);
+        .gate-container:hover .portal-video {
+            opacity: 0.9;
+            transform: scale(1.15);
         }
 
         .portal-glow {
@@ -283,143 +315,443 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 135px 135px 0 0;
+            border-radius: 130px 130px 0 0;
             box-shadow: 
-                inset 0 0 60px rgba(201, 169, 98, 0.3),
-                inset 0 0 120px rgba(10, 15, 10, 0.8);
+                inset 0 0 80px rgba(201, 169, 98, 0.2),
+                inset 0 0 150px rgba(10, 15, 10, 0.9);
             pointer-events: none;
-            transition: box-shadow 0.5s ease;
+            transition: all 0.8s ease;
         }
 
-        .portal-container:hover .portal-glow {
+        .gate-container.open .portal-glow {
             box-shadow: 
-                inset 0 0 40px rgba(201, 169, 98, 0.5),
-                inset 0 0 80px rgba(10, 15, 10, 0.6);
+                inset 0 0 40px rgba(201, 169, 98, 0.4),
+                inset 0 0 80px rgba(10, 15, 10, 0.5);
         }
 
-        /* Key and lock mechanism */
-        .key-mechanism {
+        /* ========== EPIC GATE FRAME ========== */
+        .gate-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            filter: drop-shadow(0 0 20px rgba(201, 169, 98, 0.3));
+        }
+
+        /* ========== EPIC DOORS ========== */
+        .gate-doors {
+            position: absolute;
+            top: 35px;
+            left: 28px;
+            right: 28px;
+            bottom: 12px;
+            border-radius: 130px 130px 0 0;
+            overflow: hidden;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .gate-container.open .gate-doors {
+            opacity: 1;
+            pointer-events: auto;
+            animation: doorsAppear 0.5s ease-out forwards;
+        }
+
+        @keyframes doorsAppear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .gate-door {
+            flex: 1;
+            background: 
+                linear-gradient(180deg, 
+                    rgba(74, 48, 32, 0.98) 0%, 
+                    rgba(42, 24, 16, 0.99) 100%);
+            transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 2px solid var(--bronze);
+            overflow: hidden;
+        }
+
+        /* Wood grain texture */
+        .gate-door::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    transparent 8px,
+                    rgba(0,0,0,0.1) 8px,
+                    rgba(0,0,0,0.1) 10px
+                ),
+                repeating-linear-gradient(
+                    180deg,
+                    transparent 0px,
+                    rgba(139, 115, 85, 0.1) 2px,
+                    transparent 4px
+                );
+        }
+
+        /* Door panels */
+        .gate-door::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            bottom: 20px;
+            border: 2px solid var(--bronze);
+            opacity: 0.4;
+        }
+
+        .gate-door-left {
+            transform-origin: left center;
+            border-radius: 130px 0 0 0;
+            border-right: 1px solid var(--bronze);
+        }
+
+        .gate-door-right {
+            transform-origin: right center;
+            border-radius: 0 130px 0 0;
+            border-left: 1px solid var(--bronze);
+        }
+
+        .gate-container.open .gate-door-left {
+            transform: perspective(1000px) rotateY(-115deg);
+        }
+
+        .gate-container.open .gate-door-right {
+            transform: perspective(1000px) rotateY(115deg);
+        }
+
+        /* Door decorations */
+        .door-decoration {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Hinges */
+        .door-hinge {
+            position: absolute;
+            width: 12px;
+            height: 40px;
+            background: linear-gradient(90deg, var(--bronze) 0%, #5a4535 50%, var(--bronze) 100%);
+            border-radius: 3px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .gate-door-left .door-hinge {
+            left: 5px;
+        }
+
+        .gate-door-right .door-hinge {
+            right: 5px;
+        }
+
+        .door-hinge.top { top: 60px; }
+        .door-hinge.middle { top: 50%; transform: translateY(-50%); }
+        .door-hinge.bottom { bottom: 60px; }
+
+        /* Door studs */
+        .door-stud {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--bronze));
+            border-radius: 50%;
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Door ring handle */
+        .door-ring {
             position: absolute;
             top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            cursor: pointer;
-            transition: all 0.5s ease;
+            width: 35px;
+            height: 35px;
+            border: 4px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 
+                2px 3px 8px rgba(0,0,0,0.5),
+                inset 0 0 10px rgba(201, 169, 98, 0.3);
         }
 
-        .key-mechanism:hover {
+        .gate-door-left .door-ring { right: 15px; }
+        .gate-door-right .door-ring { left: 15px; }
+
+        .door-ring::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--bronze));
+            border-radius: 50%;
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* ========== EPIC KEY ========== */
+        .key-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30;
+            cursor: pointer;
+            transition: all 0.6s ease;
+        }
+
+        .key-container:hover {
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        .key-mechanism.unlocked {
+        .gate-container.open .key-container {
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.5) rotate(180deg);
+            transform: translate(-50%, -50%) scale(0) rotate(360deg);
+            pointer-events: none;
+            transition: all 1s ease;
+        }
+
+        /* Magic particles around key */
+        .key-magic {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
             pointer-events: none;
         }
 
-        .key-circle {
-            width: 100px;
-            height: 100px;
+        .magic-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold-light);
+            animation: magicOrbit 4s linear infinite;
+        }
+
+        .magic-particle:nth-child(1) { animation-delay: 0s; }
+        .magic-particle:nth-child(2) { animation-delay: 0.5s; }
+        .magic-particle:nth-child(3) { animation-delay: 1s; }
+        .magic-particle:nth-child(4) { animation-delay: 1.5s; }
+        .magic-particle:nth-child(5) { animation-delay: 2s; }
+        .magic-particle:nth-child(6) { animation-delay: 2.5s; }
+        .magic-particle:nth-child(7) { animation-delay: 3s; }
+        .magic-particle:nth-child(8) { animation-delay: 3.5s; }
+
+        @keyframes magicOrbit {
+            0% {
+                transform: rotate(0deg) translateX(70px) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: rotate(36deg) translateX(70px) rotate(-36deg) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: rotate(324deg) translateX(70px) rotate(-324deg) scale(1);
+            }
+            100% {
+                transform: rotate(360deg) translateX(70px) rotate(-360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Key glow aura */
+        .key-aura {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: auraBreath 3s ease-in-out infinite;
+        }
+
+        @keyframes auraBreath {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+        }
+
+        /* Expanding rings */
+        .key-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             border: 2px solid var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: ringPulse 3s ease-out infinite;
+        }
+
+        .key-ring:nth-child(1) { width: 100px; height: 100px; animation-delay: 0s; }
+        .key-ring:nth-child(2) { width: 100px; height: 100px; animation-delay: 1s; }
+        .key-ring:nth-child(3) { width: 100px; height: 100px; animation-delay: 2s; }
+
+        @keyframes ringPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+
+        /* Key circle container */
+        .key-circle {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            border: 3px solid var(--gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle, rgba(201, 169, 98, 0.1) 0%, transparent 70%);
-            animation: keyPulse 3s ease-in-out infinite;
-            position: relative;
+            background: radial-gradient(circle, rgba(10, 15, 10, 0.9) 0%, rgba(10, 15, 10, 0.95) 100%);
+            box-shadow: 
+                0 0 40px rgba(201, 169, 98, 0.4),
+                0 0 80px rgba(201, 169, 98, 0.2),
+                inset 0 0 30px rgba(201, 169, 98, 0.1);
+            animation: keyCircleGlow 2s ease-in-out infinite;
         }
 
+        @keyframes keyCircleGlow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 40px rgba(201, 169, 98, 0.4),
+                    0 0 80px rgba(201, 169, 98, 0.2),
+                    inset 0 0 30px rgba(201, 169, 98, 0.1);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 60px rgba(201, 169, 98, 0.6),
+                    0 0 120px rgba(201, 169, 98, 0.3),
+                    inset 0 0 50px rgba(201, 169, 98, 0.2);
+            }
+        }
+
+        /* Inner decorative ring */
         .key-circle::before {
             content: '';
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
             border: 1px solid var(--gold);
             border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .key-circle::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border: 1px dashed var(--gold);
+            border-radius: 50%;
             opacity: 0.3;
-            animation: ringExpand 3s ease-in-out infinite;
+            animation: innerRingSpin 20s linear infinite;
         }
 
-        @keyframes keyPulse {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(201, 169, 98, 0.3), 0 0 40px rgba(201, 169, 98, 0.1);
-            }
-            50% { 
-                box-shadow: 0 0 40px rgba(201, 169, 98, 0.5), 0 0 80px rgba(201, 169, 98, 0.2);
-            }
+        @keyframes innerRingSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        @keyframes ringExpand {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.2); opacity: 0; }
-        }
-
+        /* The actual key */
         .key-icon {
-            width: 40px;
-            height: 40px;
-            filter: drop-shadow(0 0 10px var(--gold));
+            width: 45px;
+            height: 45px;
+            filter: drop-shadow(0 0 15px var(--gold));
+            animation: keyHover 3s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        @keyframes keyHover {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(3deg); }
+            75% { transform: translateY(3px) rotate(-3deg); }
         }
 
         .key-text {
             position: absolute;
-            bottom: -35px;
+            bottom: -45px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-style: italic;
             color: var(--gold);
             white-space: nowrap;
-            letter-spacing: 3px;
-            animation: textPulse 2s ease-in-out infinite;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(201, 169, 98, 0.5);
+            animation: textGlow 2s ease-in-out infinite;
         }
 
-        @keyframes textPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        @keyframes textGlow {
+            0%, 100% { opacity: 0.6; text-shadow: 0 0 10px rgba(201, 169, 98, 0.3); }
+            50% { opacity: 1; text-shadow: 0 0 30px rgba(201, 169, 98, 0.8); }
         }
 
-        /* Enter button */
+        /* ========== ENTER BUTTON ========== */
         .enter-btn {
             position: absolute;
-            top: 55%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             opacity: 0;
             pointer-events: none;
-            z-index: 25;
-            transition: all 0.5s ease;
+            z-index: 35;
         }
 
-        .enter-btn.visible {
+        .gate-container.open .enter-btn {
             opacity: 1;
             pointer-events: auto;
-            animation: btnAppear 1s ease-out forwards;
+            animation: btnAppear 1s ease-out 0.8s both;
         }
 
         @keyframes btnAppear {
             0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
+            60% { transform: translate(-50%, -50%) scale(1.1); }
             100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
 
         .enter-btn a {
             display: block;
-            padding: 20px 60px;
+            padding: 22px 65px;
             font-family: 'Cinzel', serif;
             font-size: 1rem;
+            font-weight: 500;
             letter-spacing: 6px;
             text-transform: uppercase;
             text-decoration: none;
             color: var(--deep-forest);
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 50%, var(--gold) 100%);
-            border: none;
+            background-size: 200% 200%;
+            animation: btnShine 3s ease-in-out infinite;
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 0 40px rgba(201, 169, 98, 0.5),
+                0 5px 30px rgba(0,0,0,0.3);
             transition: all 0.4s ease;
-            box-shadow: 0 0 30px rgba(201, 169, 98, 0.4);
+        }
+
+        @keyframes btnShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .enter-btn a::before {
@@ -429,8 +761,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
         }
 
         .enter-btn a:hover::before {
@@ -438,15 +770,18 @@
         }
 
         .enter-btn a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 50px rgba(201, 169, 98, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 
+                0 0 60px rgba(201, 169, 98, 0.7),
+                0 15px 40px rgba(0,0,0,0.4);
             letter-spacing: 8px;
         }
 
         /* Bottom content */
         .bottom-content {
             text-align: center;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
+            padding-top: 20px;
             animation: fadeIn 2s ease-out 2s both;
         }
 
@@ -455,39 +790,13 @@
             font-size: 1rem;
             font-style: italic;
             color: var(--sage);
-            letter-spacing: 6px;
-            margin-bottom: 20px;
-        }
-
-        .scroll-hint {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0.5;
-        }
-
-        .scroll-hint span {
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        .scroll-arrow {
-            width: 20px;
-            height: 20px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
+            letter-spacing: 5px;
         }
 
         /* Sound toggle */
         .sound-toggle {
             position: fixed;
-            bottom: 80px;
+            bottom: 55px;
             right: 30px;
             width: 50px;
             height: 50px;
@@ -513,18 +822,16 @@
             stroke: var(--cream);
         }
 
-        .sound-toggle.muted svg {
-            opacity: 0.4;
-        }
+        .sound-toggle.muted svg { opacity: 0.4; }
 
-        /* Page transition */
+        /* ========== PAGE TRANSITION - TREE ANIMATION ========== */
         .page-transition {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--deep-forest);
+            background: #000;
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -532,7 +839,7 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1.5s ease;
+            transition: opacity 1s ease;
         }
 
         .page-transition.active {
@@ -543,10 +850,9 @@
         .transition-tree {
             width: 120px;
             height: 160px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        /* Page transition tree animation */
         .transition-tree path,
         .transition-tree circle {
             stroke-dasharray: 400;
@@ -558,44 +864,60 @@
             animation: drawTree 2.5s ease-out forwards;
         }
 
+        .page-transition.active .transition-tree .tree-glow {
+            animation: treeGlow 2s ease-out 1s forwards;
+        }
+
         @keyframes drawTree {
             0% { stroke-dashoffset: 400; }
             100% { stroke-dashoffset: 0; }
         }
 
+        @keyframes treeGlow {
+            0% { filter: drop-shadow(0 0 0 transparent); }
+            100% { filter: drop-shadow(0 0 20px rgba(201, 169, 98, 0.8)); }
+        }
+
         .transition-text {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            letter-spacing: 10px;
+            font-size: 1.4rem;
+            letter-spacing: 12px;
             color: var(--gold);
             opacity: 0;
-            text-transform: uppercase;
         }
 
         .page-transition.active .transition-text {
-            animation: fadeInTransition 0.8s ease-out 1.5s forwards;
+            animation: fadeIn 1s ease-out 0.8s forwards;
         }
 
-        @keyframes fadeInTransition {
-            to {
-                opacity: 1;
-            }
+        .transition-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            letter-spacing: 4px;
+            color: var(--sage);
+            margin-top: 15px;
+            opacity: 0;
         }
 
-        /* Preloader */
+        .page-transition.active .transition-subtitle {
+            animation: fadeIn 1s ease-out 1.2s forwards;
+        }
+
+        /* ========== PRELOADER - TREE ANIMATION ========== */
         .preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0a0f0a;
+            background: #000;
             z-index: 2000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 1s ease, visibility 1s ease;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
         }
 
         .preloader.hidden {
@@ -606,10 +928,9 @@
         .preloader-tree {
             width: 100px;
             height: 130px;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
-        /* Preloader tree animation */
         .preloader-tree path,
         .preloader-tree circle {
             stroke-dasharray: 350;
@@ -624,58 +945,33 @@
 
         .preloader-text {
             font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            letter-spacing: 12px;
+            font-size: 0.9rem;
+            letter-spacing: 10px;
             color: var(--gold);
             opacity: 0;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            animation: fadeInPreloader 0.8s ease-out 2s forwards;
+            animation: fadeIn 1s ease-out 1.8s forwards;
         }
 
         .preloader-dots {
             display: flex;
-            gap: 12px;
-            opacity: 0;
-            animation: fadeInPreloader 0.5s ease-out 2.2s forwards;
+            gap: 10px;
+            margin-top: 25px;
         }
 
         .preloader-dots span {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--gold);
             border-radius: 50%;
-            animation: dotPulse 1.4s ease-in-out infinite;
-            animation-delay: 2.2s;
+            animation: dotPulse 1.5s ease-in-out infinite;
         }
 
-        .preloader-dots span:nth-child(1) {
-            animation-delay: 2.2s;
-        }
-
-        .preloader-dots span:nth-child(2) {
-            animation-delay: 2.4s;
-        }
-
-        .preloader-dots span:nth-child(3) {
-            animation-delay: 2.6s;
-        }
-
-        @keyframes fadeInPreloader {
-            to {
-                opacity: 1;
-            }
-        }
+        .preloader-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .preloader-dots span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes dotPulse {
-            0%, 80%, 100% { 
-                opacity: 0.3;
-                transform: scale(0.8);
-            }
-            40% { 
-                opacity: 1;
-                transform: scale(1);
-            }
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
         }
 
         /* Animations */
@@ -696,19 +992,24 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .cinematic-bar { height: 40px; }
-            .main-wrapper { padding: 60px 20px; }
-            .portal-container { width: 260px; height: 350px; }
+            .cinematic-bar { height: 25px; }
+            .main-wrapper { padding: 40px 20px 35px; }
+            .gate-container { width: 260px; height: 330px; margin-top: -15px; }
             .brand-text { letter-spacing: 6px; font-size: 0.65rem; }
-            .subtitle { font-size: 1.1rem; margin-bottom: 40px; }
-            .key-circle { width: 80px; height: 80px; }
-            .key-icon { width: 30px; height: 30px; }
-            .enter-btn a { padding: 15px 40px; font-size: 0.85rem; }
+            .subtitle { font-size: 1rem; margin-bottom: 25px; }
+            .key-circle { width: 90px; height: 90px; }
+            .key-icon { width: 35px; height: 35px; }
+            .enter-btn a { padding: 18px 45px; font-size: 0.85rem; letter-spacing: 4px; }
+            .sound-toggle { bottom: 45px; right: 20px; width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
+    <!-- Thin Cinematic bars -->
+    <div class="cinematic-bar top"></div>
+    <div class="cinematic-bar bottom"></div>
+
+    <!-- Preloader with Tree Animation -->
     <div class="preloader" id="preloader">
         <svg class="preloader-tree" viewBox="0 0 100 130" fill="none">
             <!-- Trunk -->
@@ -726,7 +1027,7 @@
             <circle cx="50" cy="50" r="8" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.8"/>
             <circle cx="50" cy="50" r="4" fill="#c9a962"/>
         </svg>
-        <div class="preloader-text">Dublin Tree Haven</div>
+        <div class="preloader-text">DUBLIN TREE HAVEN</div>
         <div class="preloader-dots">
             <span></span>
             <span></span>
@@ -734,41 +1035,29 @@
         </div>
     </div>
 
-    <!-- Cinematic bars -->
-    <div class="cinematic-bar top"></div>
-    <div class="cinematic-bar bottom"></div>
-
     <!-- Video Background -->
     <div class="video-container">
         <video class="video-bg" autoplay muted loop playsinline id="bgVideo">
-            <source src="https://cdn.coverr.co/videos/coverr-morning-mist-in-the-forest-1573/1080p.mp4" type="video/mp4">
+            <source src="https://cdn.coverr.co/videos/coverr-fog-rolling-through-the-trees-4298/1080p.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Fog layers -->
-    <div class="fog-layer fog-1">
-        <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1920&q=80" alt="">
-    </div>
+    <!-- Fog layer -->
+    <div class="fog-layer"></div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
 
     <!-- Main wrapper -->
     <div class="main-wrapper">
         <!-- Header -->
         <header class="header">
-            <svg class="logo-mark" viewBox="0 0 100 130" fill="none">
-                <!-- Trunk -->
-                <path d="M50 125 L50 85" stroke="#c9a962" stroke-width="3" stroke-linecap="round"/>
-                <!-- Main tree shape -->
-                <path d="M50 90 Q22 78 30 50 Q20 28 50 8 Q80 28 70 50 Q78 78 50 90" stroke="#c9a962" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                <!-- Left branch -->
-                <path d="M38 95 Q15 85 25 60" stroke="#c9a962" stroke-width="2" fill="none" stroke-linecap="round"/>
-                <!-- Right branch -->
-                <path d="M62 95 Q85 85 75 60" stroke="#c9a962" stroke-width="2" fill="none" stroke-linecap="round"/>
-                <!-- Inner details -->
-                <path d="M50 70 L50 40" stroke="#c9a962" stroke-width="1.5" opacity="0.6" stroke-linecap="round"/>
-                <path d="M40 55 Q50 45 60 55" stroke="#c9a962" stroke-width="1" opacity="0.4" fill="none"/>
-                <!-- Center glow -->
-                <circle cx="50" cy="50" r="8" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.8"/>
+            <svg class="logo-mark" viewBox="0 0 100 100" fill="none">
+                <circle cx="50" cy="50" r="45" stroke="#c9a962" stroke-width="1" opacity="0.4"/>
+                <circle cx="50" cy="50" r="35" stroke="#c9a962" stroke-width="0.5" opacity="0.2"/>
+                <path d="M50 10 Q30 30 35 50 Q30 70 50 90 Q70 70 65 50 Q70 30 50 10" stroke="#c9a962" stroke-width="1.5" fill="none"/>
+                <path d="M50 20 L50 80" stroke="#c9a962" stroke-width="0.5" opacity="0.4"/>
                 <circle cx="50" cy="50" r="4" fill="#c9a962"/>
             </svg>
             <div class="brand-text">Dublin Tree Haven</div>
@@ -782,26 +1071,55 @@
             </h1>
             <p class="subtitle">Where ancient trees hold timeless secrets</p>
 
-            <!-- Portal/Gate -->
-            <div class="portal-container" id="portal">
+            <!-- Epic Gate -->
+            <div class="gate-container" id="gate">
                 <!-- Portal interior with video -->
                 <div class="portal-interior">
                     <video class="portal-video" autoplay muted loop playsinline>
-                        <source src="https://cdn.coverr.co/videos/coverr-walking-on-a-forest-path-9826/1080p.mp4" type="video/mp4">
+                        <source src="https://cdn.coverr.co/videos/coverr-sunlight-through-dense-forest-5765/1080p.mp4" type="video/mp4">
                     </video>
                     <div class="portal-glow"></div>
                 </div>
 
+                <!-- Epic gate doors -->
+                <div class="gate-doors">
+                    <div class="gate-door gate-door-left">
+                        <div class="door-hinge top"></div>
+                        <div class="door-hinge middle"></div>
+                        <div class="door-hinge bottom"></div>
+                        <div class="door-ring"></div>
+                        <div class="door-stud" style="top: 80px; left: 25px;"></div>
+                        <div class="door-stud" style="top: 80px; right: 25px;"></div>
+                        <div class="door-stud" style="bottom: 80px; left: 25px;"></div>
+                        <div class="door-stud" style="bottom: 80px; right: 25px;"></div>
+                    </div>
+                    <div class="gate-door gate-door-right">
+                        <div class="door-hinge top"></div>
+                        <div class="door-hinge middle"></div>
+                        <div class="door-hinge bottom"></div>
+                        <div class="door-ring"></div>
+                        <div class="door-stud" style="top: 80px; left: 25px;"></div>
+                        <div class="door-stud" style="top: 80px; right: 25px;"></div>
+                        <div class="door-stud" style="bottom: 80px; left: 25px;"></div>
+                        <div class="door-stud" style="bottom: 80px; right: 25px;"></div>
+                    </div>
+                </div>
+
                 <!-- Ornate gate frame -->
-                <svg class="gate-frame" viewBox="0 0 320 420" fill="none">
+                <svg class="gate-frame" viewBox="0 0 320 400" fill="none">
                     <defs>
                         <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" style="stop-color:#c9a962"/>
                             <stop offset="50%" style="stop-color:#a08340"/>
                             <stop offset="100%" style="stop-color:#c9a962"/>
                         </linearGradient>
+                        <linearGradient id="bronzeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#8B7355"/>
+                            <stop offset="50%" style="stop-color:#5a4535"/>
+                            <stop offset="100%" style="stop-color:#8B7355"/>
+                        </linearGradient>
                         <filter id="glow">
-                            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                             <feMerge>
                                 <feMergeNode in="coloredBlur"/>
                                 <feMergeNode in="SourceGraphic"/>
@@ -809,48 +1127,94 @@
                         </filter>
                     </defs>
                     
-                    <!-- Main arch -->
-                    <path d="M25 420 L25 50 Q25 10 160 10 Q295 10 295 50 L295 420" 
+                    <!-- Outer stone arch -->
+                    <path d="M18 400 L18 50 Q18 8 160 8 Q302 8 302 50 L302 400" 
+                          stroke="url(#bronzeGrad)" stroke-width="8" fill="none"/>
+                    
+                    <!-- Inner gold arch -->
+                    <path d="M28 400 L28 54 Q28 16 160 16 Q292 16 292 54 L292 400" 
                           stroke="url(#goldGrad)" stroke-width="3" fill="none" filter="url(#glow)"/>
                     
-                    <!-- Inner arch -->
-                    <path d="M35 420 L35 55 Q35 20 160 20 Q285 20 285 55 L285 420" 
+                    <!-- Decorative inner line -->
+                    <path d="M36 400 L36 58 Q36 22 160 22 Q284 22 284 58 L284 400" 
                           stroke="#c9a962" stroke-width="1" fill="none" opacity="0.3"/>
                     
-                    <!-- Decorative top -->
-                    <circle cx="160" cy="10" r="8" fill="#c9a962" filter="url(#glow)"/>
-                    <path d="M130 15 Q160 -5 190 15" stroke="#c9a962" stroke-width="1.5" fill="none"/>
-                    <path d="M140 20 Q160 5 180 20" stroke="#c9a962" stroke-width="1" fill="none" opacity="0.5"/>
+                    <!-- Crown decoration -->
+                    <circle cx="160" cy="8" r="10" fill="#c9a962" filter="url(#glow)"/>
+                    <path d="M125 15 Q160 -8 195 15" stroke="#c9a962" stroke-width="2.5" fill="none"/>
+                    <path d="M138 20 Q160 5 182 20" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <!-- Crown spikes -->
+                    <path d="M160 -2 L160 -10" stroke="#c9a962" stroke-width="2"/>
+                    <path d="M148 2 L144 -5" stroke="#c9a962" stroke-width="1.5"/>
+                    <path d="M172 2 L176 -5" stroke="#c9a962" stroke-width="1.5"/>
                     
                     <!-- Side ornaments -->
-                    <circle cx="25" cy="100" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="25" cy="180" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="25" cy="260" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="25" cy="340" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="295" cy="100" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="295" cy="180" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="295" cy="260" r="4" fill="#c9a962" opacity="0.8"/>
-                    <circle cx="295" cy="340" r="4" fill="#c9a962" opacity="0.8"/>
+                    <circle cx="18" cy="90" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="18" cy="160" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="18" cy="230" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="18" cy="300" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="302" cy="90" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="302" cy="160" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="302" cy="230" r="5" fill="#c9a962" opacity="0.9"/>
+                    <circle cx="302" cy="300" r="5" fill="#c9a962" opacity="0.9"/>
                     
-                    <!-- Vine decorations -->
-                    <path d="M20 80 Q10 100 20 120 Q10 140 20 160" stroke="#3d5a3d" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    <path d="M300 80 Q310 100 300 120 Q310 140 300 160" stroke="#3d5a3d" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    <path d="M20 200 Q5 220 20 240 Q5 260 20 280" stroke="#3d5a3d" stroke-width="1" fill="none" opacity="0.4"/>
-                    <path d="M300 200 Q315 220 300 240 Q315 260 300 280" stroke="#3d5a3d" stroke-width="1" fill="none" opacity="0.4"/>
+                    <!-- Decorative vines -->
+                    <path d="M12 65 Q0 88 12 110 Q0 132 12 155 Q0 178 12 200" stroke="#3d5a3d" stroke-width="2" fill="none" opacity="0.7"/>
+                    <path d="M308 65 Q320 88 308 110 Q320 132 308 155 Q320 178 308 200" stroke="#3d5a3d" stroke-width="2" fill="none" opacity="0.7"/>
                     
-                    <!-- Corner flourishes -->
-                    <path d="M50 400 Q30 380 50 360" stroke="#c9a962" stroke-width="1" fill="none" opacity="0.5"/>
-                    <path d="M270 400 Q290 380 270 360" stroke="#c9a962" stroke-width="1" fill="none" opacity="0.5"/>
+                    <!-- Leaf details -->
+                    <ellipse cx="4" cy="78" rx="4" ry="6" fill="#3d5a3d" opacity="0.5" transform="rotate(-20 4 78)"/>
+                    <ellipse cx="7" cy="125" rx="3" ry="5" fill="#3d5a3d" opacity="0.4" transform="rotate(15 7 125)"/>
+                    <ellipse cx="4" cy="168" rx="4" ry="6" fill="#3d5a3d" opacity="0.5" transform="rotate(-25 4 168)"/>
+                    <ellipse cx="316" cy="78" rx="4" ry="6" fill="#3d5a3d" opacity="0.5" transform="rotate(20 316 78)"/>
+                    <ellipse cx="313" cy="125" rx="3" ry="5" fill="#3d5a3d" opacity="0.4" transform="rotate(-15 313 125)"/>
+                    <ellipse cx="316" cy="168" rx="4" ry="6" fill="#3d5a3d" opacity="0.5" transform="rotate(25 316 168)"/>
+                    
+                    <!-- Bottom corner flourishes -->
+                    <path d="M38 385 Q20 368 38 350 Q25 338 42 325" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.5"/>
+                    <path d="M282 385 Q300 368 282 350 Q295 338 278 325" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.5"/>
                 </svg>
 
-                <!-- Key mechanism -->
-                <div class="key-mechanism" id="keyMechanism" onclick="unlockGate()">
+                <!-- Epic Key -->
+                <div class="key-container" id="keyContainer" onclick="unlockGate()">
+                    <!-- Magic particles -->
+                    <div class="key-magic">
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                        <div class="magic-particle"></div>
+                    </div>
+                    
+                    <!-- Expanding rings -->
+                    <div class="key-ring"></div>
+                    <div class="key-ring"></div>
+                    <div class="key-ring"></div>
+                    
+                    <!-- Glow aura -->
+                    <div class="key-aura"></div>
+                    
+                    <!-- Key circle -->
                     <div class="key-circle">
-                        <svg class="key-icon" viewBox="0 0 24 24" fill="none" stroke="#c9a962" stroke-width="1.5">
-                            <circle cx="8" cy="8" r="5"/>
-                            <path d="M12 12 L22 22"/>
-                            <path d="M18 18 L22 18"/>
-                            <path d="M20 16 L20 20"/>
+                        <svg class="key-icon" viewBox="0 0 50 50" fill="none">
+                            <!-- Key head (ornate) -->
+                            <circle cx="18" cy="18" r="12" stroke="#c9a962" stroke-width="2.5" fill="none"/>
+                            <circle cx="18" cy="18" r="7" stroke="#c9a962" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <circle cx="18" cy="18" r="3" fill="#c9a962"/>
+                            <!-- Decorative elements on key head -->
+                            <circle cx="18" cy="8" r="2" fill="#c9a962" opacity="0.7"/>
+                            <circle cx="18" cy="28" r="2" fill="#c9a962" opacity="0.7"/>
+                            <circle cx="8" cy="18" r="2" fill="#c9a962" opacity="0.7"/>
+                            <circle cx="28" cy="18" r="2" fill="#c9a962" opacity="0.7"/>
+                            <!-- Key shaft -->
+                            <path d="M28 28 L45 45" stroke="#c9a962" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Key teeth -->
+                            <path d="M38 38 L38 44 L44 44" stroke="#c9a962" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M42 42 L42 46 L48 46" stroke="#c9a962" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M35 41 L35 45" stroke="#c9a962" stroke-width="2" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="key-text">Click to unlock</div>
@@ -878,9 +1242,9 @@
         </svg>
     </div>
 
-    <!-- Page transition -->
+    <!-- Page transition with Epic Tree Animation -->
     <div class="page-transition" id="pageTransition">
-        <svg class="transition-tree" viewBox="0 0 120 160" fill="none">
+        <svg class="transition-tree tree-glow" viewBox="0 0 120 160" fill="none">
             <!-- Trunk -->
             <path d="M60 155 L60 105" stroke="#c9a962" stroke-width="4" stroke-linecap="round"/>
             <!-- Roots -->
@@ -907,7 +1271,8 @@
             <circle cx="50" cy="30" r="2" fill="#c9a962" opacity="0.4"/>
             <circle cx="70" cy="30" r="2" fill="#c9a962" opacity="0.4"/>
         </svg>
-        <span class="transition-text">Entering The Haven</span>
+        <span class="transition-text">Entering The Forest</span>
+        <span class="transition-subtitle">Your haven awaits...</span>
     </div>
 
     <!-- Background audio -->
@@ -916,23 +1281,36 @@
     </audio>
 
     <script>
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 45; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle ' + (Math.random() > 0.7 ? 'firefly' : 'dust');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
         // Preloader
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').classList.add('hidden');
-            }, 3500);
+            }, 3000);
         });
 
         // Unlock gate
         function unlockGate() {
-            const key = document.getElementById('keyMechanism');
+            const gate = document.getElementById('gate');
             const enterBtn = document.getElementById('enterBtn');
             
-            key.classList.add('unlocked');
+            gate.classList.add('open');
             
             setTimeout(() => {
                 enterBtn.classList.add('visible');
-            }, 500);
+            }, 1000);
         }
 
         // Handle enter click
@@ -964,6 +1342,8 @@
             }
         }
 
+        // Initialize
+        createParticles();
     </script>
 </body>
 </html>
