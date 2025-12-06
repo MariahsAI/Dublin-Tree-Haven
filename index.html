@@ -1149,6 +1149,35 @@
             }
         }
 
+        /* Clickable Experience Items */
+        .scope-gallery-item::after,
+        .ski-gallery-item::after {
+            content: 'VIEW EXPERIENCE';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 12px 25px;
+            background: rgba(201,169,98,0.9);
+            color: #0a0f0a;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 50;
+            pointer-events: none;
+        }
+        .ski-gallery-item::after {
+            background: rgba(232,244,255,0.95);
+        }
+        .scope-gallery-item:hover::after,
+        .ski-gallery-item:hover::after {
+            opacity: 1;
+        }
+
         /* Testimonials Section */
         .testimonials {
             background: var(--white);
@@ -2054,7 +2083,7 @@
                     <div class="gallery-item-title">Ancient Forest Trails</div>
                 </div>
             </div>
-            <div class="gallery-item scope-gallery-item">
+            <div class="gallery-item scope-gallery-item" onclick="window.location.href='hunt.html'" style="cursor:pointer;">
                 <!-- Background video - camera sliding into forest -->
                 <video class="scope-bg-video" autoplay muted loop playsinline>
                     <source src="https://assets.mixkit.co/videos/50847/50847-720.mp4" type="video/mp4">
@@ -2145,7 +2174,7 @@
                     <div class="gallery-item-title">Magical Sunrises</div>
                 </div>
             </div>
-            <div class="gallery-item ski-gallery-item">
+            <div class="gallery-item ski-gallery-item" onclick="window.location.href='ski.html'" style="cursor:pointer;">
                 <video autoplay muted loop playsinline>
                     <source src="https://assets.mixkit.co/videos/3342/3342-720.mp4" type="video/mp4">
                 </video>
