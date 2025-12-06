@@ -56,37 +56,6 @@
             background: var(--deep-forest);
         }
 
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--deep-forest);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .preloader-tree {
-            width: 80px;
-            height: 80px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.1); opacity: 1; }
-        }
-
         /* Navigation */
         nav {
             position: fixed;
@@ -189,6 +158,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: #0a1a0a;
         }
 
         .hero-video {
@@ -198,7 +168,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -2;
+            z-index: 1;
+            animation: slowZoom 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         .hero-overlay {
@@ -209,11 +185,103 @@
             height: 100%;
             background: linear-gradient(
                 to bottom,
-                rgba(26, 46, 26, 0.4) 0%,
-                rgba(26, 46, 26, 0.2) 50%,
-                rgba(26, 46, 26, 0.6) 100%
+                rgba(10, 26, 10, 0.3) 0%,
+                rgba(10, 26, 10, 0.1) 30%,
+                rgba(10, 26, 10, 0.2) 70%,
+                rgba(10, 26, 10, 0.7) 100%
             );
-            z-index: -1;
+            z-index: 2;
+        }
+
+        /* Cinematic black bars */
+        .hero::before,
+        .hero::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #0a1a0a;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .hero::before {
+            top: 0;
+        }
+
+        .hero::after {
+            bottom: 0;
+        }
+
+        /* Floating particles */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(201, 169, 98, 0.6);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(201, 169, 98, 0.3);
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 18s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 22s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 16s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; animation-duration: 20s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 19s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 17s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2s; animation-duration: 21s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4s; animation-duration: 15s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1s; animation-duration: 23s; }
+        .particle:nth-child(10) { left: 15%; animation-delay: 3s; animation-duration: 18s; }
+
+        @keyframes floatParticle {
+            0%, 100% { 
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(80vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Mist overlay */
+        .hero-mist {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 40%;
+            z-index: 4;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(245, 242, 235, 0.15) 0%, transparent 100%);
+            animation: mistDrift 20s linear infinite;
+        }
+
+        @keyframes mistDrift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .hero-content {
@@ -221,102 +289,128 @@
             color: var(--white);
             max-width: 900px;
             padding: 0 20px;
+            position: relative;
+            z-index: 5;
         }
 
         .hero-logo {
-            width: 280px;
+            width: 200px;
             margin-bottom: 30px;
-            animation: fadeInUp 1s ease 0.3s both;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+            animation: fadeInUp 1.2s ease 0.3s both;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
         }
 
         .hero-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 5rem;
+            font-size: 5.5rem;
             font-weight: 300;
-            letter-spacing: 8px;
+            letter-spacing: 12px;
             margin-bottom: 20px;
-            animation: fadeInUp 1s ease 0.5s both;
-            text-shadow: 2px 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInUp 1.2s ease 0.5s both;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 80px rgba(201, 169, 98, 0.2);
+            text-transform: uppercase;
         }
 
         .hero-tagline {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-style: italic;
             font-weight: 300;
             color: var(--gold-light);
-            margin-bottom: 40px;
-            animation: fadeInUp 1s ease 0.7s both;
+            margin-bottom: 50px;
+            animation: fadeInUp 1.2s ease 0.7s both;
+            letter-spacing: 4px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
         }
 
         .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
-            animation: fadeInUp 1s ease 0.9s both;
+            animation: fadeInUp 1.2s ease 0.9s both;
         }
 
         .btn-primary {
             background: var(--gold);
             color: var(--deep-forest);
-            padding: 18px 50px;
+            padding: 20px 55px;
             border: none;
             font-family: 'Raleway', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.4s ease;
             text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
             background: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.4);
+            box-shadow: 0 20px 50px rgba(201, 169, 98, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--white);
-            padding: 18px 50px;
-            border: 2px solid var(--white);
+            padding: 20px 55px;
+            border: 1px solid rgba(255,255,255,0.5);
             font-family: 'Raleway', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             cursor: pointer;
             transition: all 0.4s ease;
             text-decoration: none;
+            backdrop-filter: blur(5px);
         }
 
         .btn-secondary:hover {
-            background: var(--white);
-            color: var(--deep-forest);
+            background: rgba(255,255,255,0.1);
+            border-color: var(--white);
             transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255,255,255,0.1);
         }
 
         .scroll-indicator {
             position: absolute;
-            bottom: 40px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s ease infinite;
+            z-index: 11;
         }
 
         .scroll-indicator svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--white);
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold-light);
             opacity: 0.8;
+            filter: drop-shadow(0 0 10px rgba(201, 169, 98, 0.3));
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
+            50% { transform: translateX(-50%) translateY(15px); opacity: 1; }
         }
 
         @keyframes fadeInUp {
@@ -534,14 +628,16 @@
             overflow: hidden;
         }
 
-        .property-image img {
+        .property-image img,
+        .property-image video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s ease;
         }
 
-        .property-card:hover .property-image img {
+        .property-card:hover .property-image img,
+        .property-card:hover .property-image video {
             transform: scale(1.1);
         }
 
@@ -764,14 +860,16 @@
             grid-row: span 2;
         }
 
-        .gallery-item img {
+        .gallery-item img,
+        .gallery-item video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s ease;
         }
 
-        .gallery-item:hover img {
+        .gallery-item:hover img,
+        .gallery-item:hover video {
             transform: scale(1.1);
         }
 
@@ -1318,13 +1416,6 @@
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader">
-        <svg class="preloader-tree" viewBox="0 0 100 100" fill="none" stroke="#c9a962" stroke-width="2">
-            <path d="M50 90 L50 60 M50 60 Q30 50 35 30 Q40 10 50 15 Q60 10 65 30 Q70 50 50 60 M40 65 Q25 60 30 45 M60 65 Q75 60 70 45"/>
-        </svg>
-    </div>
-
     <!-- Navigation -->
     <nav>
         <div class="nav-logo">
@@ -1346,12 +1437,25 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - CINEMATIC -->
     <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1920">
-            <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-forest-5765/1080p.mp4" type="video/mp4">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/28342/28342-720.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
+        <div class="hero-mist"></div>
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
         <div class="hero-content">
             <img src="logo.jpeg" alt="Dublin Tree Haven" class="hero-logo">
             <h1 class="hero-title">Dublin Tree Haven</h1>
@@ -1438,7 +1542,9 @@
         <div class="properties-grid">
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800" alt="The Oak Sanctuary">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4">
+                    </video>
                     <div class="property-tag">Featured</div>
                 </div>
                 <div class="property-content">
@@ -1480,7 +1586,9 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800" alt="Willow Retreat">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://assets.mixkit.co/videos/4075/4075-720.mp4" type="video/mp4">
+                    </video>
                     <div class="property-tag">Popular</div>
                 </div>
                 <div class="property-content">
@@ -1524,7 +1632,9 @@
 
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800" alt="Cedar Lodge">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://assets.mixkit.co/videos/4633/4633-720.mp4" type="video/mp4">
+                    </video>
                     <div class="property-tag">New</div>
                 </div>
                 <div class="property-content">
@@ -1568,10 +1678,10 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
+    <!-- Experience Section - VIDEO -->
     <section class="experience" id="experience">
         <video class="experience-video" autoplay muted loop playsinline>
-            <source src="https://cdn.coverr.co/videos/coverr-a-mountain-stream-1573/1080p.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/2213/2213-720.mp4" type="video/mp4">
         </video>
         <div class="experience-overlay"></div>
         <div class="experience-content">
@@ -1604,37 +1714,49 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200" alt="Forest Path">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/529/529-720.mp4" type="video/mp4">
+                </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Ancient Forest Trails</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800" alt="Cabin Interior">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4">
+                </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Cozy Interiors</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800" alt="Lake View">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/2213/2213-720.mp4" type="video/mp4">
+                </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Lakeside Serenity</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800" alt="Mountain View">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/4633/4633-720.mp4" type="video/mp4">
+                </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Mountain Vistas</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=800" alt="Fireplace">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4">
+                </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Warm Evenings</div>
                 </div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800" alt="Sunrise">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/4075/4075-720.mp4" type="video/mp4">
+                </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Magical Sunrises</div>
                 </div>
@@ -1840,13 +1962,6 @@
     </footer>
 
     <script>
-        // Preloader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelector('.preloader').classList.add('hidden');
-            }, 1500);
-        });
-
         // Navigation scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
