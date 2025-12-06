@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ski Holiday Valley | Winter Adventure Awaits</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --deep-blue: #0a1525;
+            --navy: #1a2e4a;
+            --slate: #2d4a6a;
+            --ice: #a8c8e8;
+            --snow: #e8f4ff;
+            --gold: #c9a962;
+            --gold-bright: #dfc07a;
+            --white: #ffffff;
+        }
+        html, body { height: 100%; overflow: hidden; }
+        body { font-family: 'Raleway', sans-serif; background: var(--deep-blue); color: var(--snow); }
+        
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 75px;
+            left: 40px;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(10,21,37,0.6);
+            border: 1px solid var(--ice);
+            border-radius: 4px;
+            color: var(--snow);
+            text-decoration: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .back-btn:hover {
+            background: rgba(168,200,232,0.2);
+            border-color: var(--snow);
+        }
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--snow);
+        }
+        
+        /* Video Background */
+        .video-container { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -10;
+            overflow: hidden;
+        }
+        .video-bg { 
+            position: absolute; top: 50%; left: 50%; 
+            min-width: 100%; min-height: 100%; 
+            width: auto; height: auto;
+            transform: translate(-50%, -50%); 
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at center, rgba(10,21,37,0.1) 0%, rgba(10,21,37,0.5) 70%),
+                linear-gradient(to bottom, rgba(10,21,37,0.3) 0%, rgba(10,21,37,0.1) 30%, rgba(10,21,37,0.1) 70%, rgba(10,21,37,0.6) 100%);
+        }
+        
+        /* Cinematic Bars */
+        .cinematic-bar { position: fixed; left: 0; width: 100%; height: 55px; background: #000; z-index: 100; }
+        .cinematic-bar.top { top: 0; }
+        .cinematic-bar.bottom { bottom: 0; }
+        
+        /* Snowflakes */
+        .snowflakes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 7; overflow: hidden; }
+        .snowflake {
+            position: absolute; top: -10px;
+            width: 6px; height: 6px;
+            background: white; border-radius: 50%;
+            opacity: 0;
+            animation: snowFall 8s linear infinite;
+        }
+        @keyframes snowFall {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(100vh) translateX(30px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Vignette */
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 200px rgba(0,0,0,0.6);
+            pointer-events: none; z-index: 8;
+        }
+        
+        /* Main Layout */
+        .main-wrapper {
+            position: relative; height: 100%; display: flex; flex-direction: column;
+            z-index: 10; padding: 75px 40px;
+        }
+        
+        /* Header */
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            animation: fadeInDown 1.5s ease-out;
+            padding-left: 140px;
+        }
+        .logo {
+            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 600;
+            letter-spacing: 6px; color: var(--snow);
+        }
+        .logo-icon { margin-right: 10px; opacity: 0.9; }
+        .nav-hint {
+            font-family: 'Cormorant Garamond', serif; font-style: italic;
+            font-size: 0.9rem; letter-spacing: 3px; color: var(--ice);
+        }
+        
+        /* Center Content */
+        .center-content {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+        }
+        
+        /* Mountain Icon Container */
+        .mountain-container {
+            position: relative; width: 350px; height: 250px;
+            opacity: 0; animation: mountainAppear 2s ease-out 0.5s forwards;
+        }
+        @keyframes mountainAppear {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .mountain-icon {
+            width: 100%; height: 100%;
+        }
+        
+        /* Ski stats */
+        .ski-stats {
+            display: flex;
+            gap: 50px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--snow);
+            text-shadow: 0 0 20px rgba(168,200,232,0.5);
+        }
+        .stat-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--ice);
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        
+        /* CTA Button */
+        .cta-btn {
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 2s forwards;
+        }
+        .cta-btn a {
+            display: inline-block;
+            padding: 18px 50px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--deep-blue);
+            background: linear-gradient(135deg, var(--snow) 0%, var(--ice) 50%, var(--snow) 100%);
+            transition: all 0.4s ease;
+            box-shadow: 0 0 30px rgba(168,200,232,0.4);
+        }
+        .cta-btn a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(168,200,232,0.6);
+        }
+        
+        /* Title */
+        .main-title {
+            font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 400; letter-spacing: 8px;
+            margin-top: 40px; opacity: 0;
+            animation: titleReveal 1.5s ease-out 1s forwards;
+            text-shadow: 0 0 60px rgba(0,0,0,0.9);
+        }
+        .main-title .accent {
+            display: block; font-family: 'Cormorant Garamond', serif;
+            font-size: 0.4em; font-weight: 300; font-style: italic;
+            letter-spacing: 6px; color: var(--ice); margin-top: 15px;
+            animation: accentGlow 3s ease-in-out infinite;
+        }
+        @keyframes accentGlow {
+            0%, 100% { opacity: 0.6; text-shadow: none; }
+            50% { opacity: 1; text-shadow: 0 0 20px rgba(168,200,232,0.5); }
+        }
+        @keyframes titleReveal {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Footer */
+        .footer {
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: 'Cormorant Garamond', serif; font-size: 0.85rem;
+            font-style: italic; letter-spacing: 3px; color: var(--ice);
+            animation: fadeIn 2s ease-out 1.5s both;
+        }
+        .footer .open { color: #4ade80; }
+        
+        /* Preloader */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--deep-blue); z-index: 2000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader-icon {
+            font-size: 60px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .preloader-text {
+            margin-top: 30px; font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem; font-style: italic; letter-spacing: 6px; color: var(--ice);
+            animation: textPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @media (max-width: 768px) {
+            .cinematic-bar { height: 40px; }
+            .main-wrapper { padding: 55px 20px; }
+            .mountain-container { width: 280px; height: 200px; }
+            .header { flex-direction: column; gap: 15px; text-align: center; padding-left: 0; }
+            .footer { flex-direction: column; gap: 10px; text-align: center; }
+            .back-btn { top: 50px; left: 20px; padding: 8px 15px; }
+            .ski-stats { gap: 30px; }
+            .stat-value { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="preloader-icon">⛷️</div>
+        <div class="preloader-text">Waxing the skis...</div>
+    </div>
+    
+    <a href="dublin-fresh.html#gallery" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        BACK TO GALLERY
+    </a>
+    
+    <div class="cinematic-bar top"></div>
+    <div class="cinematic-bar bottom"></div>
+    
+    <!-- Background Video -->
+    <div class="video-container">
+        <video class="video-bg" autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/3342/3342-720.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="vignette"></div>
+    <div class="snowflakes" id="snowflakes"></div>
+    
+    <div class="main-wrapper">
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">⛷️</span>HOLIDAY VALLEY
+            </div>
+            <div class="nav-hint">Ellicottville, NY — Est. 1957</div>
+        </header>
+        
+        <div class="center-content">
+            <!-- Mountain SVG -->
+            <div class="mountain-container">
+                <svg class="mountain-icon" viewBox="0 0 350 250">
+                    <!-- Background mountains -->
+                    <path d="M0 250 L60 120 L100 180 L140 100 L180 160 L220 80 L280 150 L320 90 L350 250 Z" fill="#1a2e4a" opacity="0.5"/>
+                    <!-- Main mountain -->
+                    <path d="M50 250 L175 50 L300 250 Z" fill="#2d4a6a"/>
+                    <!-- Snow cap -->
+                    <path d="M175 50 L140 110 L155 100 L175 120 L195 100 L210 110 Z" fill="#e8f4ff"/>
+                    <!-- Ski trails -->
+                    <path d="M175 120 Q160 160 170 200 Q175 220 165 250" stroke="#a8c8e8" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M175 120 Q190 150 185 190 Q180 220 195 250" stroke="#a8c8e8" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M175 120 Q175 180 175 250" stroke="#a8c8e8" stroke-width="3" fill="none" opacity="0.8"/>
+                    <!-- Trees -->
+                    <path d="M80 250 L90 220 L85 220 L95 190 L90 190 L100 160 L95 160 L105 130 L115 160 L110 160 L120 190 L115 190 L125 220 L120 220 L130 250 Z" fill="#1a3a2a"/>
+                    <path d="M260 250 L270 220 L265 220 L275 190 L270 190 L280 160 L275 160 L285 130 L295 160 L290 160 L300 190 L295 190 L305 220 L300 220 L310 250 Z" fill="#1a3a2a"/>
+                    <!-- Ski lift line -->
+                    <line x1="100" y1="180" x2="260" y2="100" stroke="#4a6b8a" stroke-width="1.5" opacity="0.7"/>
+                    <!-- Lift chairs -->
+                    <rect x="130" y="150" width="8" height="15" fill="#2d4a6a" rx="1"/>
+                    <rect x="180" y="130" width="8" height="15" fill="#2d4a6a" rx="1"/>
+                    <rect x="230" y="110" width="8" height="15" fill="#2d4a6a" rx="1"/>
+                </svg>
+            </div>
+            
+            <h1 class="main-title">
+                Ski Holiday Valley
+                <span class="accent">Where winter dreams come alive</span>
+            </h1>
+            
+            <div class="ski-stats">
+                <div class="stat-item">
+                    <div class="stat-value">60</div>
+                    <div class="stat-label">Slopes & Trails</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">750'</div>
+                    <div class="stat-label">Vertical Drop</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Lifts</div>
+                </div>
+            </div>
+            
+            <div class="cta-btn">
+                <a href="https://www.holidayvalley.com" target="_blank">Plan Your Trip</a>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <div>Current Temp: 28°F</div>
+            <div>Base Depth: 36" — Fresh Powder</div>
+            <div class="open">● Lifts Open</div>
+        </footer>
+    </div>
+    
+    <script>
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.width = (Math.random() * 4 + 2) + 'px';
+                snowflake.style.height = snowflake.style.width;
+                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                snowflake.style.animationDelay = (Math.random() * 8) + 's';
+                container.appendChild(snowflake);
+            }
+        }
+        
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 2000);
+        });
+        
+        createSnowflakes();
+    </script>
+</body>
+</html>
