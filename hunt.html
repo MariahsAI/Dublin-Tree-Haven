@@ -360,13 +360,97 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* Tablet */
+        @media (max-width: 900px) {
+            .scope-container { width: 350px; height: 350px; }
+            .main-title { font-size: clamp(1.6rem, 4vw, 2.5rem); letter-spacing: 5px; }
+        }
+        
+        /* Mobile */
         @media (max-width: 768px) {
-            .cinematic-bar { height: 40px; }
-            .main-wrapper { padding: 55px 20px; }
-            .scope-container { width: 300px; height: 300px; }
-            .header { flex-direction: column; gap: 15px; text-align: center; padding-left: 0; }
-            .footer { flex-direction: column; gap: 10px; text-align: center; }
-            .back-btn { top: 50px; left: 20px; padding: 8px 15px; }
+            .cinematic-bar { height: 35px; }
+            .main-wrapper { padding: 50px 15px; }
+            .scope-container { width: 280px; height: 280px; }
+            .header { flex-direction: column; gap: 10px; text-align: center; padding-left: 0; }
+            .logo { font-size: 1rem; letter-spacing: 4px; }
+            .nav-hint { font-size: 0.8rem; letter-spacing: 2px; }
+            .footer { flex-direction: column; gap: 8px; text-align: center; font-size: 0.75rem; }
+            .back-btn { 
+                top: 45px; 
+                left: 15px; 
+                padding: 8px 12px; 
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+            .back-btn svg { width: 14px; height: 14px; }
+            .main-title { 
+                font-size: 1.5rem; 
+                letter-spacing: 4px; 
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+            .main-title .accent { 
+                font-size: 0.45em; 
+                letter-spacing: 3px;
+                margin-top: 10px;
+            }
+            .aim-circle { width: 65px; height: 65px; }
+            .aim-icon { font-size: 1.2rem; }
+            .aim-text { font-size: 0.7rem; letter-spacing: 2px; bottom: -30px; }
+            .enter-btn a { 
+                padding: 14px 35px; 
+                font-size: 0.75rem; 
+                letter-spacing: 4px;
+            }
+            .distance { font-size: 0.55rem; letter-spacing: 3px; bottom: 25px; }
+            .breath-indicator { width: 5px; height: 45px; right: 25px; }
+            .foliage { width: 100px; height: 100px; }
+            .foliage.tl { top: 35px; }
+            .foliage.br { bottom: 35px; }
+        }
+        
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .cinematic-bar { height: 30px; }
+            .main-wrapper { padding: 40px 10px; }
+            .scope-container { width: 240px; height: 240px; }
+            .back-btn { 
+                top: 38px; 
+                left: 10px; 
+                padding: 6px 10px;
+                font-size: 0.65rem;
+            }
+            .logo { font-size: 0.9rem; letter-spacing: 3px; }
+            .nav-hint { font-size: 0.7rem; letter-spacing: 1px; }
+            .main-title { 
+                font-size: 1.2rem; 
+                letter-spacing: 3px;
+                margin-top: 25px;
+            }
+            .main-title .accent { 
+                font-size: 0.5em;
+                letter-spacing: 2px;
+            }
+            .aim-circle { width: 55px; height: 55px; }
+            .aim-icon { font-size: 1rem; }
+            .aim-text { font-size: 0.6rem; letter-spacing: 1px; }
+            .enter-btn a { 
+                padding: 12px 25px; 
+                font-size: 0.7rem;
+                letter-spacing: 3px;
+            }
+            .footer { font-size: 0.7rem; letter-spacing: 2px; }
+            .scope-interior { top: 15px; left: 15px; right: 15px; bottom: 15px; }
+            .scope-detail { width: 10px; height: 10px; }
+            .scope-detail.top { top: -5px; }
+            .scope-detail.bottom { bottom: -5px; }
+            .scope-detail.left { left: -5px; }
+            .scope-detail.right { right: -5px; }
+            .distance { font-size: 0.5rem; bottom: 20px; }
+            .breath-indicator { width: 4px; height: 35px; right: 20px; }
+            .foliage { display: none; }
+            .preloader-scope { width: 70px; height: 70px; }
+            .preloader-text { font-size: 0.85rem; letter-spacing: 4px; }
         }
     </style>
 </head>
