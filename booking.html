@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay | Dublin Tree Haven</title>
+    <link rel="icon" type="image/jpeg" href="dublin-tree-haven-logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-forest: #1a2e1a;
+            --moss: #2d4a2d;
+            --sage: #5a7a5a;
+            --gold: #c9a962;
+            --gold-light: #e4d4a5;
+            --cream: #f5f2eb;
+            --cream-dark: #ebe7dc;
+            --bark: #4a3728;
+            --white: #ffffff;
+            --error: #c94444;
+            --success: #44c962;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; background: var(--cream); color: var(--deep-forest); min-height: 100vh; }
+
+        /* Header */
+        .booking-header {
+            background: var(--deep-forest);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .header-logo img { height: 45px; width: 45px; object-fit: contain; }
+        .header-logo span { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--gold); letter-spacing: 2px; }
+        .header-secure { display: flex; align-items: center; gap: 8px; color: var(--cream); font-size: 0.8rem; }
+        .header-secure svg { width: 16px; height: 16px; stroke: var(--gold); }
+
+        /* Progress */
+        .progress-bar { background: var(--white); padding: 20px 40px; border-bottom: 1px solid var(--cream-dark); }
+        .progress-steps { display: flex; justify-content: center; align-items: center; gap: 15px; max-width: 500px; margin: 0 auto; }
+        .step { display: flex; align-items: center; gap: 8px; }
+        .step-number { width: 28px; height: 28px; border-radius: 50%; background: var(--cream); color: var(--sage); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; }
+        .step.active .step-number { background: var(--gold); color: var(--deep-forest); }
+        .step.completed .step-number { background: var(--success); color: var(--white); }
+        .step-label { font-size: 0.8rem; color: var(--sage); }
+        .step.active .step-label { color: var(--deep-forest); font-weight: 600; }
+        .step-connector { width: 50px; height: 2px; background: var(--cream-dark); }
+
+        /* Main */
+        .booking-main { max-width: 1100px; margin: 0 auto; padding: 30px 40px; display: grid; grid-template-columns: 1fr 380px; gap: 30px; }
+
+        /* Forms */
+        .booking-forms { display: flex; flex-direction: column; gap: 25px; }
+        .form-section { background: var(--white); border-radius: 12px; padding: 25px; box-shadow: 0 2px 15px rgba(26,46,26,0.06); }
+        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--deep-forest); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title svg { width: 22px; height: 22px; stroke: var(--gold); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--bark); margin-bottom: 6px; }
+        .form-group label .required { color: var(--error); }
+        .form-group input, .form-group select { width: 100%; padding: 12px 14px; border: 2px solid var(--cream-dark); border-radius: 8px; font-family: 'Raleway', sans-serif; font-size: 0.95rem; color: var(--deep-forest); background: var(--white); transition: all 0.3s ease; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,98,0.1); }
+        .form-group input::placeholder { color: var(--sage); }
+        .form-group textarea { width: 100%; padding: 12px 14px; border: 2px solid var(--cream-dark); border-radius: 8px; font-family: 'Raleway', sans-serif; font-size: 0.95rem; resize: none; height: 80px; }
+        .form-group textarea:focus { outline: none; border-color: var(--gold); }
+
+        /* Trip Details */
+        .trip-details { background: var(--cream); border-radius: 8px; padding: 18px; margin-bottom: 20px; }
+        .trip-dates { display: flex; align-items: center; gap: 12px; }
+        .date-box { flex: 1; text-align: center; padding: 12px; background: var(--white); border-radius: 8px; }
+        .date-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--sage); margin-bottom: 4px; }
+        .date-value { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--deep-forest); font-weight: 600; }
+        .date-arrow svg { width: 20px; height: 20px; stroke: var(--gold); }
+        .trip-guests { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--cream-dark); display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+        .guests-info { display: flex; align-items: center; gap: 8px; }
+        .guests-info svg { width: 18px; height: 18px; stroke: var(--sage); }
+        .edit-link { color: var(--gold); text-decoration: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+
+        /* Payment */
+        .payment-methods { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .payment-option { display: flex; align-items: center; gap: 12px; padding: 15px; border: 2px solid var(--cream-dark); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .payment-option:hover { border-color: var(--sage); }
+        .payment-option.selected { border-color: var(--gold); background: rgba(201,169,98,0.05); }
+        .payment-radio { width: 18px; height: 18px; border: 2px solid var(--sage); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .payment-option.selected .payment-radio { border-color: var(--gold); }
+        .payment-radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); opacity: 0; }
+        .payment-option.selected .payment-radio::after { opacity: 1; }
+        .payment-info { flex: 1; }
+        .payment-title { font-weight: 600; color: var(--deep-forest); font-size: 0.95rem; }
+        .payment-desc { font-size: 0.8rem; color: var(--sage); }
+        .card-icons { display: flex; gap: 5px; }
+        .card-icon { width: 36px; height: 24px; background: var(--cream); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold; color: var(--bark); }
+
+        /* Summary */
+        .booking-summary { position: sticky; top: 100px; }
+        .summary-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 15px rgba(26,46,26,0.06); }
+        .summary-property { display: flex; gap: 12px; padding: 18px; border-bottom: 1px solid var(--cream-dark); }
+        .property-image { width: 100px; height: 75px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+        .property-image img { width: 100%; height: 100%; object-fit: cover; }
+        .property-info { flex: 1; }
+        .property-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--deep-forest); margin-bottom: 4px; }
+        .property-location { font-size: 0.8rem; color: var(--sage); display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+        .property-location svg { width: 12px; height: 12px; }
+        .property-rating { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; }
+        .star { color: var(--gold); }
+        .summary-dates { padding: 15px 18px; background: var(--cream); }
+        .summary-date-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; }
+        .summary-date-row:last-child { margin-bottom: 0; }
+        .summary-date-label { color: var(--sage); }
+        .summary-date-value { font-weight: 600; }
+        .summary-pricing { padding: 18px; }
+        .price-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; }
+        .price-row.discount { color: var(--success); }
+        .price-row.total { margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--cream-dark); font-size: 1.05rem; font-weight: 600; }
+        .booking-cta { padding: 18px; background: var(--cream); }
+        .btn-book { width: 100%; padding: 16px; background: var(--gold); color: var(--deep-forest); border: none; border-radius: 8px; font-family: 'Raleway', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: all 0.3s ease; }
+        .btn-book:hover { background: var(--deep-forest); color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,46,26,0.2); }
+        .secure-note { text-align: center; margin-top: 12px; font-size: 0.75rem; color: var(--sage); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .secure-note svg { width: 14px; height: 14px; }
+
+        /* Policies */
+        .policies { padding: 18px; border-top: 1px solid var(--cream-dark); }
+        .policy-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; font-size: 0.8rem; color: var(--bark); }
+        .policy-item:last-child { margin-bottom: 0; }
+        .policy-item svg { width: 16px; height: 16px; stroke: var(--success); flex-shrink: 0; margin-top: 2px; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .booking-main { grid-template-columns: 1fr; padding: 20px; }
+            .booking-summary { position: relative; top: 0; order: -1; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .booking-header { padding: 12px 20px; }
+            .header-logo span { display: none; }
+            .progress-steps { gap: 8px; }
+            .step-label { display: none; }
+            .step-connector { width: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="booking-header">
+        <a href="dublin-fresh.html" class="header-logo">
+            <img src="dublin-tree-haven-logo.jpg" alt="Dublin Tree Haven">
+            <span>Dublin Tree Haven</span>
+        </a>
+        <div class="header-secure">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure Checkout
+        </div>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress-bar">
+        <div class="progress-steps">
+            <div class="step completed">
+                <div class="step-number">✓</div>
+                <span class="step-label">Select</span>
+            </div>
+            <div class="step-connector completed"></div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <span class="step-label">Details</span>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <span class="step-label">Confirm</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="booking-main">
+        <!-- Left - Forms -->
+        <div class="booking-forms">
+            <!-- Trip Details -->
+            <section class="form-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Your Trip
+                </h2>
+                <div class="trip-details">
+                    <div class="trip-dates">
+                        <div class="date-box">
+                            <div class="date-label">Check-in</div>
+                            <div class="date-value">Fri, Dec 13</div>
+                        </div>
+                        <div class="date-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </div>
+                        <div class="date-box">
+                            <div class="date-label">Check-out</div>
+                            <div class="date-value">Sat, Dec 20</div>
+                        </div>
+                    </div>
+                    <div class="trip-guests">
+                        <div class="guests-info">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            <span>2 Guests • 7 Nights</span>
+                        </div>
+                        <a class="edit-link" onclick="history.back()">Edit</a>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Check-in Time</label>
+                        <select>
+                            <option>3:00 PM - 4:00 PM</option>
+                            <option>4:00 PM - 5:00 PM</option>
+                            <option>5:00 PM - 6:00 PM</option>
+                            <option>6:00 PM - 7:00 PM</option>
+                            <option selected>Flexible</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Purpose of Trip</label>
+                        <select>
+                            <option selected>Leisure / Vacation</option>
+                            <option>Romantic Getaway</option>
+                            <option>Family Retreat</option>
+                            <option>Special Occasion</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Guest Details -->
+            <section class="form-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Guest Details
+                </h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name <span class="required">*</span></label>
+                        <input type="text" placeholder="Enter first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name <span class="required">*</span></label>
+                        <input type="text" placeholder="Enter last name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number <span class="required">*</span></label>
+                        <input type="tel" placeholder="+353 1 234 5678" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Country of Residence</label>
+                    <select>
+                        <option>Ireland</option>
+                        <option>United Kingdom</option>
+                        <option>United States</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Special Requests (Optional)</label>
+                    <textarea placeholder="Any special requirements, celebrations, or requests..."></textarea>
+                </div>
+            </section>
+
+            <!-- Payment -->
+            <section class="form-section">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                    Payment Method
+                </h2>
+                <div class="payment-methods">
+                    <div class="payment-option selected" onclick="selectPayment(this)">
+                        <div class="payment-radio"></div>
+                        <div class="payment-info">
+                            <div class="payment-title">Credit or Debit Card</div>
+                            <div class="payment-desc">Pay securely with your card</div>
+                        </div>
+                        <div class="card-icons">
+                            <div class="card-icon">VISA</div>
+                            <div class="card-icon">MC</div>
+                            <div class="card-icon">AMEX</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment(this)">
+                        <div class="payment-radio"></div>
+                        <div class="payment-info">
+                            <div class="payment-title">PayPal</div>
+                            <div class="payment-desc">Fast and secure payment</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment(this)">
+                        <div class="payment-radio"></div>
+                        <div class="payment-info">
+                            <div class="payment-title">Bank Transfer</div>
+                            <div class="payment-desc">Pay directly from your bank</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Cardholder Name <span class="required">*</span></label>
+                    <input type="text" placeholder="Name on card">
+                </div>
+                <div class="form-group">
+                    <label>Card Number <span class="required">*</span></label>
+                    <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Expiry Date <span class="required">*</span></label>
+                        <input type="text" placeholder="MM / YY" maxlength="7">
+                    </div>
+                    <div class="form-group">
+                        <label>CVV <span class="required">*</span></label>
+                        <input type="text" placeholder="123" maxlength="4">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right - Summary -->
+        <aside class="booking-summary">
+            <div class="summary-card">
+                <div class="summary-property">
+                    <div class="property-image">
+                        <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=400" alt="The Oak Sanctuary">
+                    </div>
+                    <div class="property-info">
+                        <h3 class="property-name">The Oak Sanctuary</h3>
+                        <div class="property-location">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Wicklow Mountains, Ireland
+                        </div>
+                        <div class="property-rating">
+                            <span class="star">★★★★★</span>
+                            <span>4.9 (127 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-dates">
+                    <div class="summary-date-row">
+                        <span class="summary-date-label">Check-in</span>
+                        <span class="summary-date-value">Fri, Dec 13, 2025</span>
+                    </div>
+                    <div class="summary-date-row">
+                        <span class="summary-date-label">Check-out</span>
+                        <span class="summary-date-value">Sat, Dec 20, 2025</span>
+                    </div>
+                    <div class="summary-date-row">
+                        <span class="summary-date-label">Guests</span>
+                        <span class="summary-date-value">2 Adults</span>
+                    </div>
+                </div>
+
+                <div class="summary-pricing">
+                    <div class="price-row">
+                        <span>€450 × 7 nights</span>
+                        <span>€3,150</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Cleaning fee</span>
+                        <span>€150</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Service fee</span>
+                        <span>€120</span>
+                    </div>
+                    <div class="price-row discount">
+                        <span>Weekly discount (10%)</span>
+                        <span>-€315</span>
+                    </div>
+                    <div class="price-row total">
+                        <span>Total (EUR)</span>
+                        <span>€3,105</span>
+                    </div>
+                </div>
+
+                <div class="booking-cta">
+                    <button class="btn-book" onclick="confirmBooking()">Confirm & Pay €3,105</button>
+                    <div class="secure-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        Your payment is secure and encrypted
+                    </div>
+                </div>
+
+                <div class="policies">
+                    <div class="policy-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>Free cancellation until Dec 6, 2025</span>
+                    </div>
+                    <div class="policy-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>No payment today - pay when you arrive</span>
+                    </div>
+                    <div class="policy-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span>24/7 concierge support included</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        function selectPayment(el) {
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function confirmBooking() {
+            // Validate required fields
+            const required = document.querySelectorAll('input[required]');
+            let valid = true;
+            required.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#c94444';
+                    valid = false;
+                } else {
+                    input.style.borderColor = '#ebe7dc';
+                }
+            });
+
+            if (valid) {
+                alert('Thank you for your booking! A confirmation email will be sent shortly. We look forward to welcoming you to Dublin Tree Haven.');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        }
+
+        // Format card number
+        document.querySelector('input[placeholder="1234 5678 9012 3456"]')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formatted;
+        });
+
+        // Format expiry
+        document.querySelector('input[placeholder="MM / YY"]')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0,2) + ' / ' + value.substring(2,4);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
