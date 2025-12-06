@@ -112,11 +112,6 @@
             animation: fadeInDown 1.5s ease-out;
             padding-left: 140px;
         }
-        .logo {
-            font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 600;
-            letter-spacing: 6px; color: var(--snow);
-        }
-        .logo-icon { margin-right: 10px; opacity: 0.9; }
         .nav-hint {
             font-family: 'Cormorant Garamond', serif; font-style: italic;
             font-size: 0.9rem; letter-spacing: 3px; color: var(--ice);
@@ -126,20 +121,6 @@
         .center-content {
             flex: 1; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-        }
-        
-        /* Mountain Icon Container */
-        .mountain-container {
-            position: relative; width: 350px; height: 250px;
-            opacity: 0; animation: mountainAppear 2s ease-out 0.5s forwards;
-        }
-        @keyframes mountainAppear {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        .mountain-icon {
-            width: 100%; height: 100%;
         }
         
         /* Ski stats */
@@ -256,7 +237,6 @@
         @media (max-width: 768px) {
             .cinematic-bar { height: 40px; }
             .main-wrapper { padding: 55px 20px; }
-            .mountain-container { width: 280px; height: 200px; }
             .header { flex-direction: column; gap: 15px; text-align: center; padding-left: 0; }
             .footer { flex-direction: column; gap: 10px; text-align: center; }
             .back-btn { top: 50px; left: 20px; padding: 8px 15px; }
@@ -294,38 +274,11 @@
     
     <div class="main-wrapper">
         <header class="header">
-            <div class="logo">
-                <span class="logo-icon">⛷️</span>HOLIDAY VALLEY
-            </div>
+            <div></div>
             <div class="nav-hint">Ellicottville, NY — Est. 1957</div>
         </header>
         
         <div class="center-content">
-            <!-- Mountain SVG -->
-            <div class="mountain-container">
-                <svg class="mountain-icon" viewBox="0 0 350 250">
-                    <!-- Background mountains -->
-                    <path d="M0 250 L60 120 L100 180 L140 100 L180 160 L220 80 L280 150 L320 90 L350 250 Z" fill="#1a2e4a" opacity="0.5"/>
-                    <!-- Main mountain -->
-                    <path d="M50 250 L175 50 L300 250 Z" fill="#2d4a6a"/>
-                    <!-- Snow cap -->
-                    <path d="M175 50 L140 110 L155 100 L175 120 L195 100 L210 110 Z" fill="#e8f4ff"/>
-                    <!-- Ski trails -->
-                    <path d="M175 120 Q160 160 170 200 Q175 220 165 250" stroke="#a8c8e8" stroke-width="2" fill="none" opacity="0.6"/>
-                    <path d="M175 120 Q190 150 185 190 Q180 220 195 250" stroke="#a8c8e8" stroke-width="2" fill="none" opacity="0.6"/>
-                    <path d="M175 120 Q175 180 175 250" stroke="#a8c8e8" stroke-width="3" fill="none" opacity="0.8"/>
-                    <!-- Trees -->
-                    <path d="M80 250 L90 220 L85 220 L95 190 L90 190 L100 160 L95 160 L105 130 L115 160 L110 160 L120 190 L115 190 L125 220 L120 220 L130 250 Z" fill="#1a3a2a"/>
-                    <path d="M260 250 L270 220 L265 220 L275 190 L270 190 L280 160 L275 160 L285 130 L295 160 L290 160 L300 190 L295 190 L305 220 L300 220 L310 250 Z" fill="#1a3a2a"/>
-                    <!-- Ski lift line -->
-                    <line x1="100" y1="180" x2="260" y2="100" stroke="#4a6b8a" stroke-width="1.5" opacity="0.7"/>
-                    <!-- Lift chairs -->
-                    <rect x="130" y="150" width="8" height="15" fill="#2d4a6a" rx="1"/>
-                    <rect x="180" y="130" width="8" height="15" fill="#2d4a6a" rx="1"/>
-                    <rect x="230" y="110" width="8" height="15" fill="#2d4a6a" rx="1"/>
-                </svg>
-            </div>
-            
             <h1 class="main-title">
                 Ski Holiday Valley
                 <span class="accent">Where winter dreams come alive</span>
@@ -341,20 +294,20 @@
                     <div class="stat-label">Vertical Drop</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-value">12</div>
+                    <div class="stat-value">13</div>
                     <div class="stat-label">Lifts</div>
                 </div>
             </div>
             
             <div class="cta-btn">
-                <a href="https://www.holidayvalley.com" target="_blank">Plan Your Trip</a>
+                <a href="https://www.holidayvalley.com/" target="_blank">Plan Your Trip</a>
             </div>
         </div>
         
         <footer class="footer">
-            <div>Current Temp: 28°F</div>
-            <div>Base Depth: 36" — Fresh Powder</div>
-            <div class="open">● Lifts Open</div>
+            <div>Current Temp: 24°F</div>
+            <div>Base Depth: 31" — Fresh Snow</div>
+            <div class="open">● Season Open</div>
         </footer>
     </div>
     
