@@ -20,6 +20,9 @@
             --white: #ffffff;
         }
         html, body { height: 100%; overflow: hidden; }
+        @media (max-width: 768px) {
+            html, body { overflow-x: hidden; overflow-y: auto; }
+        }
         body { font-family: 'Raleway', sans-serif; background: var(--deep-blue); color: var(--snow); }
         
         /* Back button */
@@ -306,8 +309,17 @@
         @media (max-width: 768px) {
             .cinematic-bar { height: 35px; }
             .main-wrapper { padding: 50px 15px; }
-            .header { flex-direction: column; gap: 10px; text-align: center; padding-left: 0; }
-            .nav-hint { font-size: 0.8rem; letter-spacing: 2px; }
+            .header { 
+                flex-direction: row; 
+                justify-content: flex-end;
+                padding-left: 0; 
+                padding-right: 10px;
+            }
+            .nav-hint { 
+                font-size: 0.75rem; 
+                letter-spacing: 2px; 
+                text-align: right;
+            }
             .footer { flex-direction: column; gap: 8px; text-align: center; font-size: 0.75rem; }
             .back-btn { 
                 top: 45px; 
