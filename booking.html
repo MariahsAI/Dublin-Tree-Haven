@@ -252,9 +252,6 @@
             .booking-main {
                 padding-bottom: 100px;
             }
-            .policies {
-                display: none;
-            }
         }
 
         /* Mobile Price Banner */
@@ -298,6 +295,76 @@
             }
             .booking-forms {
                 order: 1;
+            }
+        }
+
+        /* Mobile Policies Section */
+        .mobile-policies {
+            display: none;
+        }
+        .mobile-policy-item {
+            border-bottom: 1px solid var(--cream-dark);
+            padding: 0;
+        }
+        .mobile-policy-item:last-of-type {
+            border-bottom: none;
+        }
+        .mobile-policy-header {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            cursor: pointer;
+            gap: 10px;
+        }
+        .mobile-policy-header span:first-child {
+            flex: 1;
+            font-weight: 600;
+            color: var(--deep-forest);
+        }
+        .mobile-policy-header .chevron {
+            width: 18px;
+            height: 18px;
+            stroke: var(--sage);
+            transition: transform 0.3s;
+        }
+        .mobile-policy-header.open .chevron {
+            transform: rotate(180deg);
+        }
+        .policy-badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            background: var(--cream);
+            border-radius: 4px;
+            color: var(--bark);
+            font-weight: 600;
+        }
+        .mobile-policy-content {
+            display: none;
+            padding: 0 0 15px 0;
+            font-size: 0.85rem;
+            color: var(--bark);
+            line-height: 1.8;
+        }
+        .mobile-policy-content.open {
+            display: block;
+        }
+        .mobile-policy-content p {
+            margin: 0;
+        }
+        .mobile-legal {
+            padding: 15px 0 0;
+            font-size: 0.8rem;
+            color: var(--sage);
+            border-top: 1px solid var(--cream-dark);
+            margin-top: 10px;
+        }
+        .mobile-legal a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        @media (max-width: 900px) {
+            .mobile-policies {
+                display: block;
             }
         }
 
@@ -586,6 +653,57 @@
                         <label>CVV <span class="required">*</span></label>
                         <input type="text" placeholder="123" maxlength="4">
                     </div>
+                </div>
+            </section>
+
+            <!-- Mobile Policies (shows only on mobile) -->
+            <section class="form-section mobile-policies">
+                <h2 class="section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Policies & Rules
+                </h2>
+                
+                <div class="mobile-policy-item">
+                    <div class="mobile-policy-header" onclick="toggleMobilePolicy(this)">
+                        <span>Cancellation policy</span>
+                        <span class="policy-badge">Partially refundable</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="mobile-policy-content">
+                        <p>• 50% refund if cancelled before <span id="mobile-cancel-date">Dec 6, 2025</span></p>
+                        <p>• No refund after that date</p>
+                        <p>• Service fee only refundable when fully refundable</p>
+                    </div>
+                </div>
+
+                <div class="mobile-policy-item">
+                    <div class="mobile-policy-header" onclick="toggleMobilePolicy(this)">
+                        <span>House rules</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="mobile-policy-content">
+                        <p>• Minimum age: 21</p>
+                        <p>• No smoking</p>
+                        <p>• No pets</p>
+                        <p>• No parties</p>
+                        <p>• Quiet hours: 10 PM - 8 AM</p>
+                    </div>
+                </div>
+
+                <div class="mobile-policy-item">
+                    <div class="mobile-policy-header" onclick="toggleMobilePolicy(this)">
+                        <span>Check-out instructions</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="mobile-policy-content">
+                        <p>• Check-out by 11:00 AM</p>
+                        <p>• Leave keys on kitchen counter</p>
+                        <p>• Lock all doors and windows</p>
+                    </div>
+                </div>
+
+                <div class="mobile-legal">
+                    <p>By booking, you agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.</p>
                 </div>
             </section>
         </div>
@@ -967,6 +1085,10 @@
             const cancelDateStr = formatDatePolicy(cancelDate);
             document.getElementById('cancel-date-50').textContent = cancelDateStr;
             document.getElementById('cancel-date-100').textContent = cancelDateStr;
+            
+            // Update mobile cancel date
+            const mobileCancelDate = document.getElementById('mobile-cancel-date');
+            if (mobileCancelDate) mobileCancelDate.textContent = cancelDateStr;
 
             // Update checkout minimum date
             const minCheckout = new Date(state.checkin);
@@ -1015,6 +1137,24 @@
             if (!isOpen) {
                 header.classList.add('open');
                 content.style.display = 'block';
+            }
+        }
+
+        // Mobile policy accordion
+        function toggleMobilePolicy(header) {
+            const content = header.nextElementSibling;
+            const isOpen = header.classList.contains('open');
+            
+            // Close all others
+            document.querySelectorAll('.mobile-policy-header').forEach(h => {
+                h.classList.remove('open');
+                h.nextElementSibling.classList.remove('open');
+            });
+            
+            // Toggle this one
+            if (!isOpen) {
+                header.classList.add('open');
+                content.classList.add('open');
             }
         }
 
