@@ -152,7 +152,13 @@
             color: var(--ice);
             letter-spacing: 2px;
             margin-top: 5px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.8);
+        }
+        .stat-label span {
+            padding: 4px 10px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2px;
         }
         
         /* CTA Button */
@@ -192,7 +198,15 @@
             display: block; font-family: 'Cormorant Garamond', serif;
             font-size: 0.4em; font-weight: 300; font-style: italic;
             letter-spacing: 6px; color: var(--ice); margin-top: 15px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.8);
+        }
+        .main-title .accent span {
+            padding: 5px 12px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 2px;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
         }
         @keyframes accentGlow {
             0%, 100% { opacity: 0.6; text-shadow: none; }
@@ -275,6 +289,7 @@
             .stat-item { min-width: 80px; }
             .stat-value { font-size: 1.8rem; }
             .stat-label { font-size: 0.75rem; }
+            .stat-label span { padding: 3px 8px; }
             .main-title { 
                 font-size: 1.6rem; 
                 letter-spacing: 4px; 
@@ -286,6 +301,7 @@
                 letter-spacing: 3px;
                 margin-top: 10px;
             }
+            .main-title .accent span { padding: 4px 10px; }
             .cta-btn { margin-top: 30px; }
             .cta-btn a { 
                 padding: 14px 35px; 
@@ -308,6 +324,7 @@
             .ski-stats { gap: 15px; }
             .stat-value { font-size: 1.5rem; }
             .stat-label { font-size: 0.7rem; letter-spacing: 1px; }
+            .stat-label span { padding: 2px 6px; }
             .main-title { 
                 font-size: 1.3rem; 
                 letter-spacing: 3px;
@@ -316,6 +333,7 @@
                 font-size: 0.55em;
                 letter-spacing: 2px;
             }
+            .main-title .accent span { padding: 3px 8px; }
             .cta-btn a { 
                 padding: 12px 25px; 
                 font-size: 0.7rem;
@@ -362,21 +380,21 @@
         <div class="center-content">
             <h1 class="main-title">
                 Ski Holiday Valley
-                <span class="accent">Where winter dreams come alive</span>
+                <span class="accent"><span>Where winter dreams come alive</span></span>
             </h1>
             
             <div class="ski-stats">
                 <div class="stat-item">
                     <div class="stat-value">60</div>
-                    <div class="stat-label">Slopes & Trails</div>
+                    <div class="stat-label"><span>Slopes & Trails</span></div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">750'</div>
-                    <div class="stat-label">Vertical Drop</div>
+                    <div class="stat-label"><span>Vertical Drop</span></div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-value">13</div>
-                    <div class="stat-label">Lifts</div>
+                    <div class="stat-label"><span>Lifts</span></div>
                 </div>
             </div>
             
