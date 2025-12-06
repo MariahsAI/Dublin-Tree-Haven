@@ -851,7 +851,7 @@
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(2, 300px);
+            grid-template-rows: repeat(2, 300px) 300px;
             gap: 15px;
             max-width: 1600px;
             margin: 0 auto;
@@ -867,6 +867,11 @@
         .gallery-item:nth-child(1) {
             grid-column: span 2;
             grid-row: span 2;
+        }
+
+        /* Skiing item spans 2 columns */
+        .ski-gallery-item {
+            grid-column: span 2;
         }
 
         .gallery-item img,
@@ -908,6 +913,240 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             color: var(--white);
+        }
+
+        /* Scope Gallery Item - Cinematic */
+        .scope-gallery-item {
+            background: #0a0f0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .scope-bg-video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+        .scope-fog-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at center, transparent 20%, rgba(10,15,10,0.7) 70%),
+                linear-gradient(to bottom, rgba(10,15,10,0.4) 0%, rgba(10,15,10,0.2) 50%, rgba(10,15,10,0.6) 100%);
+            pointer-events: none;
+        }
+        .scope-vignette {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
+        .scope-fireflies {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .scope-firefly {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--gold), 0 0 12px var(--gold);
+            animation: fireflyGallery 8s ease-in-out infinite;
+        }
+        @keyframes fireflyGallery {
+            0%, 100% { opacity: 0; transform: translateY(0) translateX(0); }
+            10%, 90% { opacity: 0.7; }
+            50% { opacity: 1; transform: translateY(-20px) translateX(10px); }
+        }
+        .scope-container-gallery {
+            position: relative;
+            width: 65%;
+            aspect-ratio: 1;
+            max-width: 320px;
+            z-index: 10;
+        }
+        .scope-ring-gallery {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 6px solid #3d2e1f;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 80px rgba(0,0,0,0.95),
+                inset 0 0 30px rgba(201,169,98,0.2),
+                0 0 60px rgba(0,0,0,0.8),
+                0 0 100px rgba(0,0,0,0.5);
+            background: linear-gradient(145deg, rgba(61,46,31,0.4) 0%, transparent 30%, transparent 70%, rgba(61,46,31,0.4) 100%);
+        }
+        .scope-ring-gallery::before {
+            content: '';
+            position: absolute;
+            top: -12px; left: -12px; right: -12px; bottom: -12px;
+            border: 2px solid #8a7342;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        .scope-ring-gallery::after {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        .scope-brass-detail {
+            position: absolute;
+            width: 14px; height: 14px;
+            background: radial-gradient(circle, var(--gold) 0%, #8a7342 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(201,169,98,0.5);
+            z-index: 15;
+        }
+        .scope-brass-detail.top { top: -7px; left: 50%; transform: translateX(-50%); }
+        .scope-brass-detail.bottom { bottom: -7px; left: 50%; transform: translateX(-50%); }
+        .scope-brass-detail.left { left: -7px; top: 50%; transform: translateY(-50%); }
+        .scope-brass-detail.right { right: -7px; top: 50%; transform: translateY(-50%); }
+        .scope-interior-gallery {
+            position: absolute;
+            top: 18px; left: 18px; right: 18px; bottom: 18px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000;
+        }
+        .scope-interior-gallery video {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transform: scale(1.4);
+            transition: transform 0.8s ease;
+        }
+        .scope-gallery-item:hover .scope-interior-gallery video {
+            transform: scale(1.5);
+        }
+        .scope-inner-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.5) 100%);
+            pointer-events: none;
+        }
+        .breath-indicator-gallery {
+            position: absolute;
+            right: 28px; top: 50%;
+            transform: translateY(-50%);
+            width: 5px; height: 50px;
+            background: rgba(201,169,98,0.1);
+            border: 1px solid #8a7342;
+            border-radius: 3px;
+            overflow: hidden;
+            z-index: 15;
+        }
+        .breath-level-gallery {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--gold), #dfc07a);
+            animation: breatheGallery 4s ease-in-out infinite;
+        }
+        @keyframes breatheGallery {
+            0%, 100% { height: 30%; opacity: 0.6; }
+            50% { height: 70%; opacity: 1; }
+        }
+        .reticle-gallery {
+            position: absolute;
+            top: 18px; left: 18px; right: 18px; bottom: 18px;
+            pointer-events: none;
+            z-index: 11;
+        }
+        .scope-distance {
+            position: absolute;
+            top: 30px; left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            opacity: 0.6;
+            z-index: 12;
+        }
+        .scope-overlay {
+            z-index: 20;
+            opacity: 0;
+        }
+        .scope-gallery-item:hover .scope-overlay {
+            opacity: 1;
+        }
+
+        /* Skiing Gallery Item */
+        .ski-gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .ski-gallery-item video {
+            transform: scale(1.1);
+            transition: transform 0.8s ease;
+        }
+        .ski-gallery-item:hover video {
+            transform: scale(1.2);
+        }
+        .ski-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(200, 220, 255, 0.1) 0%,
+                transparent 30%,
+                transparent 70%,
+                rgba(10, 15, 20, 0.4) 100%
+            );
+            pointer-events: none;
+        }
+        .ski-snow-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .snow-particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: snowFall 4s linear infinite;
+        }
+        .snow-particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .snow-particle:nth-child(2) { left: 25%; animation-delay: 0.5s; width: 3px; height: 3px; }
+        .snow-particle:nth-child(3) { left: 40%; animation-delay: 1s; }
+        .snow-particle:nth-child(4) { left: 55%; animation-delay: 1.5s; width: 2px; height: 2px; }
+        .snow-particle:nth-child(5) { left: 70%; animation-delay: 2s; }
+        .snow-particle:nth-child(6) { left: 85%; animation-delay: 2.5s; width: 3px; height: 3px; }
+        .snow-particle:nth-child(7) { left: 30%; animation-delay: 3s; width: 2px; height: 2px; }
+        .snow-particle:nth-child(8) { left: 60%; animation-delay: 3.5s; }
+        @keyframes snowFall {
+            0% {
+                transform: translateY(-10px) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(400px) translateX(20px);
+                opacity: 0;
+            }
         }
 
         /* Testimonials Section */
@@ -1815,12 +2054,63 @@
                     <div class="gallery-item-title">Ancient Forest Trails</div>
                 </div>
             </div>
-            <div class="gallery-item">
-                <video autoplay muted loop playsinline>
-                    <source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4">
+            <div class="gallery-item scope-gallery-item">
+                <!-- Background video - camera sliding into forest -->
+                <video class="scope-bg-video" autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/50847/50847-720.mp4" type="video/mp4">
                 </video>
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-title">Cozy Interiors</div>
+                <div class="scope-fog-overlay"></div>
+                <div class="scope-vignette"></div>
+                
+                <!-- Fireflies -->
+                <div class="scope-fireflies">
+                    <div class="scope-firefly" style="left:20%;top:30%;animation-delay:0s;"></div>
+                    <div class="scope-firefly" style="left:70%;top:50%;animation-delay:2s;"></div>
+                    <div class="scope-firefly" style="left:40%;top:70%;animation-delay:4s;"></div>
+                    <div class="scope-firefly" style="left:80%;top:20%;animation-delay:1s;"></div>
+                    <div class="scope-firefly" style="left:15%;top:60%;animation-delay:3s;"></div>
+                </div>
+                
+                <div class="scope-container-gallery">
+                    <div class="scope-ring-gallery">
+                        <div class="scope-brass-detail top"></div>
+                        <div class="scope-brass-detail bottom"></div>
+                        <div class="scope-brass-detail left"></div>
+                        <div class="scope-brass-detail right"></div>
+                    </div>
+                    <div class="scope-interior-gallery">
+                        <!-- Scope interior - sun through jungle trees -->
+                        <video autoplay muted loop playsinline>
+                            <source src="https://assets.mixkit.co/videos/5039/5039-720.mp4" type="video/mp4">
+                        </video>
+                        <div class="scope-inner-overlay"></div>
+                    </div>
+                    <!-- Reticle -->
+                    <svg class="reticle-gallery" viewBox="0 0 360 360">
+                        <!-- Outer thick posts -->
+                        <line x1="180" y1="15" x2="180" y2="115" stroke="#c9a962" stroke-width="3" opacity="0.85"/>
+                        <line x1="180" y1="245" x2="180" y2="345" stroke="#c9a962" stroke-width="3" opacity="0.85"/>
+                        <line x1="15" y1="180" x2="115" y2="180" stroke="#c9a962" stroke-width="3" opacity="0.85"/>
+                        <line x1="245" y1="180" x2="345" y2="180" stroke="#c9a962" stroke-width="3" opacity="0.85"/>
+                        <!-- Inner thin crosshairs -->
+                        <line x1="180" y1="115" x2="180" y2="170" stroke="#c9a962" stroke-width="1.2" opacity="0.9"/>
+                        <line x1="180" y1="190" x2="180" y2="245" stroke="#c9a962" stroke-width="1.2" opacity="0.9"/>
+                        <line x1="115" y1="180" x2="170" y2="180" stroke="#c9a962" stroke-width="1.2" opacity="0.9"/>
+                        <line x1="190" y1="180" x2="245" y2="180" stroke="#c9a962" stroke-width="1.2" opacity="0.9"/>
+                        <!-- Center dot -->
+                        <circle cx="180" cy="180" r="2.5" fill="#c9a962"/>
+                        <!-- Holdover dots -->
+                        <circle cx="180" cy="210" r="1.5" fill="#c9a962" opacity="0.5"/>
+                        <circle cx="180" cy="230" r="1.5" fill="#c9a962" opacity="0.4"/>
+                    </svg>
+                    <!-- Breath indicator inside scope -->
+                    <div class="breath-indicator-gallery">
+                        <div class="breath-level-gallery"></div>
+                    </div>
+                    <div class="scope-distance">--- YDS</div>
+                </div>
+                <div class="gallery-item-overlay scope-overlay">
+                    <div class="gallery-item-title">The Hunt Awaits</div>
                 </div>
             </div>
             <div class="gallery-item">
@@ -1853,6 +2143,25 @@
                 </video>
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-title">Magical Sunrises</div>
+                </div>
+            </div>
+            <div class="gallery-item ski-gallery-item">
+                <video autoplay muted loop playsinline>
+                    <source src="https://assets.mixkit.co/videos/3342/3342-720.mp4" type="video/mp4">
+                </video>
+                <div class="ski-overlay"></div>
+                <div class="ski-snow-particles">
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                    <div class="snow-particle"></div>
+                </div>
+                <div class="gallery-item-overlay">
+                    <div class="gallery-item-title">Ski Holiday Valley</div>
                 </div>
             </div>
         </div>
@@ -1923,7 +2232,7 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                             <polyline points="22,6 12,13 2,6"/>
                         </svg>
-                        <span>reservations@dublintreehaven.com</span>
+                        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1f6d7a6c7a6d697e6b7670716c5f7b6a7d7376716b6d7a7a777e697a71317c7072">[email&#160;protected]</a></span>
                     </div>
                     <div class="booking-contact-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
@@ -2055,7 +2364,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
@@ -2140,10 +2449,4 @@
         });
 
         // Form submission
-        document.querySelector('.booking-form form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your inquiry! Our team will contact you within 24 hours to confirm availability.');
-        });
-    </script>
-</body>
-</html>
+        document.querySelector('.book
