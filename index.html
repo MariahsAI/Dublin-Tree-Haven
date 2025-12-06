@@ -79,21 +79,11 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .nav-logo img {
-            height: 60px;
-            transition: transform 0.3s ease;
-        }
-
-        nav.scrolled .nav-logo img {
-            height: 50px;
         }
 
         .nav-logo span {
             font-family: 'Marcellus', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--white);
             letter-spacing: 2px;
         }
@@ -293,20 +283,13 @@
             z-index: 5;
         }
 
-        .hero-logo {
-            width: 200px;
-            margin-bottom: 30px;
-            animation: fadeInUp 1.2s ease 0.3s both;
-            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
-        }
-
         .hero-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 5.5rem;
             font-weight: 300;
             letter-spacing: 12px;
             margin-bottom: 20px;
-            animation: fadeInUp 1.2s ease 0.5s both;
+            animation: fadeInUp 1.2s ease 0.3s both;
             text-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 80px rgba(201, 169, 98, 0.2);
             text-transform: uppercase;
         }
@@ -318,7 +301,7 @@
             font-weight: 300;
             color: var(--gold-light);
             margin-bottom: 50px;
-            animation: fadeInUp 1.2s ease 0.7s both;
+            animation: fadeInUp 1.2s ease 0.5s both;
             letter-spacing: 4px;
             text-shadow: 0 2px 20px rgba(0,0,0,0.5);
         }
@@ -327,7 +310,7 @@
             display: flex;
             gap: 25px;
             justify-content: center;
-            animation: fadeInUp 1.2s ease 0.9s both;
+            animation: fadeInUp 1.2s ease 0.7s both;
         }
 
         .btn-primary {
@@ -1171,9 +1154,12 @@
             margin: 0 auto 60px;
         }
 
-        .footer-brand img {
-            height: 100px;
-            margin-bottom: 25px;
+        .footer-brand-title {
+            font-family: 'Marcellus', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
         .footer-brand p {
@@ -1419,7 +1405,6 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-logo">
-            <img src="logo.jpeg" alt="Dublin Tree Haven">
             <span>Dublin Tree Haven</span>
         </div>
         <ul class="nav-links">
@@ -1457,7 +1442,6 @@
             <div class="particle"></div>
         </div>
         <div class="hero-content">
-            <img src="logo.jpeg" alt="Dublin Tree Haven" class="hero-logo">
             <h1 class="hero-title">Dublin Tree Haven</h1>
             <p class="hero-tagline">Find Peace Where The Wild Grows</p>
             <div class="hero-buttons">
@@ -1898,7 +1882,7 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
-                <img src="logo.jpeg" alt="Dublin Tree Haven">
+                <h3 class="footer-brand-title">Dublin Tree Haven</h3>
                 <p>Where ancient forests embrace modern luxury. Discover peace in Ireland's most enchanting woodland retreats.</p>
                 <div class="footer-social">
                     <a href="#">
