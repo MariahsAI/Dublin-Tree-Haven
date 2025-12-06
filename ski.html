@@ -78,32 +78,68 @@
                 linear-gradient(to bottom, rgba(10,21,37,0.3) 0%, rgba(10,21,37,0.1) 30%, rgba(10,21,37,0.1) 70%, rgba(10,21,37,0.6) 100%);
         }
         
+        /* Night filter - deep blue tint to convert day to night */
+        .night-filter {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 15, 45, 0.75);
+            mix-blend-mode: multiply;
+        }
+        
+        /* Additional blue color grading */
+        .video-container::after {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(0, 10, 40, 0.5) 0%, 
+                rgba(5, 20, 50, 0.3) 50%,
+                rgba(0, 10, 40, 0.6) 100%);
+            pointer-events: none;
+        }
+        
+        /* Goggle vignette effect */
+        .goggle-vignette {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse 70% 60% at center, 
+                transparent 30%, 
+                rgba(0,0,0,0.3) 60%, 
+                rgba(0,0,0,0.7) 85%, 
+                rgba(0,0,0,0.95) 100%);
+            pointer-events: none;
+        }
+        
         /* Cinematic Bars */
         .cinematic-bar { position: fixed; left: 0; width: 100%; height: 55px; background: #000; z-index: 100; }
         .cinematic-bar.top { top: 0; }
         .cinematic-bar.bottom { bottom: 0; }
         
-        /* Snowflakes */
+        /* Snowflakes - Heavy snowfall */
         .snowflakes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 7; overflow: hidden; }
         .snowflake {
             position: absolute; top: -10px;
-            width: 6px; height: 6px;
             background: white; border-radius: 50%;
             opacity: 0;
-            animation: snowFall 8s linear infinite;
+            animation: snowFall linear infinite;
+            filter: blur(0.5px);
+        }
+        .snowflake.large {
+            filter: blur(1px);
         }
         @keyframes snowFall {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            5% { opacity: 0.9; }
+            95% { opacity: 0.7; }
+            100% { transform: translateY(100vh) translateX(50px); opacity: 0; }
+        }
+        @keyframes snowFallFast {
             0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.6; }
-            100% { transform: translateY(100vh) translateX(30px) rotate(360deg); opacity: 0; }
+            5% { opacity: 1; }
+            95% { opacity: 0.8; }
+            100% { transform: translateY(100vh) translateX(80px) rotate(180deg); opacity: 0; }
         }
         
-        /* Vignette */
+        /* Vignette - disabled, using goggle vignette instead */
         .vignette {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 200px rgba(0,0,0,0.6);
-            pointer-events: none; z-index: 8;
+            display: none;
         }
         
         /* Main Layout */
@@ -346,8 +382,8 @@
 </head>
 <body>
     <div class="preloader" id="preloader">
-        <div class="preloader-icon">⛷️</div>
-        <div class="preloader-text">Waxing the skis...</div>
+        <div class="preloader-icon">🎿</div>
+        <div class="preloader-text">Strapping in for night run...</div>
     </div>
     
     <a href="dublin-fresh.html#gallery" class="back-btn">
@@ -360,12 +396,14 @@
     <div class="cinematic-bar top"></div>
     <div class="cinematic-bar bottom"></div>
     
-    <!-- Background Video -->
+    <!-- Background Video - Ski Slope -->
     <div class="video-container">
         <video class="video-bg" autoplay muted loop playsinline>
             <source src="https://assets.mixkit.co/videos/3342/3342-720.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
+        <div class="night-filter"></div>
+        <div class="goggle-vignette"></div>
     </div>
     
     <div class="vignette"></div>
@@ -404,23 +442,43 @@
         </div>
         
         <footer class="footer">
-            <div>Current Temp: 24°F</div>
-            <div>Base Depth: 31" — Fresh Snow</div>
-            <div class="open">● Season Open</div>
+            <div>Current Temp: 18°F</div>
+            <div>Night Skiing til 10PM — Fresh Powder</div>
+            <div class="open">● Lifts Open</div>
         </footer>
     </div>
     
     <script>
         function createSnowflakes() {
             const container = document.getElementById('snowflakes');
-            for (let i = 0; i < 50; i++) {
+            // Create 120 snowflakes for heavy snowfall effect
+            for (let i = 0; i < 120; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.className = 'snowflake';
+                
+                // Random size (2-8px, with some larger ones)
+                const size = Math.random() < 0.2 ? (Math.random() * 4 + 6) : (Math.random() * 4 + 2);
+                snowflake.style.width = size + 'px';
+                snowflake.style.height = size + 'px';
+                
+                // Add blur to larger flakes (closer to camera)
+                if (size > 6) {
+                    snowflake.classList.add('large');
+                }
+                
+                // Random position
                 snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.width = (Math.random() * 4 + 2) + 'px';
-                snowflake.style.height = snowflake.style.width;
-                snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                snowflake.style.animationDelay = (Math.random() * 8) + 's';
+                
+                // Faster animation for immersive feel (2-5 seconds)
+                const duration = Math.random() * 3 + 2;
+                snowflake.style.animationDuration = duration + 's';
+                snowflake.style.animationDelay = (Math.random() * 5) + 's';
+                
+                // Use faster animation for some flakes
+                if (Math.random() < 0.3) {
+                    snowflake.style.animationName = 'snowFallFast';
+                }
+                
                 container.appendChild(snowflake);
             }
         }
