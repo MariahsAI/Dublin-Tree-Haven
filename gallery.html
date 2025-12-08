@@ -326,6 +326,12 @@
         .gallery-item.size-4 { grid-column: span 5; grid-row: span 3; }
         .gallery-item.size-5 { grid-column: span 3; grid-row: span 3; }
         .gallery-item.size-6 { grid-column: span 4; grid-row: span 2; }
+        .gallery-item.size-wide { grid-column: span 8; grid-row: span 3; }
+        .gallery-item.size-full { grid-column: span 12; grid-row: span 4; }
+        .gallery-item.size-full img {
+            object-fit: contain;
+            background: var(--cream);
+        }
         
         .gallery-item img,
         .gallery-item video {
@@ -626,11 +632,13 @@
                 grid-template-columns: repeat(6, 1fr);
             }
             .gallery-item.size-1 { grid-column: span 2; grid-row: span 2; }
-            .gallery-item.size-2 { grid-column: span 3; grid-row: span 2; }
-            .gallery-item.size-3 { grid-column: span 4; grid-row: span 3; }
+            .gallery-item.size-2 { grid-column: span 2; grid-row: span 2; }
+            .gallery-item.size-3 { grid-column: span 3; grid-row: span 3; }
             .gallery-item.size-4 { grid-column: span 3; grid-row: span 2; }
             .gallery-item.size-5 { grid-column: span 2; grid-row: span 2; }
             .gallery-item.size-6 { grid-column: span 3; grid-row: span 2; }
+            .gallery-item.size-wide { grid-column: span 4; grid-row: span 2; }
+            .gallery-item.size-full { grid-column: span 6; grid-row: span 2; }
             .amenities-grid { grid-template-columns: repeat(3, 1fr); }
             .video-grid { grid-template-columns: repeat(3, 1fr); }
         }
@@ -677,13 +685,18 @@
             .gallery-item.size-3,
             .gallery-item.size-4,
             .gallery-item.size-5,
-            .gallery-item.size-6 {
+            .gallery-item.size-6,
+            .gallery-item.size-wide {
                 grid-column: span 1;
                 grid-row: span 1;
             }
-            .gallery-item.size-3 {
+            .gallery-item.size-3,
+            .gallery-item.size-full {
                 grid-column: span 2;
                 grid-row: span 2;
+            }
+            .gallery-item.size-full img {
+                object-fit: contain;
             }
             .amenities-grid { grid-template-columns: repeat(2, 1fr); }
             .amenities-section { padding: 50px 20px; }
@@ -836,7 +849,7 @@
             <!-- YOUR PHOTOS -->
             <!-- ============================================== -->
             
-            <!-- Photo 1 - Main exterior (large hero) -->
+            <!-- ROW 1: Main exterior + Aerial = 12 cols -->
             <div class="gallery-item size-3" onclick="openLightbox(3)">
                 <img src="IMG_0690.jpg" alt="Dublin Tree Haven exterior">
                 <div class="gallery-caption">
@@ -845,8 +858,7 @@
                 </div>
             </div>
             
-            <!-- Photo 2 - Aerial forest sunset -->
-            <div class="gallery-item size-4" onclick="openLightbox(4)">
+            <div class="gallery-item size-3" onclick="openLightbox(4)">
                 <img src="IMG_8379.jpeg" alt="Aerial view at sunset">
                 <div class="gallery-caption">
                     <div class="caption-title">Aerial View</div>
@@ -854,7 +866,7 @@
                 </div>
             </div>
             
-            <!-- Photo 3 - Exterior side with lights -->
+            <!-- ROW 2: Evening + Living wide = 12 cols -->
             <div class="gallery-item size-2" onclick="openLightbox(5)">
                 <img src="IMG_0691.jpg" alt="Exterior side view">
                 <div class="gallery-caption">
@@ -863,8 +875,7 @@
                 </div>
             </div>
             
-            <!-- Photo 4 - Living room wide -->
-            <div class="gallery-item size-4" onclick="openLightbox(6)">
+            <div class="gallery-item size-wide" onclick="openLightbox(6)">
                 <img src="IMG_0703.jpg" alt="Living room">
                 <div class="gallery-caption">
                     <div class="caption-title">Living Space</div>
@@ -872,7 +883,7 @@
                 </div>
             </div>
             
-            <!-- Photo 5 - Living room deck view -->
+            <!-- ROW 3: Living deck + Staircase + Kitchen = 12 cols -->
             <div class="gallery-item size-2" onclick="openLightbox(7)">
                 <img src="IMG_0702.jpg" alt="Living room deck view">
                 <div class="gallery-caption">
@@ -880,15 +891,13 @@
                 </div>
             </div>
             
-            <!-- Photo 6 - Staircase & Kitchen -->
-            <div class="gallery-item size-1" onclick="openLightbox(8)">
+            <div class="gallery-item size-2" onclick="openLightbox(8)">
                 <img src="IMG_0700.jpg" alt="Staircase and kitchen">
                 <div class="gallery-caption">
                     <div class="caption-title">Open Layout</div>
                 </div>
             </div>
             
-            <!-- Photo 7 - Kitchen detail -->
             <div class="gallery-item size-2" onclick="openLightbox(9)">
                 <img src="IMG_0699.jpg" alt="Kitchen">
                 <div class="gallery-caption">
@@ -897,16 +906,15 @@
                 </div>
             </div>
             
-            <!-- Photo 8 - Dining area -->
-            <div class="gallery-item size-1" onclick="openLightbox(10)">
+            <!-- ROW 4: Dining + Master + Guest = 12 cols -->
+            <div class="gallery-item size-2" onclick="openLightbox(10)">
                 <img src="IMG_0698.jpg" alt="Dining area">
                 <div class="gallery-caption">
                     <div class="caption-title">Dining Area</div>
                 </div>
             </div>
             
-            <!-- Photo 9 - Master bedroom with bath -->
-            <div class="gallery-item size-4" onclick="openLightbox(11)">
+            <div class="gallery-item size-2" onclick="openLightbox(11)">
                 <img src="IMG_0696.jpg" alt="Master bedroom">
                 <div class="gallery-caption">
                     <div class="caption-title">Master Suite</div>
@@ -914,7 +922,6 @@
                 </div>
             </div>
             
-            <!-- Photo 10 - Bedroom with TV -->
             <div class="gallery-item size-2" onclick="openLightbox(12)">
                 <img src="IMG_0697.jpg" alt="Bedroom">
                 <div class="gallery-caption">
@@ -923,9 +930,7 @@
                 </div>
             </div>
             
-            <!-- BATHROOM PHOTOS GROUPED -->
-            
-            <!-- Photo 11 - Spa bathroom stunning (NEW) -->
+            <!-- ROW 5: Spa bathrooms = 12 cols -->
             <div class="gallery-item size-3" onclick="openLightbox(13)">
                 <img src="IMG_0705.JPG" alt="Spa bathroom with forest view">
                 <div class="gallery-caption">
@@ -934,8 +939,7 @@
                 </div>
             </div>
             
-            <!-- Photo 12 - Spa bathroom other angle -->
-            <div class="gallery-item size-2" onclick="openLightbox(14)">
+            <div class="gallery-item size-3" onclick="openLightbox(14)">
                 <img src="IMG_0693.jpg" alt="Spa bathroom">
                 <div class="gallery-caption">
                     <div class="caption-title">Spa Bathroom</div>
@@ -943,25 +947,21 @@
                 </div>
             </div>
             
-            <!-- Photo 13 - Shower -->
-            <div class="gallery-item size-1" onclick="openLightbox(15)">
+            <!-- ROW 6: Shower + Powder + Deck = 12 cols -->
+            <div class="gallery-item size-2" onclick="openLightbox(15)">
                 <img src="IMG_0694.jpg" alt="Shower">
                 <div class="gallery-caption">
                     <div class="caption-title">Rain Shower</div>
                 </div>
             </div>
             
-            <!-- Photo 14 - Blue bathroom -->
-            <div class="gallery-item size-1" onclick="openLightbox(16)">
+            <div class="gallery-item size-2" onclick="openLightbox(16)">
                 <img src="IMG_0695.jpg" alt="Powder room">
                 <div class="gallery-caption">
                     <div class="caption-title">Powder Room</div>
                 </div>
             </div>
             
-            <!-- DECK PHOTOS GROUPED -->
-            
-            <!-- Photo 15 - Deck with chairs -->
             <div class="gallery-item size-2" onclick="openLightbox(17)">
                 <img src="IMG_0692.jpg" alt="Deck">
                 <div class="gallery-caption">
@@ -970,8 +970,8 @@
                 </div>
             </div>
             
-            <!-- Photo 16 - Outdoor dining deck (NEW) -->
-            <div class="gallery-item size-4" onclick="openLightbox(18)">
+            <!-- ROW 7: Full width outdoor dining -->
+            <div class="gallery-item size-full" onclick="openLightbox(18)">
                 <img src="IMG_0706.JPG" alt="Outdoor dining">
                 <div class="gallery-caption">
                     <div class="caption-title">Outdoor Dining</div>
