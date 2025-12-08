@@ -102,7 +102,7 @@
         .gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; background: var(--deep-forest); }
         .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.1); }
-        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(26, 46, 26, 0.7) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
+        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(26, 46, 26, 0.85) 0%, rgba(26, 46, 26, 0.4) 35%, transparent 60%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
         .gallery-item:hover::before { opacity: 1; }
         .gallery-item .hover-glow { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%); opacity: 0; transition: opacity 0.5s ease; z-index: 1; pointer-events: none; }
         .gallery-item:hover .hover-glow { opacity: 1; }
@@ -364,14 +364,14 @@
                 <div class="hover-glow"></div>
                 <div class="category-badge">LIVING</div>
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
-                <div class="gallery-caption"><div class="caption-title">Indoor-Outdoor Living</div></div>
+                <div class="gallery-caption"><div class="caption-title">Indoor-Outdoor Living</div><div class="caption-desc">Seamless connection to nature</div></div>
             </div>
             <div class="gallery-item size-2 animate" data-index="8" data-category="LIVING">
                 <img src="IMG_0700.jpg" alt="Staircase and kitchen">
                 <div class="hover-glow"></div>
                 <div class="category-badge">LIVING</div>
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
-                <div class="gallery-caption"><div class="caption-title">Open Layout</div></div>
+                <div class="gallery-caption"><div class="caption-title">Open Layout</div><div class="caption-desc">Floating staircase design</div></div>
             </div>
             <div class="gallery-item size-2 animate" data-index="9" data-category="KITCHEN">
                 <img src="IMG_0699.jpg" alt="Kitchen">
@@ -387,7 +387,7 @@
                 <div class="hover-glow"></div>
                 <div class="category-badge">KITCHEN</div>
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
-                <div class="gallery-caption"><div class="caption-title">Dining Area</div></div>
+                <div class="gallery-caption"><div class="caption-title">Dining Area</div><div class="caption-desc">Gather for memorable meals</div></div>
             </div>
             <div class="gallery-item size-2 animate" data-index="11" data-category="BEDROOMS">
                 <img src="IMG_0696.jpg" alt="Master bedroom">
@@ -426,14 +426,14 @@
                 <div class="hover-glow"></div>
                 <div class="category-badge">BATHROOMS</div>
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
-                <div class="gallery-caption"><div class="caption-title">Rain Shower</div></div>
+                <div class="gallery-caption"><div class="caption-title">Rain Shower</div><div class="caption-desc">Cedar-wrapped luxury</div></div>
             </div>
             <div class="gallery-item size-2 animate" data-index="16" data-category="BATHROOMS">
                 <img src="IMG_0695.jpg" alt="Powder room">
                 <div class="hover-glow"></div>
                 <div class="category-badge">BATHROOMS</div>
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
-                <div class="gallery-caption"><div class="caption-title">Powder Room</div></div>
+                <div class="gallery-caption"><div class="caption-title">Powder Room</div><div class="caption-desc">Moody elegance in blue</div></div>
             </div>
             <div class="gallery-item size-2 animate" data-index="17" data-category="OUTDOOR">
                 <img src="IMG_0692.jpg" alt="Deck">
