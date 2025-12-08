@@ -211,41 +211,110 @@
             .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
             .video-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .hover-preview { display: none; }
+            .lightbox-main { padding: 0 80px; }
         }
         @media (max-width: 768px) {
-            .gallery-hero { height: 50vh; min-height: 400px; }
-            .hero-title { font-size: 2.2rem; letter-spacing: 3px; }
-            .hero-location { font-size: 0.9rem; }
-            .gallery-nav { padding: 15px 20px; }
-            .back-btn { padding: 10px 18px; font-size: 0.75rem; }
+            .gallery-hero { height: 55vh; min-height: 380px; }
+            .hero-title { font-size: 2rem; letter-spacing: 2px; }
+            .hero-location { font-size: 0.85rem; letter-spacing: 1px; }
+            .gallery-nav { padding: 15px 15px; }
+            .back-btn { padding: 10px 15px; font-size: 0.7rem; gap: 8px; }
             .back-btn span { display: none; }
-            .book-btn { padding: 10px 20px; font-size: 0.75rem; }
-            .hero-content { left: 20px; right: 20px; bottom: 90px; }
-            .stats-bar { flex-direction: column; gap: 20px; padding: 20px; }
-            .stats { gap: 25px; }
-            .stat-value { font-size: 1.4rem; }
-            .gallery-section { padding: 50px 15px; }
-            .video-grid { grid-template-columns: 1fr; gap: 15px; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; gap: 10px; }
-            .gallery-item.size-1, .gallery-item.size-2, .gallery-item.size-3, .gallery-item.size-4, .gallery-item.size-5, .gallery-item.size-6, .gallery-item.size-wide { grid-column: span 1; grid-row: span 1; }
+            .back-btn svg { width: 16px; height: 16px; }
+            .book-btn { padding: 10px 18px; font-size: 0.7rem; letter-spacing: 1px; }
+            .hero-content { left: 15px; right: 15px; bottom: 85px; }
+            .property-tag { padding: 6px 12px; font-size: 0.6rem; letter-spacing: 2px; margin-bottom: 12px; }
+            .stats-bar { flex-direction: column; gap: 15px; padding: 15px; }
+            .stats { gap: 20px; justify-content: center; }
+            .stat-value { font-size: 1.3rem; }
+            .stat-label { font-size: 0.6rem; letter-spacing: 1px; }
+            .gallery-count { font-size: 1rem; }
+            .gallery-count span { font-size: 1.5rem; }
+            .gallery-section { padding: 40px 12px; }
+            .section-header { margin-bottom: 40px; }
+            .section-subtitle { font-size: 0.85rem; letter-spacing: 2px; }
+            .section-title { font-size: 1.8rem; letter-spacing: 2px; }
+            .section-divider { width: 40px; margin-top: 15px; }
+            .video-grid { grid-template-columns: 1fr; gap: 12px; }
+            .video-grid .gallery-item { border-radius: 12px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 8px; }
+            .gallery-item { border-radius: 10px; }
+            .gallery-item.size-1, .gallery-item.size-2, .gallery-item.size-4, .gallery-item.size-5, .gallery-item.size-6, .gallery-item.size-wide { grid-column: span 1; grid-row: span 1; }
             .gallery-item.size-3, .gallery-item.size-full { grid-column: span 2; grid-row: span 2; }
-            .gallery-item.size-full img { object-fit: contain; }
-            .amenities-grid { grid-template-columns: repeat(2, 1fr); }
-            .amenities-section { padding: 50px 20px; }
-            .cta-section { padding: 60px 20px; }
-            .cta-title { font-size: 2rem; }
-            .lightbox-nav { width: 45px; height: 45px; }
-            .lightbox-prev { left: 15px; }
-            .lightbox-next { right: 15px; }
-            .sticky-book { bottom: 20px; right: 20px; padding: 14px 25px; font-size: 0.9rem; }
-            .gallery-controls { gap: 15px; }
-            .start-tour-btn { padding: 14px 25px; font-size: 0.75rem; }
+            .gallery-item.size-full img { object-fit: cover; }
+            .gallery-caption { padding: 15px; }
+            .caption-title { font-size: 1rem; }
+            .caption-desc { font-size: 0.7rem; }
+            .category-badge { padding: 5px 10px; font-size: 0.6rem; top: 10px; left: 10px; }
+            .favorite-btn { width: 36px; height: 36px; font-size: 1rem; top: 10px; right: 10px; }
+            .gallery-item::after { display: none; }
+            .gallery-controls { flex-direction: column; gap: 15px; margin-bottom: 30px; }
+            .view-toggle button { width: 45px; height: 40px; font-size: 1.1rem; }
+            .start-tour-btn { padding: 14px 30px; font-size: 0.75rem; letter-spacing: 2px; }
+            .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .amenity-item { padding: 20px 10px; }
+            .amenity-icon { width: 40px; height: 40px; margin-bottom: 10px; }
+            .amenity-icon svg { width: 24px; height: 24px; }
+            .amenity-name { font-size: 0.65rem; letter-spacing: 1px; }
+            .amenities-section { padding: 40px 15px; }
+            .cta-section { padding: 50px 15px; }
+            .cta-title { font-size: 1.6rem; letter-spacing: 1px; }
+            .cta-subtitle { font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 25px; }
+            .cta-btn { padding: 16px 40px; font-size: 0.8rem; letter-spacing: 2px; }
+            .lightbox-header { padding: 15px; }
+            .lightbox-counter { font-size: 1rem; }
+            .lightbox-actions { gap: 10px; }
+            .lightbox-btn { padding: 8px 12px; font-size: 0.65rem; letter-spacing: 1px; }
+            .lightbox-close { width: 40px; height: 40px; font-size: 1.2rem; }
+            .lightbox-main { padding: 0 50px; }
+            .lightbox-nav { width: 40px; height: 40px; font-size: 1.2rem; }
+            .lightbox-prev { left: 5px; }
+            .lightbox-next { right: 5px; }
+            .lightbox-content { max-width: 95%; max-height: 65vh; border-radius: 8px; }
+            .lightbox-media { max-height: 65vh; }
+            .lightbox-info { padding: 20px 15px; }
+            .lightbox-info h3 { font-size: 1.4rem; }
+            .lightbox-info p { font-size: 0.8rem; }
+            .thumbnail-strip { padding: 15px 10px; }
+            .thumbnail { width: 60px; height: 42px; border-radius: 6px; }
+            .sticky-book { bottom: 15px; right: 15px; padding: 12px 20px; font-size: 0.85rem; letter-spacing: 1px; }
+            .play-icon { width: 60px; height: 60px; }
+            .play-icon svg { width: 24px; height: 24px; }
         }
         @media (max-width: 480px) {
-            .hero-title { font-size: 1.8rem; }
-            .property-tag { font-size: 0.6rem; padding: 6px 14px; }
-            .section-title { font-size: 1.8rem; }
-            .amenities-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-hero { height: 50vh; min-height: 320px; }
+            .hero-title { font-size: 1.6rem; letter-spacing: 1px; }
+            .hero-location { font-size: 0.75rem; gap: 6px; }
+            .hero-location svg { width: 16px; height: 16px; }
+            .hero-content { bottom: 75px; }
+            .stats { gap: 15px; }
+            .stat-value { font-size: 1.1rem; }
+            .gallery-grid { grid-auto-rows: 120px; gap: 6px; }
+            .gallery-section { padding: 30px 10px; }
+            .section-title { font-size: 1.5rem; }
+            .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .amenity-item { padding: 15px 8px; }
+            .amenity-name { font-size: 0.6rem; }
+            .cta-title { font-size: 1.4rem; }
+            .lightbox-btn span:last-child { display: none; }
+            .lightbox-btn { padding: 8px 10px; min-width: 40px; justify-content: center; }
+            .thumbnail { width: 50px; height: 35px; }
+        }
+        @media (max-width: 360px) {
+            .gallery-hero { min-height: 280px; }
+            .hero-title { font-size: 1.4rem; }
+            .gallery-grid { grid-auto-rows: 100px; }
+            .stats { flex-wrap: wrap; justify-content: center; }
+        }
+        
+        /* Touch device improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .gallery-item::before { opacity: 1; }
+            .gallery-item .gallery-caption { transform: translateY(0); opacity: 1; }
+            .gallery-item .favorite-btn { opacity: 1; transform: scale(1); }
+            .gallery-item .category-badge { opacity: 0; }
+            .gallery-item:active { transform: scale(0.98); }
+            .lightbox-nav:active { background: var(--gold); color: var(--deep-forest); }
         }
     </style>
 </head>
@@ -275,9 +344,9 @@
         </div>
         <div class="stats-bar">
             <div class="stats">
-                <div class="stat"><div class="stat-value">4</div><div class="stat-label">Bedrooms</div></div>
+                <div class="stat"><div class="stat-value">3</div><div class="stat-label">Bedrooms</div></div>
                 <div class="stat"><div class="stat-value">8</div><div class="stat-label">Guests</div></div>
-                <div class="stat"><div class="stat-value">$450</div><div class="stat-label">Per Night</div></div>
+                <div class="stat"><div class="stat-value">$450</div><div class="stat-label">Avg / Night</div></div>
             </div>
             <div class="gallery-count"><span>3</span> Videos · <span>16</span> Photos</div>
         </div>
@@ -461,8 +530,8 @@
             <div class="section-divider"></div>
         </div>
         <div class="amenities-grid">
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="amenity-name">4 Bedrooms</div></div>
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="amenity-name">Hot Tub</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="amenity-name">3 Bedrooms</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="amenity-name">Sauna</div></div>
             <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8h20"/></svg></div><div class="amenity-name">Full Kitchen</div></div>
             <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="amenity-name">Sleeps 8</div></div>
             <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></div><div class="amenity-name">Forest Views</div></div>
@@ -559,6 +628,37 @@
         function initScrollAnimations() { var obs = new IntersectionObserver(function(e) { e.forEach(function(x) { if (x.isIntersecting) x.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('.animate').forEach(function(el) { obs.observe(el); }); }
         function initStickyButton() { window.addEventListener('scroll', function() { document.querySelector('.sticky-book').classList.toggle('visible', window.scrollY > 500); }); }
         function initVideoHover() { document.querySelectorAll('.video-grid .gallery-item.video').forEach(function(item) { var v = item.querySelector('video'); if (v) { item.onmouseenter = function() { v.play(); }; item.onmouseleave = function() { v.pause(); v.currentTime = 0; }; } }); }
+        
+        // Mobile swipe support for lightbox
+        (function() {
+            var touchStartX = 0, touchEndX = 0, touchStartY = 0, touchEndY = 0;
+            var lightbox = document.getElementById('lightbox');
+            
+            lightbox.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+            
+            lightbox.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                var diffX = touchStartX - touchEndX;
+                var diffY = touchStartY - touchEndY;
+                
+                // Only trigger if horizontal swipe is greater than vertical (not scrolling)
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        nextItem(); // Swipe left = next
+                    } else {
+                        prevItem(); // Swipe right = prev
+                    }
+                }
+            }
+        })();
     </script>
 </body>
 </html>
