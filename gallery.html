@@ -21,29 +21,26 @@
         }
         
         html { scroll-behavior: smooth; }
+        body { font-family: 'Raleway', sans-serif; background: var(--cream); color: var(--deep-forest); line-height: 1.6; overflow-x: hidden; }
         
-        /* ==================== FLOATING PARTICLES ==================== */
-        .hero-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 2;
-        }
+        @keyframes floatParticle { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(-100px) scale(1); opacity: 0; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes kenburns { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+        @keyframes progress { from { width: 0%; } to { width: 100%; } }
         
-        .hero-particles .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatParticle 15s infinite ease-in-out;
-        }
+        .animate-kenburns { animation: kenburns 5s ease-out forwards; }
+        .gallery-item.animate { opacity: 0; transform: translateY(60px); }
+        .gallery-item.animate.visible { opacity: 1; transform: translateY(0); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .gallery-item.animate:nth-child(odd) { transition-delay: 0.1s; }
+        .gallery-item.animate:nth-child(even) { transition-delay: 0.2s; }
+        .section-header.animate { opacity: 0; transform: translateY(30px); }
+        .section-header.animate.visible { opacity: 1; transform: translateY(0); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         
+        .gallery-hero { position: relative; height: 70vh; min-height: 500px; overflow: hidden; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(26, 46, 26, 0.5) 0%, rgba(26, 46, 26, 0.3) 50%, rgba(26, 46, 26, 0.8) 100%); }
+        .hero-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 2; }
+        .hero-particles .particle { position: absolute; width: 8px; height: 8px; background: radial-gradient(circle, var(--gold) 0%, transparent 70%); border-radius: 50%; opacity: 0; animation: floatParticle 15s infinite ease-in-out; }
         .hero-particles .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
         .hero-particles .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 14s; }
         .hero-particles .particle:nth-child(3) { left: 35%; animation-delay: 4s; animation-duration: 11s; }
@@ -52,446 +49,46 @@
         .hero-particles .particle:nth-child(6) { left: 80%; animation-delay: 5s; animation-duration: 15s; }
         .hero-particles .particle:nth-child(7) { left: 90%; animation-delay: 2.5s; animation-duration: 12s; }
         
-        @keyframes floatParticle {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-100px) scale(1); opacity: 0; }
-        }
+        .gallery-nav { position: absolute; top: 0; left: 0; right: 0; padding: 30px 50px; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+        .back-btn { display: flex; align-items: center; gap: 12px; padding: 14px 28px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; color: var(--white); text-decoration: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 2px; transition: all 0.4s ease; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-5px); }
+        .back-btn svg { width: 18px; height: 18px; transition: transform 0.3s ease; }
+        .back-btn:hover svg { transform: translateX(-3px); }
+        .book-btn { padding: 14px 35px; background: var(--gold); border: none; border-radius: 50px; color: var(--deep-forest); font-family: 'Raleway', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 2px; cursor: pointer; text-decoration: none; transition: all 0.4s ease; box-shadow: 0 4px 20px rgba(201, 169, 98, 0.3); }
+        .book-btn:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(201, 169, 98, 0.4); }
         
-        /* ==================== SCROLL ANIMATIONS ==================== */
-        .gallery-item.animate {
-            opacity: 0;
-            transform: translateY(60px);
-        }
+        .hero-content { position: absolute; bottom: 80px; left: 60px; right: 60px; color: var(--white); }
+        .property-tag { display: inline-block; padding: 8px 20px; background: var(--gold); color: var(--deep-forest); font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; animation: fadeInUp 1s ease-out; }
+        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 4.5rem; font-weight: 300; letter-spacing: 6px; margin-bottom: 15px; animation: fadeInUp 1s ease-out 0.2s both; }
+        .hero-location { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; letter-spacing: 3px; opacity: 0.8; animation: fadeInUp 1s ease-out 0.4s both; }
+        .hero-location svg { width: 20px; height: 20px; stroke: var(--gold); }
         
-        .gallery-item.animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .stats-bar { position: absolute; bottom: 0; left: 0; right: 0; padding: 25px 60px; background: rgba(26, 46, 26, 0.9); backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(201, 169, 98, 0.3); }
+        .stats { display: flex; gap: 50px; }
+        .stat { text-align: center; }
+        .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); font-weight: 400; }
+        .stat-label { font-size: 0.7rem; letter-spacing: 2px; color: rgba(255,255,255,0.6); text-transform: uppercase; margin-top: 5px; }
+        .gallery-count { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--white); letter-spacing: 2px; }
+        .gallery-count span { color: var(--gold); font-size: 2rem; margin-right: 8px; }
         
-        .gallery-item.animate:nth-child(odd) { transition-delay: 0.1s; }
-        .gallery-item.animate:nth-child(even) { transition-delay: 0.2s; }
+        .gallery-section { padding: 80px 60px; background: var(--cream); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; letter-spacing: 4px; color: var(--gold); margin-bottom: 15px; }
+        .section-title { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; color: var(--deep-forest); letter-spacing: 4px; }
+        .section-divider { width: 60px; height: 2px; background: var(--gold); margin: 25px auto 0; }
         
-        /* Video grid animations */
-        .video-grid .gallery-item.animate {
-            transform: translateY(40px) scale(0.95);
-        }
+        .gallery-controls { display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 50px; }
+        .view-toggle { display: flex; background: rgba(26, 46, 26, 0.08); border-radius: 12px; padding: 6px; }
+        .view-toggle button { width: 50px; height: 45px; background: transparent; border: none; color: var(--sage); cursor: pointer; border-radius: 8px; transition: all 0.3s ease; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; }
+        .view-toggle button.active { background: var(--deep-forest); color: var(--cream); }
+        .view-toggle button:hover:not(.active) { background: rgba(26, 46, 26, 0.15); }
+        .start-tour-btn { display: flex; align-items: center; gap: 12px; padding: 18px 40px; background: var(--gold); border: none; border-radius: 50px; color: var(--deep-forest); font-family: 'Raleway', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 3px; cursor: pointer; transition: all 0.4s ease; box-shadow: 0 4px 20px rgba(201, 169, 98, 0.3); }
+        .start-tour-btn:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(201, 169, 98, 0.4); }
         
-        .video-grid .gallery-item.animate.visible {
-            transform: translateY(0) scale(1);
-        }
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1400px; margin: 0 auto; }
+        .video-grid .gallery-item { aspect-ratio: 16/9; border-radius: 16px; }
         
-        /* ==================== ENHANCED HOVER GLOW ==================== */
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 2;
-            pointer-events: none;
-            border-radius: 12px;
-        }
-        
-        .gallery-item:hover::before {
-            opacity: 1;
-        }
-        
-        /* ==================== STICKY BOOK NOW BUTTON ==================== */
-        .sticky-book {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--gold);
-            color: var(--deep-forest);
-            padding: 18px 35px;
-            border-radius: 50px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-decoration: none;
-            z-index: 1000;
-            box-shadow: 0 10px 40px rgba(201, 169, 98, 0.4);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .sticky-book.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .sticky-book:hover {
-            background: var(--deep-forest);
-            color: var(--gold);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(201, 169, 98, 0.5);
-        }
-        
-        /* Pulse animation */
-        .sticky-book::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50px;
-            background: var(--gold);
-            z-index: -1;
-            opacity: 0;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 0.3; }
-        }
-        
-        /* ==================== SECTION HEADERS ANIMATION ==================== */
-        .section-header.animate {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .section-header.animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        /* ==================== AMENITY CARDS ANIMATION ==================== */
-        .amenity-card.animate {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        
-        .amenity-card.animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .amenity-card.animate:nth-child(1) { transition-delay: 0s; }
-        .amenity-card.animate:nth-child(2) { transition-delay: 0.1s; }
-        .amenity-card.animate:nth-child(3) { transition-delay: 0.2s; }
-        .amenity-card.animate:nth-child(4) { transition-delay: 0.3s; }
-        .amenity-card.animate:nth-child(5) { transition-delay: 0.4s; }
-        .amenity-card.animate:nth-child(6) { transition-delay: 0.5s; }
-        
-        /* ==================== CTA ANIMATION ==================== */
-        .cta-section.animate {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-        
-        .cta-section.animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        body {
-            font-family: 'Raleway', sans-serif;
-            background: var(--cream);
-            color: var(--deep-forest);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* ==================== HERO SECTION ==================== */
-        .gallery-hero {
-            position: relative;
-            height: 70vh;
-            min-height: 500px;
-            overflow: hidden;
-        }
-        
-        .hero-video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(26, 46, 26, 0.5) 0%,
-                rgba(26, 46, 26, 0.3) 50%,
-                rgba(26, 46, 26, 0.8) 100%
-            );
-        }
-        
-        /* Floating particles */
-        .hero-particles {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .particle {
-            position: absolute;
-            width: 4px; height: 4px;
-            background: rgba(201, 169, 98, 0.4);
-            border-radius: 50%;
-            animation: floatUp 15s infinite;
-        }
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 14s; }
-        .particle:nth-child(3) { left: 35%; animation-delay: 4s; animation-duration: 11s; }
-        .particle:nth-child(4) { left: 50%; animation-delay: 1s; animation-duration: 16s; }
-        .particle:nth-child(5) { left: 65%; animation-delay: 3s; animation-duration: 13s; }
-        .particle:nth-child(6) { left: 80%; animation-delay: 5s; animation-duration: 15s; }
-        .particle:nth-child(7) { left: 90%; animation-delay: 2.5s; animation-duration: 12s; }
-        
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) scale(1); opacity: 0; }
-        }
-        
-        /* Navigation */
-        .gallery-nav {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-        
-        .back-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 28px;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50px;
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-        }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-5px);
-        }
-        .back-btn svg {
-            width: 18px; height: 18px;
-            transition: transform 0.3s ease;
-        }
-        .back-btn:hover svg {
-            transform: translateX(-3px);
-        }
-        
-        .book-btn {
-            padding: 14px 35px;
-            background: var(--gold);
-            border: none;
-            border-radius: 50px;
-            color: var(--deep-forest);
-            font-family: 'Raleway', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 20px rgba(201, 169, 98, 0.3);
-        }
-        .book-btn:hover {
-            background: var(--gold-light);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(201, 169, 98, 0.4);
-        }
-        
-        /* Hero Content */
-        .hero-content {
-            position: absolute;
-            bottom: 80px;
-            left: 60px;
-            right: 60px;
-            color: var(--white);
-        }
-        
-        .property-tag {
-            display: inline-block;
-            padding: 8px 20px;
-            background: var(--gold);
-            color: var(--deep-forest);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .hero-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4.5rem;
-            font-weight: 300;
-            letter-spacing: 6px;
-            margin-bottom: 15px;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-        
-        .hero-location {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            opacity: 0.8;
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
-        .hero-location svg {
-            width: 20px; height: 20px;
-            stroke: var(--gold);
-        }
-        
-        /* Stats Bar */
-        .stats-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0; right: 0;
-            padding: 25px 60px;
-            background: rgba(26, 46, 26, 0.9);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(201, 169, 98, 0.3);
-        }
-        
-        .stats {
-            display: flex;
-            gap: 50px;
-        }
-        .stat {
-            text-align: center;
-        }
-        .stat-value {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            color: var(--gold);
-            font-weight: 400;
-        }
-        .stat-label {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-        
-        .gallery-count {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            color: var(--white);
-            letter-spacing: 2px;
-        }
-        .gallery-count span {
-            color: var(--gold);
-            font-size: 2rem;
-            margin-right: 8px;
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* ==================== GALLERY SECTION ==================== */
-        .gallery-section {
-            padding: 80px 60px;
-            background: var(--cream);
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        .section-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
-            font-style: italic;
-            letter-spacing: 4px;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            font-weight: 400;
-            color: var(--deep-forest);
-            letter-spacing: 4px;
-        }
-        .section-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--gold);
-            margin: 25px auto 0;
-        }
-        
-        /* Bento Grid Gallery */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: 120px;
-            gap: 15px;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        
-        /* Video Grid - cleaner layout for videos */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .video-grid .gallery-item {
-            grid-column: span 1;
-            grid-row: span 1;
-            aspect-ratio: 16/9;
-            border-radius: 16px;
-        }
-        
-        .video-grid .gallery-item.size-3 {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        
-        .video-grid .gallery-item.size-2 {
-            grid-column: span 1;
-            grid-row: span 1;
-        }
-        
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            cursor: pointer;
-            background: var(--deep-forest);
-        }
-        
-        /* Bento sizes */
+        .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 120px; gap: 15px; max-width: 1600px; margin: 0 auto; }
         .gallery-item.size-1 { grid-column: span 3; grid-row: span 2; }
         .gallery-item.size-2 { grid-column: span 4; grid-row: span 3; }
         .gallery-item.size-3 { grid-column: span 6; grid-row: span 4; }
@@ -500,309 +97,98 @@
         .gallery-item.size-6 { grid-column: span 4; grid-row: span 2; }
         .gallery-item.size-wide { grid-column: span 8; grid-row: span 3; }
         .gallery-item.size-full { grid-column: span 12; grid-row: span 4; }
-        .gallery-item.size-full img {
-            object-fit: contain;
-            background: var(--cream);
-        }
+        .gallery-item.size-full img { object-fit: contain; background: var(--cream); }
         
-        .gallery-item img,
-        .gallery-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; background: var(--deep-forest); }
+        .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.1); }
+        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(26, 46, 26, 0.7) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
+        .gallery-item:hover::before { opacity: 1; }
+        .gallery-item .hover-glow { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%); opacity: 0; transition: opacity 0.5s ease; z-index: 1; pointer-events: none; }
+        .gallery-item:hover .hover-glow { opacity: 1; }
         
-        .gallery-item:hover img,
-        .gallery-item:hover video {
-            transform: scale(1.1);
-        }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 25px; z-index: 2; transform: translateY(20px); opacity: 0; transition: all 0.4s ease; }
+        .gallery-item:hover .gallery-caption { transform: translateY(0); opacity: 1; }
+        .caption-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 5px; }
+        .caption-desc { font-size: 0.8rem; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
         
-        /* Overlay with gradient */
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(
-                to top,
-                rgba(26, 46, 26, 0.7) 0%,
-                transparent 50%
-            );
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: 1;
-        }
-        .gallery-item:hover::before {
-            opacity: 1;
-        }
+        .gallery-item.video .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.4s ease; }
+        .gallery-item.video:hover .play-icon { background: var(--gold); transform: translate(-50%, -50%) scale(1.1); }
+        .play-icon svg { width: 30px; height: 30px; fill: white; margin-left: 5px; }
+        .gallery-item.video:hover .play-icon svg { fill: var(--deep-forest); }
         
-        /* Caption */
-        .gallery-caption {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 25px;
-            z-index: 2;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.4s ease;
-        }
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .caption-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            color: var(--white);
-            margin-bottom: 5px;
-        }
-        .caption-desc {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 1px;
-        }
+        .gallery-item::after { content: ''; position: absolute; top: 15px; right: 15px; width: 30px; height: 30px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); opacity: 0; transition: all 0.4s ease; z-index: 2; }
+        .gallery-item:hover::after { opacity: 1; top: 20px; right: 20px; }
         
-        /* Video play icon */
-        .gallery-item.video .play-icon {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px; height: 80px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            transition: all 0.4s ease;
-        }
-        .gallery-item.video:hover .play-icon {
-            background: var(--gold);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-        .play-icon svg {
-            width: 30px; height: 30px;
-            fill: white;
-            margin-left: 5px;
-        }
-        .gallery-item.video:hover .play-icon svg {
-            fill: var(--deep-forest);
-        }
+        .category-badge { position: absolute; top: 15px; left: 15px; padding: 8px 16px; background: var(--gold); color: var(--deep-forest); font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; border-radius: 4px; z-index: 3; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease; }
+        .gallery-item:hover .category-badge { opacity: 1; transform: translateY(0); }
         
-        /* Corner accent */
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            top: 15px; right: 15px;
-            width: 30px; height: 30px;
-            border-top: 2px solid var(--gold);
-            border-right: 2px solid var(--gold);
-            opacity: 0;
-            transition: all 0.4s ease;
-            z-index: 2;
-        }
-        .gallery-item:hover::after {
-            opacity: 1;
-            top: 20px; right: 20px;
-        }
+        .favorite-btn { position: absolute; top: 15px; right: 15px; width: 45px; height: 45px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 3; opacity: 0; transform: scale(0.8); transition: all 0.3s ease; font-size: 1.2rem; }
+        .gallery-item:hover .favorite-btn { opacity: 1; transform: scale(1); }
+        .favorite-btn.active { background: var(--gold); opacity: 1; transform: scale(1); }
+        .gallery-item:hover::after { right: 70px; }
         
-        /* ==================== AMENITIES SECTION ==================== */
-        .amenities-section {
-            padding: 80px 60px;
-            background: var(--deep-forest);
-        }
+        .hover-preview { position: fixed; z-index: 1000; pointer-events: none; width: 280px; background: var(--cream); border-radius: 16px; box-shadow: 0 25px 80px rgba(26, 46, 26, 0.3); overflow: hidden; border: 1px solid rgba(201, 169, 98, 0.3); opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .hover-preview.visible { opacity: 1; transform: translateY(0); }
+        .hover-preview img { width: 100%; height: 160px; object-fit: cover; }
+        .hover-preview .preview-info { padding: 20px; }
+        .hover-preview .preview-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--deep-forest); margin-bottom: 5px; }
+        .hover-preview .preview-info p { font-size: 0.85rem; color: var(--sage); letter-spacing: 1px; }
         
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .amenities-section { padding: 80px 60px; background: var(--deep-forest); }
+        .amenities-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .amenity-item { text-align: center; padding: 30px 20px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(201, 169, 98, 0.2); transition: all 0.4s ease; }
+        .amenity-item:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); border-color: var(--gold); }
+        .amenity-icon { width: 50px; height: 50px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; }
+        .amenity-icon svg { width: 32px; height: 32px; stroke: var(--gold); }
+        .amenity-name { font-size: 0.85rem; color: var(--cream); letter-spacing: 2px; text-transform: uppercase; }
         
-        .amenity-item {
-            text-align: center;
-            padding: 30px 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(201, 169, 98, 0.2);
-            transition: all 0.4s ease;
-        }
-        .amenity-item:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-        .amenity-icon {
-            width: 50px; height: 50px;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .amenity-icon svg {
-            width: 32px; height: 32px;
-            stroke: var(--gold);
-        }
-        .amenity-name {
-            font-size: 0.85rem;
-            color: var(--cream);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        .cta-section { padding: 100px 60px; background: var(--cream); text-align: center; }
+        .cta-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--deep-forest); margin-bottom: 20px; letter-spacing: 3px; }
+        .cta-title span { color: var(--gold); font-style: italic; }
+        .cta-subtitle { font-size: 1rem; color: var(--sage); letter-spacing: 2px; margin-bottom: 40px; }
+        .cta-btn { display: inline-block; padding: 20px 60px; background: var(--deep-forest); color: var(--cream); text-decoration: none; font-size: 0.9rem; font-weight: 600; letter-spacing: 3px; border-radius: 50px; transition: all 0.4s ease; box-shadow: 0 10px 40px rgba(26, 46, 26, 0.3); }
+        .cta-btn:hover { background: var(--gold); color: var(--deep-forest); transform: translateY(-3px); box-shadow: 0 15px 50px rgba(201, 169, 98, 0.4); }
         
-        /* ==================== CTA SECTION ==================== */
-        .cta-section {
-            padding: 100px 60px;
-            background: var(--cream);
-            text-align: center;
-        }
-        .cta-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 300;
-            color: var(--deep-forest);
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-        }
-        .cta-title span {
-            color: var(--gold);
-            font-style: italic;
-        }
-        .cta-subtitle {
-            font-size: 1rem;
-            color: var(--sage);
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-        }
-        .cta-btn {
-            display: inline-block;
-            padding: 20px 60px;
-            background: var(--deep-forest);
-            color: var(--cream);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            border-radius: 50px;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 40px rgba(26, 46, 26, 0.3);
-        }
-        .cta-btn:hover {
-            background: var(--gold);
-            color: var(--deep-forest);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(201, 169, 98, 0.4);
-        }
+        .sticky-book { position: fixed; bottom: 30px; right: 30px; background: var(--gold); color: var(--deep-forest); padding: 18px 35px; border-radius: 50px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 2px; text-decoration: none; z-index: 1000; box-shadow: 0 10px 40px rgba(201, 169, 98, 0.4); transform: translateY(100px); opacity: 0; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .sticky-book.visible { transform: translateY(0); opacity: 1; }
+        .sticky-book:hover { background: var(--deep-forest); color: var(--gold); transform: translateY(-3px); }
         
-        /* ==================== LIGHTBOX ==================== */
-        .lightbox {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.97);
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-        .lightbox.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(26, 46, 26, 0.97); z-index: 2000; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: all 0.4s ease; }
+        .lightbox.active { opacity: 1; visibility: visible; }
+        .lightbox-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; color: var(--cream); }
+        .lightbox-counter { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; letter-spacing: 3px; }
+        .lightbox-counter span { color: var(--gold); }
+        .lightbox-actions { display: flex; gap: 15px; align-items: center; }
+        .lightbox-btn { padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; color: var(--cream); font-family: 'Raleway', sans-serif; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .lightbox-btn:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-btn.active { background: var(--gold); border-color: var(--gold); color: var(--deep-forest); }
+        .lightbox-close { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; font-size: 1.5rem; }
+        .lightbox-close:hover { background: var(--gold); border-color: var(--gold); color: var(--deep-forest); }
+        .lightbox-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 0 100px; position: relative; }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 60px; height: 60px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; font-size: 1.5rem; }
+        .lightbox-nav:hover { background: var(--gold); border-color: var(--gold); color: var(--deep-forest); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-content { max-width: 85%; max-height: 75vh; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); }
+        .lightbox-media { max-width: 100%; max-height: 75vh; object-fit: contain; display: block; }
+        .tour-progress { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: rgba(255,255,255,0.2); z-index: 10; }
+        .tour-progress-bar { height: 100%; background: var(--gold); animation: progress 5s linear forwards; }
+        .lightbox-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px; background: linear-gradient(to top, rgba(26, 46, 26, 0.9), transparent); }
+        .lightbox-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--cream); margin-bottom: 5px; }
+        .lightbox-info p { color: rgba(245, 241, 232, 0.7); font-size: 0.9rem; }
+        .thumbnail-strip { padding: 20px 30px; background: rgba(0,0,0,0.3); }
+        .thumbnail-container { display: flex; gap: 10px; overflow-x: auto; justify-content: center; padding-bottom: 10px; }
+        .thumbnail-container::-webkit-scrollbar { height: 4px; }
+        .thumbnail-container::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 2px; }
+        .thumbnail-container::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+        .thumbnail { flex-shrink: 0; width: 80px; height: 55px; border-radius: 8px; overflow: hidden; cursor: pointer; opacity: 0.5; transition: all 0.3s ease; border: 2px solid transparent; }
+        .thumbnail:hover { opacity: 0.8; }
+        .thumbnail.active { opacity: 1; border-color: var(--gold); transform: scale(1.1); }
+        .thumbnail img { width: 100%; height: 100%; object-fit: cover; }
         
-        .lightbox-close {
-            position: absolute;
-            top: 30px; right: 30px;
-            width: 60px; height: 60px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        .lightbox-close:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-        }
-        .lightbox-close svg {
-            width: 24px; height: 24px;
-            stroke: white;
-            transition: stroke 0.3s ease;
-        }
-        .lightbox-close:hover svg {
-            stroke: var(--deep-forest);
-        }
-        
-        .lightbox-content {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 90%;
-            max-height: 85%;
-        }
-        
-        .lightbox-media {
-            max-width: 100%;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 60px; height: 60px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        .lightbox-nav:hover {
-            background: var(--gold);
-            border-color: var(--gold);
-        }
-        .lightbox-nav svg {
-            width: 24px; height: 24px;
-            stroke: white;
-            transition: stroke 0.3s ease;
-        }
-        .lightbox-nav:hover svg {
-            stroke: var(--deep-forest);
-        }
-        .lightbox-prev { left: 30px; }
-        .lightbox-next { right: 30px; }
-        
-        .lightbox-info {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-        .lightbox-counter {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-        }
-        
-        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 1200px) {
-            .gallery-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
+            .gallery-grid { grid-template-columns: repeat(6, 1fr); }
             .gallery-item.size-1 { grid-column: span 2; grid-row: span 2; }
             .gallery-item.size-2 { grid-column: span 2; grid-row: span 2; }
             .gallery-item.size-3 { grid-column: span 3; grid-row: span 3; }
@@ -814,7 +200,6 @@
             .amenities-grid { grid-template-columns: repeat(3, 1fr); }
             .video-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        
         @media (max-width: 992px) {
             .gallery-hero { height: 60vh; }
             .hero-title { font-size: 3rem; }
@@ -825,8 +210,8 @@
             .gallery-section { padding: 60px 30px; }
             .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
             .video-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .hover-preview { display: none; }
         }
-        
         @media (max-width: 768px) {
             .gallery-hero { height: 50vh; min-height: 400px; }
             .hero-title { font-size: 2.2rem; letter-spacing: 3px; }
@@ -840,36 +225,11 @@
             .stats { gap: 25px; }
             .stat-value { font-size: 1.4rem; }
             .gallery-section { padding: 50px 15px; }
-            .video-grid { 
-                grid-template-columns: 1fr; 
-                gap: 15px;
-            }
-            .video-grid .gallery-item {
-                aspect-ratio: 16/9;
-            }
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                grid-auto-rows: 150px;
-                gap: 10px;
-            }
-            .gallery-item.size-1,
-            .gallery-item.size-2,
-            .gallery-item.size-3,
-            .gallery-item.size-4,
-            .gallery-item.size-5,
-            .gallery-item.size-6,
-            .gallery-item.size-wide {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-            .gallery-item.size-3,
-            .gallery-item.size-full {
-                grid-column: span 2;
-                grid-row: span 2;
-            }
-            .gallery-item.size-full img {
-                object-fit: contain;
-            }
+            .video-grid { grid-template-columns: 1fr; gap: 15px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; gap: 10px; }
+            .gallery-item.size-1, .gallery-item.size-2, .gallery-item.size-3, .gallery-item.size-4, .gallery-item.size-5, .gallery-item.size-6, .gallery-item.size-wide { grid-column: span 1; grid-row: span 1; }
+            .gallery-item.size-3, .gallery-item.size-full { grid-column: span 2; grid-row: span 2; }
+            .gallery-item.size-full img { object-fit: contain; }
             .amenities-grid { grid-template-columns: repeat(2, 1fr); }
             .amenities-section { padding: 50px 20px; }
             .cta-section { padding: 60px 20px; }
@@ -877,14 +237,10 @@
             .lightbox-nav { width: 45px; height: 45px; }
             .lightbox-prev { left: 15px; }
             .lightbox-next { right: 15px; }
-            .sticky-book {
-                bottom: 20px;
-                right: 20px;
-                padding: 14px 25px;
-                font-size: 0.9rem;
-            }
+            .sticky-book { bottom: 20px; right: 20px; padding: 14px 25px; font-size: 0.9rem; }
+            .gallery-controls { gap: 15px; }
+            .start-tour-btn { padding: 14px 25px; font-size: 0.75rem; }
         }
-        
         @media (max-width: 480px) {
             .hero-title { font-size: 1.8rem; }
             .property-tag { font-size: 0.6rem; padding: 6px 14px; }
@@ -894,513 +250,315 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section class="gallery-hero">
         <video class="hero-video" autoplay muted loop playsinline>
             <source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
-        
-        <!-- Floating particles -->
         <div class="hero-particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
         </div>
-        
-        <!-- Navigation -->
         <nav class="gallery-nav">
             <a href="index.html" class="back-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 <span>BACK</span>
             </a>
             <a href="booking.html" class="book-btn">BOOK NOW</a>
         </nav>
-        
-        <!-- Hero Content -->
         <div class="hero-content">
             <div class="property-tag">Luxury Forest Retreat</div>
             <h1 class="hero-title">DUBLIN TREE HAVEN</h1>
             <div class="hero-location">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Wicklow Mountains, Ireland
             </div>
         </div>
-        
-        <!-- Stats Bar -->
         <div class="stats-bar">
             <div class="stats">
-                <div class="stat">
-                    <div class="stat-value">4</div>
-                    <div class="stat-label">Bedrooms</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">8</div>
-                    <div class="stat-label">Guests</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">$450</div>
-                    <div class="stat-label">Per Night</div>
-                </div>
+                <div class="stat"><div class="stat-value">4</div><div class="stat-label">Bedrooms</div></div>
+                <div class="stat"><div class="stat-value">8</div><div class="stat-label">Guests</div></div>
+                <div class="stat"><div class="stat-value">$450</div><div class="stat-label">Per Night</div></div>
             </div>
-            <div class="gallery-count">
-                <span>3</span> Videos · <span>16</span> Photos
-            </div>
+            <div class="gallery-count"><span>3</span> Videos · <span>16</span> Photos</div>
         </div>
     </section>
     
-    <!-- Gallery Section -->
     <section class="gallery-section">
-        <div class="section-header">
+        <div class="section-header animate">
             <div class="section-subtitle">Take a Tour</div>
             <h2 class="section-title">PROPERTY VIDEOS</h2>
             <div class="section-divider"></div>
         </div>
         
-        <!-- VIDEO GRID -->
         <div class="video-grid">
-            
-            <!-- ============================================== -->
-            <!-- YOUR VIDEOS GO HERE -->
-            <!-- ============================================== -->
-            
-            <div class="gallery-item size-3 video" onclick="openLightbox(0)">
-                <video muted loop playsinline>
-                    <source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4">
-                </video>
-                <div class="play-icon">
-                    <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="gallery-caption">
-                    <div class="caption-title">Property Tour</div>
-                    <div class="caption-desc">Full walkthrough of the sanctuary</div>
-                </div>
+            <div class="gallery-item video animate" data-index="0">
+                <video muted loop playsinline><source src="https://assets.mixkit.co/videos/513/513-720.mp4" type="video/mp4"></video>
+                <div class="hover-glow"></div>
+                <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <div class="gallery-caption"><div class="caption-title">Property Tour</div><div class="caption-desc">Full walkthrough of the sanctuary</div></div>
             </div>
-            
-            <div class="gallery-item size-2 video" onclick="openLightbox(1)">
-                <video muted loop playsinline>
-                    <source src="https://assets.mixkit.co/videos/4075/4075-720.mp4" type="video/mp4">
-                </video>
-                <div class="play-icon">
-                    <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="gallery-caption">
-                    <div class="caption-title">Forest Atmosphere</div>
-                    <div class="caption-desc">Experience the surroundings</div>
-                </div>
+            <div class="gallery-item video animate" data-index="1">
+                <video muted loop playsinline><source src="https://assets.mixkit.co/videos/4075/4075-720.mp4" type="video/mp4"></video>
+                <div class="hover-glow"></div>
+                <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <div class="gallery-caption"><div class="caption-title">Forest Atmosphere</div><div class="caption-desc">Experience the surroundings</div></div>
             </div>
-            
-            <div class="gallery-item size-2 video" onclick="openLightbox(2)">
-                <video muted loop playsinline>
-                    <source src="https://assets.mixkit.co/videos/4555/4555-720.mp4" type="video/mp4">
-                </video>
-                <div class="play-icon">
-                    <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </div>
-                <div class="gallery-caption">
-                    <div class="caption-title">Morning Tranquility</div>
-                    <div class="caption-desc">Wake up to nature</div>
-                </div>
+            <div class="gallery-item video animate" data-index="2">
+                <video muted loop playsinline><source src="https://assets.mixkit.co/videos/4555/4555-720.mp4" type="video/mp4"></video>
+                <div class="hover-glow"></div>
+                <div class="play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                <div class="gallery-caption"><div class="caption-title">Morning Tranquility</div><div class="caption-desc">Wake up to nature</div></div>
             </div>
-            
         </div>
         
-        <!-- PHOTOS SECTION -->
-        <div class="section-header" style="margin-top: 80px;">
+        <div class="section-header animate" style="margin-top: 80px;">
             <div class="section-subtitle">Explore Every Detail</div>
             <h2 class="section-title">PHOTO GALLERY</h2>
             <div class="section-divider"></div>
         </div>
         
-        <div class="gallery-grid">
-            
-            <!-- ============================================== -->
-            <!-- YOUR PHOTOS -->
-            <!-- ============================================== -->
-            
-            <!-- ROW 1: Main exterior + Aerial = 12 cols -->
-            <div class="gallery-item size-3" onclick="openLightbox(3)">
-                <img src="IMG_0690.jpg" alt="Dublin Tree Haven exterior">
-                <div class="gallery-caption">
-                    <div class="caption-title">The Retreat</div>
-                    <div class="caption-desc">Modern luxury in nature</div>
-                </div>
+        <div class="gallery-controls">
+            <div class="view-toggle">
+                <button class="active" id="bentoBtn" onclick="setViewMode('bento')">▤</button>
+                <button id="gridBtn" onclick="setViewMode('grid')">▦</button>
             </div>
-            
-            <div class="gallery-item size-3" onclick="openLightbox(4)">
+            <button class="start-tour-btn" onclick="startTour()"><span>▶️</span> START TOUR</button>
+        </div>
+        
+        <div class="gallery-grid" id="photoGrid">
+            <!-- ROW 1: Main exterior + Aerial = 12 cols -->
+            <div class="gallery-item size-3 animate" data-index="3" data-category="EXTERIOR">
+                <img src="IMG_0690.jpg" alt="Dublin Tree Haven exterior">
+                <div class="hover-glow"></div>
+                <div class="category-badge">EXTERIOR</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">The Retreat</div><div class="caption-desc">Modern luxury in nature</div></div>
+            </div>
+            <div class="gallery-item size-3 animate" data-index="4" data-category="AERIAL">
                 <img src="IMG_8379.jpeg" alt="Aerial view at sunset">
-                <div class="gallery-caption">
-                    <div class="caption-title">Aerial View</div>
-                    <div class="caption-desc">Nestled in endless forest</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">AERIAL</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Aerial View</div><div class="caption-desc">Nestled in endless forest</div></div>
             </div>
             
             <!-- ROW 2: Evening + Living wide = 12 cols -->
-            <div class="gallery-item size-2" onclick="openLightbox(5)">
+            <div class="gallery-item size-2 animate" data-index="5" data-category="EXTERIOR">
                 <img src="IMG_0691.jpg" alt="Exterior side view">
-                <div class="gallery-caption">
-                    <div class="caption-title">Evening Glow</div>
-                    <div class="caption-desc">String lights at dusk</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">EXTERIOR</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Evening Glow</div><div class="caption-desc">String lights at dusk</div></div>
             </div>
-            
-            <div class="gallery-item size-wide" onclick="openLightbox(6)">
+            <div class="gallery-item size-wide animate" data-index="6" data-category="LIVING">
                 <img src="IMG_0703.jpg" alt="Living room">
-                <div class="gallery-caption">
-                    <div class="caption-title">Living Space</div>
-                    <div class="caption-desc">Open plan with forest views</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">LIVING</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Living Space</div><div class="caption-desc">Open plan with forest views</div></div>
             </div>
             
             <!-- ROW 3: Living deck + Staircase + Kitchen = 12 cols -->
-            <div class="gallery-item size-2" onclick="openLightbox(7)">
+            <div class="gallery-item size-2 animate" data-index="7" data-category="LIVING">
                 <img src="IMG_0702.jpg" alt="Living room deck view">
-                <div class="gallery-caption">
-                    <div class="caption-title">Indoor-Outdoor Living</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">LIVING</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Indoor-Outdoor Living</div></div>
             </div>
-            
-            <div class="gallery-item size-2" onclick="openLightbox(8)">
+            <div class="gallery-item size-2 animate" data-index="8" data-category="LIVING">
                 <img src="IMG_0700.jpg" alt="Staircase and kitchen">
-                <div class="gallery-caption">
-                    <div class="caption-title">Open Layout</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">LIVING</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Open Layout</div></div>
             </div>
-            
-            <div class="gallery-item size-2" onclick="openLightbox(9)">
+            <div class="gallery-item size-2 animate" data-index="9" data-category="KITCHEN">
                 <img src="IMG_0699.jpg" alt="Kitchen">
-                <div class="gallery-caption">
-                    <div class="caption-title">Gourmet Kitchen</div>
-                    <div class="caption-desc">Professional-grade appliances</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">KITCHEN</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Gourmet Kitchen</div><div class="caption-desc">Professional-grade appliances</div></div>
             </div>
             
             <!-- ROW 4: Dining + Master + Guest = 12 cols -->
-            <div class="gallery-item size-2" onclick="openLightbox(10)">
+            <div class="gallery-item size-2 animate" data-index="10" data-category="KITCHEN">
                 <img src="IMG_0698.jpg" alt="Dining area">
-                <div class="gallery-caption">
-                    <div class="caption-title">Dining Area</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">KITCHEN</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Dining Area</div></div>
             </div>
-            
-            <div class="gallery-item size-2" onclick="openLightbox(11)">
+            <div class="gallery-item size-2 animate" data-index="11" data-category="BEDROOMS">
                 <img src="IMG_0696.jpg" alt="Master bedroom">
-                <div class="gallery-caption">
-                    <div class="caption-title">Master Suite</div>
-                    <div class="caption-desc">With en-suite spa bath</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">BEDROOMS</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Master Suite</div><div class="caption-desc">With en-suite spa bath</div></div>
             </div>
-            
-            <div class="gallery-item size-2" onclick="openLightbox(12)">
+            <div class="gallery-item size-2 animate" data-index="12" data-category="BEDROOMS">
                 <img src="IMG_0697.jpg" alt="Bedroom">
-                <div class="gallery-caption">
-                    <div class="caption-title">Guest Bedroom</div>
-                    <div class="caption-desc">Forest view window</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">BEDROOMS</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Guest Bedroom</div><div class="caption-desc">Forest view window</div></div>
             </div>
             
             <!-- ROW 5: Spa bathrooms = 12 cols -->
-            <div class="gallery-item size-3" onclick="openLightbox(13)">
+            <div class="gallery-item size-3 animate" data-index="13" data-category="BATHROOMS">
                 <img src="IMG_0705.JPG" alt="Spa bathroom with forest view">
-                <div class="gallery-caption">
-                    <div class="caption-title">Spa Sanctuary</div>
-                    <div class="caption-desc">Soak with sunset views</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">BATHROOMS</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Spa Sanctuary</div><div class="caption-desc">Soak with sunset views</div></div>
             </div>
-            
-            <div class="gallery-item size-3" onclick="openLightbox(14)">
+            <div class="gallery-item size-3 animate" data-index="14" data-category="BATHROOMS">
                 <img src="IMG_0693.jpg" alt="Spa bathroom">
-                <div class="gallery-caption">
-                    <div class="caption-title">Spa Bathroom</div>
-                    <div class="caption-desc">Floor-to-ceiling windows</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">BATHROOMS</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Spa Bathroom</div><div class="caption-desc">Floor-to-ceiling windows</div></div>
             </div>
             
             <!-- ROW 6: Shower + Powder + Deck = 12 cols -->
-            <div class="gallery-item size-2" onclick="openLightbox(15)">
+            <div class="gallery-item size-2 animate" data-index="15" data-category="BATHROOMS">
                 <img src="IMG_0694.jpg" alt="Shower">
-                <div class="gallery-caption">
-                    <div class="caption-title">Rain Shower</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">BATHROOMS</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Rain Shower</div></div>
             </div>
-            
-            <div class="gallery-item size-2" onclick="openLightbox(16)">
+            <div class="gallery-item size-2 animate" data-index="16" data-category="BATHROOMS">
                 <img src="IMG_0695.jpg" alt="Powder room">
-                <div class="gallery-caption">
-                    <div class="caption-title">Powder Room</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">BATHROOMS</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Powder Room</div></div>
             </div>
-            
-            <div class="gallery-item size-2" onclick="openLightbox(17)">
+            <div class="gallery-item size-2 animate" data-index="17" data-category="OUTDOOR">
                 <img src="IMG_0692.jpg" alt="Deck">
-                <div class="gallery-caption">
-                    <div class="caption-title">Private Deck</div>
-                    <div class="caption-desc">Relax among the trees</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">OUTDOOR</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Private Deck</div><div class="caption-desc">Relax among the trees</div></div>
             </div>
             
             <!-- ROW 7: Full width outdoor dining -->
-            <div class="gallery-item size-full" onclick="openLightbox(18)">
+            <div class="gallery-item size-full animate" data-index="18" data-category="OUTDOOR">
                 <img src="IMG_0706.JPG" alt="Outdoor dining">
-                <div class="gallery-caption">
-                    <div class="caption-title">Outdoor Dining</div>
-                    <div class="caption-desc">Al fresco meals with a view</div>
-                </div>
+                <div class="hover-glow"></div>
+                <div class="category-badge">OUTDOOR</div>
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
+                <div class="gallery-caption"><div class="caption-title">Outdoor Dining</div><div class="caption-desc">Al fresco meals with a view</div></div>
             </div>
-            
         </div>
     </section>
     
-    <!-- Amenities Section -->
     <section class="amenities-section">
-        <div class="section-header">
+        <div class="section-header animate">
             <div class="section-subtitle" style="color: var(--gold);">What's Included</div>
             <h2 class="section-title" style="color: var(--cream);">AMENITIES</h2>
             <div class="section-divider"></div>
         </div>
-        
         <div class="amenities-grid">
-            <div class="amenity-item">
-                <div class="amenity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                    </svg>
-                </div>
-                <div class="amenity-name">4 Bedrooms</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                    </svg>
-                </div>
-                <div class="amenity-name">Hot Tub</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <rect x="2" y="4" width="20" height="16" rx="2"/>
-                        <path d="M2 8h20"/>
-                    </svg>
-                </div>
-                <div class="amenity-name">Full Kitchen</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                    </svg>
-                </div>
-                <div class="amenity-name">Sleeps 8</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-                    </svg>
-                </div>
-                <div class="amenity-name">Forest Views</div>
-            </div>
-            <div class="amenity-item">
-                <div class="amenity-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                    </svg>
-                </div>
-                <div class="amenity-name">Coffee Bar</div>
-            </div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="amenity-name">4 Bedrooms</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div class="amenity-name">Hot Tub</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8h20"/></svg></div><div class="amenity-name">Full Kitchen</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="amenity-name">Sleeps 8</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></div><div class="amenity-name">Forest Views</div></div>
+            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div class="amenity-name">Coffee Bar</div></div>
         </div>
     </section>
     
-    <!-- CTA Section -->
     <section class="cta-section">
         <h2 class="cta-title">Ready to <span>escape</span> to the forest?</h2>
         <p class="cta-subtitle">BOOK YOUR STAY AT DUBLIN TREE HAVEN</p>
         <a href="booking.html" class="cta-btn">RESERVE NOW</a>
     </section>
     
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" onclick="closeLightbox()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-        </button>
-        
-        <button class="lightbox-nav lightbox-prev" onclick="prevItem()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="15 18 9 12 15 6"/>
-            </svg>
-        </button>
-        
-        <div class="lightbox-content" id="lightboxContent"></div>
-        
-        <button class="lightbox-nav lightbox-next" onclick="nextItem()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="9 18 15 12 9 6"/>
-            </svg>
-        </button>
-        
-        <div class="lightbox-info">
-            <div class="lightbox-counter" id="lightboxCounter">1 / 12</div>
-        </div>
+    <div class="hover-preview" id="hoverPreview">
+        <img src="" alt="" id="previewImg">
+        <div class="preview-info"><h4 id="previewTitle"></h4><p id="previewDesc"></p></div>
     </div>
     
-    <script>
-        var galleryItems = [];
-        var currentIndex = 0;
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            var items = document.querySelectorAll('.gallery-item');
-            items.forEach(function(item) {
-                var img = item.querySelector('img');
-                var video = item.querySelector('video source');
-                
-                if (video) {
-                    galleryItems.push({ type: 'video', src: video.src });
-                } else if (img) {
-                    galleryItems.push({ type: 'image', src: img.src.replace('w=600', 'w=1200').replace('w=800', 'w=1200') });
-                }
-            });
-        });
-        
-        function openLightbox(index) {
-            currentIndex = index;
-            document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            showItem(index);
-        }
-        
-        function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-            var video = document.querySelector('.lightbox-content video');
-            if (video) video.pause();
-        }
-        
-        function showItem(index) {
-            var content = document.getElementById('lightboxContent');
-            var counter = document.getElementById('lightboxCounter');
-            var item = galleryItems[index];
-            
-            if (item.type === 'video') {
-                content.innerHTML = '<video class="lightbox-media" controls autoplay><source src="' + item.src + '" type="video/mp4"></video>';
-            } else {
-                content.innerHTML = '<img class="lightbox-media" src="' + item.src + '" alt="Gallery image">';
-            }
-            
-            counter.textContent = (index + 1) + ' / ' + galleryItems.length;
-        }
-        
-        function nextItem() {
-            var video = document.querySelector('.lightbox-content video');
-            if (video) video.pause();
-            currentIndex = (currentIndex + 1) % galleryItems.length;
-            showItem(currentIndex);
-        }
-        
-        function prevItem() {
-            var video = document.querySelector('.lightbox-content video');
-            if (video) video.pause();
-            currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-            showItem(currentIndex);
-        }
-        
-        document.addEventListener('keydown', function(e) {
-            var lightbox = document.getElementById('lightbox');
-            if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') nextItem();
-            if (e.key === 'ArrowLeft') prevItem();
-        });
-        
-        document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target.id === 'lightbox') closeLightbox();
-        });
-        
-        // ==================== SCROLL ANIMATIONS ====================
-        function initScrollAnimations() {
-            // Add animate class to elements
-            var galleryItems = document.querySelectorAll('.gallery-grid .gallery-item, .video-grid .gallery-item');
-            var sectionHeaders = document.querySelectorAll('.section-header');
-            var amenityCards = document.querySelectorAll('.amenity-card');
-            var ctaSection = document.querySelector('.cta-section');
-            
-            galleryItems.forEach(function(item) { item.classList.add('animate'); });
-            sectionHeaders.forEach(function(item) { item.classList.add('animate'); });
-            amenityCards.forEach(function(item) { item.classList.add('animate'); });
-            if (ctaSection) ctaSection.classList.add('animate');
-            
-            // Intersection Observer
-            var observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-            
-            galleryItems.forEach(function(item) { observer.observe(item); });
-            sectionHeaders.forEach(function(item) { observer.observe(item); });
-            amenityCards.forEach(function(item) { observer.observe(item); });
-            if (ctaSection) observer.observe(ctaSection);
-        }
-        
-        // ==================== STICKY BOOK BUTTON ====================
-        function initStickyButton() {
-            var stickyBtn = document.querySelector('.sticky-book');
-            if (!stickyBtn) return;
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 500) {
-                    stickyBtn.classList.add('visible');
-                } else {
-                    stickyBtn.classList.remove('visible');
-                }
-            });
-        }
-        
-        // ==================== VIDEO HOVER AUTOPLAY ====================
-        function initVideoHover() {
-            var videoItems = document.querySelectorAll('.video-grid .gallery-item.video');
-            
-            videoItems.forEach(function(item) {
-                var video = item.querySelector('video');
-                if (!video) return;
-                
-                item.addEventListener('mouseenter', function() {
-                    video.play();
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            });
-        }
-        
-        // Initialize all
-        document.addEventListener('DOMContentLoaded', function() {
-            initScrollAnimations();
-            initStickyButton();
-            initVideoHover();
-        });
-    </script>
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-header">
+            <div class="lightbox-counter" id="lightboxCounter"><span>1</span> / 19</div>
+            <div class="lightbox-actions">
+                <button class="lightbox-btn" id="tourBtn" onclick="toggleTour()">▶️ TOUR</button>
+                <button class="lightbox-btn" id="favoriteBtn" onclick="toggleLightboxFavorite()">🤍 SAVE</button>
+                <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            </div>
+        </div>
+        <div class="lightbox-main">
+            <button class="lightbox-nav lightbox-prev" onclick="prevItem()">‹</button>
+            <div class="lightbox-content" id="lightboxContent"></div>
+            <button class="lightbox-nav lightbox-next" onclick="nextItem()">›</button>
+        </div>
+        <div class="thumbnail-strip"><div class="thumbnail-container" id="thumbnailContainer"></div></div>
+    </div>
     
-    <!-- Sticky Book Now Button -->
     <a href="booking.html" class="sticky-book">BOOK NOW</a>
+    
+    <script>
+        var galleryItems = [], currentIndex = 0, tourMode = false, tourInterval = null, favorites = new Set();
+        var hoverPreview = document.getElementById('hoverPreview');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.gallery-item').forEach(function(item) {
+                var img = item.querySelector('img'), video = item.querySelector('video source');
+                var title = item.querySelector('.caption-title'), desc = item.querySelector('.caption-desc');
+                galleryItems.push({ 
+                    type: video ? 'video' : 'image', 
+                    src: video ? video.src : img ? img.src : '',
+                    title: title ? title.textContent : '',
+                    desc: desc ? desc.textContent : ''
+                });
+                item.addEventListener('click', function() { openLightbox(parseInt(item.dataset.index)); });
+                if (!video && img) {
+                    item.addEventListener('mouseenter', function() { showPreview(img.src, title ? title.textContent : '', desc ? desc.textContent : ''); });
+                    item.addEventListener('mousemove', function(e) { movePreview(e); });
+                    item.addEventListener('mouseleave', function() { hidePreview(); });
+                }
+            });
+            buildThumbnails(); initScrollAnimations(); initStickyButton(); initVideoHover();
+        });
+        
+        function showPreview(src, title, desc) { document.getElementById('previewImg').src = src; document.getElementById('previewTitle').textContent = title; document.getElementById('previewDesc').textContent = desc; hoverPreview.classList.add('visible'); }
+        function movePreview(e) { var x = e.clientX + 25, y = e.clientY - 100; if (x + 300 > window.innerWidth) x = e.clientX - 305; if (y < 10) y = 10; if (y + 240 > window.innerHeight) y = window.innerHeight - 250; hoverPreview.style.left = x + 'px'; hoverPreview.style.top = y + 'px'; }
+        function hidePreview() { hoverPreview.classList.remove('visible'); }
+        
+        function setViewMode(mode) {
+            var grid = document.getElementById('photoGrid'), bentoBtn = document.getElementById('bentoBtn'), gridBtn = document.getElementById('gridBtn');
+            if (mode === 'grid') {
+                grid.style.display = 'grid'; grid.style.gridTemplateColumns = 'repeat(4, 1fr)'; grid.style.gridAutoRows = '280px';
+                document.querySelectorAll('#photoGrid .gallery-item').forEach(function(item) { item.style.gridColumn = 'span 1'; item.style.gridRow = 'span 1'; });
+                gridBtn.classList.add('active'); bentoBtn.classList.remove('active');
+            } else {
+                grid.style.display = ''; grid.style.gridTemplateColumns = ''; grid.style.gridAutoRows = '';
+                document.querySelectorAll('#photoGrid .gallery-item').forEach(function(item) { item.style.gridColumn = ''; item.style.gridRow = ''; });
+                bentoBtn.classList.add('active'); gridBtn.classList.remove('active');
+            }
+        }
+        
+        function startTour() { openLightbox(3); setTimeout(function() { tourMode = true; document.getElementById('tourBtn').classList.add('active'); document.getElementById('tourBtn').textContent = '⏸️ PAUSE'; showItem(currentIndex); startTourTimer(); }, 100); }
+        function buildThumbnails() { var c = document.getElementById('thumbnailContainer'); galleryItems.forEach(function(item, i) { var t = document.createElement('div'); t.className = 'thumbnail'; t.onclick = function() { goToItem(i); }; t.innerHTML = item.type === 'video' ? '<div style="width:100%;height:100%;background:var(--deep-forest);display:flex;align-items:center;justify-content:center;color:var(--gold);">▶</div>' : '<img src="' + item.src + '">'; c.appendChild(t); }); }
+        function openLightbox(i) { currentIndex = i; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; showItem(i); }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; stopTour(); var v = document.querySelector('.lightbox-content video'); if (v) v.pause(); }
+        function showItem(i) { var c = document.getElementById('lightboxContent'), item = galleryItems[i]; document.getElementById('lightboxCounter').innerHTML = '<span>' + (i + 1) + '</span> / ' + galleryItems.length; var html = tourMode ? '<div class="tour-progress"><div class="tour-progress-bar"></div></div>' : ''; if (item.type === 'video') { html += '<video class="lightbox-media" controls autoplay><source src="' + item.src + '" type="video/mp4"></video>'; } else { html += '<img class="lightbox-media' + (tourMode ? ' animate-kenburns' : '') + '" src="' + item.src + '">'; } html += '<div class="lightbox-info"><h3>' + item.title + '</h3><p>' + item.desc + '</p></div>'; c.innerHTML = html; document.querySelectorAll('.thumbnail').forEach(function(t, j) { t.classList.toggle('active', j === i); }); updateFavoriteBtn(); }
+        function goToItem(i) { var v = document.querySelector('.lightbox-content video'); if (v) v.pause(); currentIndex = i; showItem(i); if (tourMode) { clearInterval(tourInterval); startTourTimer(); } }
+        function nextItem() { goToItem((currentIndex + 1) % galleryItems.length); }
+        function prevItem() { goToItem((currentIndex - 1 + galleryItems.length) % galleryItems.length); }
+        function toggleTour() { tourMode = !tourMode; var btn = document.getElementById('tourBtn'); if (tourMode) { btn.classList.add('active'); btn.textContent = '⏸️ PAUSE'; startTourTimer(); } else { btn.classList.remove('active'); btn.textContent = '▶️ TOUR'; stopTour(); } showItem(currentIndex); }
+        function startTourTimer() { tourInterval = setInterval(nextItem, 5000); }
+        function stopTour() { tourMode = false; clearInterval(tourInterval); document.getElementById('tourBtn').classList.remove('active'); document.getElementById('tourBtn').textContent = '▶️ TOUR'; }
+        function toggleFavorite(btn) { btn.classList.toggle('active'); btn.textContent = btn.classList.contains('active') ? '❤️' : '🤍'; }
+        function toggleLightboxFavorite() { if (favorites.has(currentIndex)) favorites.delete(currentIndex); else favorites.add(currentIndex); updateFavoriteBtn(); var items = document.querySelectorAll('.gallery-item'); items.forEach(function(item) { if (parseInt(item.dataset.index) === currentIndex) { var btn = item.querySelector('.favorite-btn'); if (btn) { btn.classList.toggle('active', favorites.has(currentIndex)); btn.textContent = favorites.has(currentIndex) ? '❤️' : '🤍'; } } }); }
+        function updateFavoriteBtn() { var btn = document.getElementById('favoriteBtn'); btn.classList.toggle('active', favorites.has(currentIndex)); btn.innerHTML = favorites.has(currentIndex) ? '❤️ SAVED' : '🤍 SAVE'; }
+        document.addEventListener('keydown', function(e) { if (!document.getElementById('lightbox').classList.contains('active')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowRight') nextItem(); if (e.key === 'ArrowLeft') prevItem(); if (e.key === ' ') { e.preventDefault(); toggleTour(); } });
+        function initScrollAnimations() { var obs = new IntersectionObserver(function(e) { e.forEach(function(x) { if (x.isIntersecting) x.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('.animate').forEach(function(el) { obs.observe(el); }); }
+        function initStickyButton() { window.addEventListener('scroll', function() { document.querySelector('.sticky-book').classList.toggle('visible', window.scrollY > 500); }); }
+        function initVideoHover() { document.querySelectorAll('.video-grid .gallery-item.video').forEach(function(item) { var v = item.querySelector('video'); if (v) { item.onmouseenter = function() { v.play(); }; item.onmouseleave = function() { v.pause(); v.currentTime = 0; }; } }); }
+    </script>
 </body>
 </html>
