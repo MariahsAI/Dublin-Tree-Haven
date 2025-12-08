@@ -21,6 +21,178 @@
         }
         
         html { scroll-behavior: smooth; }
+        
+        /* ==================== FLOATING PARTICLES ==================== */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .hero-particles .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle 15s infinite ease-in-out;
+        }
+        
+        .hero-particles .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .hero-particles .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 14s; }
+        .hero-particles .particle:nth-child(3) { left: 35%; animation-delay: 4s; animation-duration: 11s; }
+        .hero-particles .particle:nth-child(4) { left: 50%; animation-delay: 1s; animation-duration: 16s; }
+        .hero-particles .particle:nth-child(5) { left: 65%; animation-delay: 3s; animation-duration: 13s; }
+        .hero-particles .particle:nth-child(6) { left: 80%; animation-delay: 5s; animation-duration: 15s; }
+        .hero-particles .particle:nth-child(7) { left: 90%; animation-delay: 2.5s; animation-duration: 12s; }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+        
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        .gallery-item.animate {
+            opacity: 0;
+            transform: translateY(60px);
+        }
+        
+        .gallery-item.animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .gallery-item.animate:nth-child(odd) { transition-delay: 0.1s; }
+        .gallery-item.animate:nth-child(even) { transition-delay: 0.2s; }
+        
+        /* Video grid animations */
+        .video-grid .gallery-item.animate {
+            transform: translateY(40px) scale(0.95);
+        }
+        
+        .video-grid .gallery-item.animate.visible {
+            transform: translateY(0) scale(1);
+        }
+        
+        /* ==================== ENHANCED HOVER GLOW ==================== */
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(201, 169, 98, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+        
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+        
+        /* ==================== STICKY BOOK NOW BUTTON ==================== */
+        .sticky-book {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gold);
+            color: var(--deep-forest);
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-decoration: none;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(201, 169, 98, 0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .sticky-book.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .sticky-book:hover {
+            background: var(--deep-forest);
+            color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(201, 169, 98, 0.5);
+        }
+        
+        /* Pulse animation */
+        .sticky-book::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50px;
+            background: var(--gold);
+            z-index: -1;
+            opacity: 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.3; }
+        }
+        
+        /* ==================== SECTION HEADERS ANIMATION ==================== */
+        .section-header.animate {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .section-header.animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        /* ==================== AMENITY CARDS ANIMATION ==================== */
+        .amenity-card.animate {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .amenity-card.animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .amenity-card.animate:nth-child(1) { transition-delay: 0s; }
+        .amenity-card.animate:nth-child(2) { transition-delay: 0.1s; }
+        .amenity-card.animate:nth-child(3) { transition-delay: 0.2s; }
+        .amenity-card.animate:nth-child(4) { transition-delay: 0.3s; }
+        .amenity-card.animate:nth-child(5) { transition-delay: 0.4s; }
+        .amenity-card.animate:nth-child(6) { transition-delay: 0.5s; }
+        
+        /* ==================== CTA ANIMATION ==================== */
+        .cta-section.animate {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .cta-section.animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
         body {
             font-family: 'Raleway', sans-serif;
             background: var(--cream);
@@ -705,6 +877,12 @@
             .lightbox-nav { width: 45px; height: 45px; }
             .lightbox-prev { left: 15px; }
             .lightbox-next { right: 15px; }
+            .sticky-book {
+                bottom: 20px;
+                right: 20px;
+                padding: 14px 25px;
+                font-size: 0.9rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1152,6 +1330,77 @@
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target.id === 'lightbox') closeLightbox();
         });
+        
+        // ==================== SCROLL ANIMATIONS ====================
+        function initScrollAnimations() {
+            // Add animate class to elements
+            var galleryItems = document.querySelectorAll('.gallery-grid .gallery-item, .video-grid .gallery-item');
+            var sectionHeaders = document.querySelectorAll('.section-header');
+            var amenityCards = document.querySelectorAll('.amenity-card');
+            var ctaSection = document.querySelector('.cta-section');
+            
+            galleryItems.forEach(function(item) { item.classList.add('animate'); });
+            sectionHeaders.forEach(function(item) { item.classList.add('animate'); });
+            amenityCards.forEach(function(item) { item.classList.add('animate'); });
+            if (ctaSection) ctaSection.classList.add('animate');
+            
+            // Intersection Observer
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            
+            galleryItems.forEach(function(item) { observer.observe(item); });
+            sectionHeaders.forEach(function(item) { observer.observe(item); });
+            amenityCards.forEach(function(item) { observer.observe(item); });
+            if (ctaSection) observer.observe(ctaSection);
+        }
+        
+        // ==================== STICKY BOOK BUTTON ====================
+        function initStickyButton() {
+            var stickyBtn = document.querySelector('.sticky-book');
+            if (!stickyBtn) return;
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    stickyBtn.classList.add('visible');
+                } else {
+                    stickyBtn.classList.remove('visible');
+                }
+            });
+        }
+        
+        // ==================== VIDEO HOVER AUTOPLAY ====================
+        function initVideoHover() {
+            var videoItems = document.querySelectorAll('.video-grid .gallery-item.video');
+            
+            videoItems.forEach(function(item) {
+                var video = item.querySelector('video');
+                if (!video) return;
+                
+                item.addEventListener('mouseenter', function() {
+                    video.play();
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            });
+        }
+        
+        // Initialize all
+        document.addEventListener('DOMContentLoaded', function() {
+            initScrollAnimations();
+            initStickyButton();
+            initVideoHover();
+        });
     </script>
+    
+    <!-- Sticky Book Now Button -->
+    <a href="booking.html" class="sticky-book">BOOK NOW</a>
 </body>
 </html>
