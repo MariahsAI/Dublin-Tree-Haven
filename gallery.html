@@ -135,23 +135,6 @@
         .hover-preview .preview-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--deep-forest); margin-bottom: 5px; }
         .hover-preview .preview-info p { font-size: 0.85rem; color: var(--sage); letter-spacing: 1px; }
         
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-
-
-        
-        
         /* Amenities Invitation Section */
         .amenities-invite {
             padding: 120px 40px;
@@ -312,7 +295,6 @@
             .gallery-item.size-6 { grid-column: span 3; grid-row: span 2; }
             .gallery-item.size-wide { grid-column: span 4; grid-row: span 2; }
             .gallery-item.size-full { grid-column: span 6; grid-row: span 2; }
-            .amenities-grid { grid-template-columns: repeat(3, 1fr); }
             .video-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 992px) {
@@ -323,21 +305,20 @@
             .stats-bar { padding: 20px 30px; }
             .stats { gap: 30px; }
             .gallery-section { padding: 60px 30px; }
-            .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
             .video-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
             .hover-preview { display: none; }
             .lightbox-main { padding: 0 80px; }
         }
         @media (max-width: 768px) {
             .gallery-hero { height: 55vh; min-height: 380px; }
-            .hero-title { font-size: 2rem; letter-spacing: 2px; }
+            .hero-title { font-size: 1.8rem; letter-spacing: 2px; }
             .hero-location { font-size: 0.85rem; letter-spacing: 1px; }
             .gallery-nav { padding: 15px 15px; }
             .back-btn { padding: 10px 15px; font-size: 0.7rem; gap: 8px; }
             .back-btn span { display: none; }
             .back-btn svg { width: 16px; height: 16px; }
             .book-btn { padding: 10px 18px; font-size: 0.7rem; letter-spacing: 1px; }
-            .hero-content { left: 15px; right: 15px; bottom: 85px; }
+            .hero-content { left: 15px; right: 15px; bottom: 120px; }
             .property-tag { padding: 6px 12px; font-size: 0.6rem; letter-spacing: 2px; margin-bottom: 12px; }
             .stats-bar { flex-direction: column; gap: 15px; padding: 15px; }
             .stats { gap: 20px; justify-content: center; }
@@ -366,22 +347,6 @@
             .gallery-controls { flex-direction: column; gap: 15px; margin-bottom: 30px; }
             .view-toggle button { width: 45px; height: 40px; font-size: 1.1rem; }
             .start-tour-btn { padding: 14px 30px; font-size: 0.75rem; letter-spacing: 2px; }
-            .amenities-section { padding: 50px 20px; }
-            .forest-scene-section .section-header { padding: 0 20px; }
-            .immersive-landscape { height: 500px; margin-top: 30px; }
-            .orb-core { width: 50px; height: 50px; }
-            .orb-icon { font-size: 1.3rem; }
-            .orb-ring { width: 65px; height: 65px; }
-            .label-text { font-size: 1.2rem; }
-            .label-sub { font-size: 0.65rem; }
-            .explore-hint { font-size: 0.7rem; bottom: 20px; }
-            .cabin-glow { width: 80px; height: 80px; }
-            .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-            .amenity-item { padding: 20px 10px; }
-            .amenity-icon { width: 40px; height: 40px; margin-bottom: 10px; }
-            .amenity-icon svg { width: 24px; height: 24px; }
-            .amenity-name { font-size: 0.65rem; letter-spacing: 1px; }
-            .amenities-section { padding: 40px 15px; }
             .cta-section { padding: 50px 15px; }
             .cta-title { font-size: 1.6rem; letter-spacing: 1px; }
             .cta-subtitle { font-size: 0.8rem; letter-spacing: 1px; margin-bottom: 25px; }
@@ -408,36 +373,19 @@
         }
         @media (max-width: 480px) {
             .gallery-hero { height: 50vh; min-height: 320px; }
-            .hero-title { font-size: 1.6rem; letter-spacing: 1px; }
+            .hero-title { font-size: 1.5rem; letter-spacing: 1px; }
             .hero-location { font-size: 0.75rem; gap: 6px; }
             .hero-location svg { width: 16px; height: 16px; }
-            .hero-content { bottom: 75px; }
+            .hero-content { bottom: 110px; }
             .stats { gap: 15px; }
             .stat-value { font-size: 1.1rem; }
             .gallery-grid { grid-auto-rows: 120px; gap: 6px; }
             .gallery-section { padding: 30px 10px; }
             .section-title { font-size: 1.5rem; }
-            .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .amenity-item { padding: 15px 8px; }
-            .amenity-name { font-size: 0.6rem; }
             .cta-title { font-size: 1.4rem; }
             .lightbox-btn span:last-child { display: none; }
             .lightbox-btn { padding: 8px 10px; min-width: 40px; justify-content: center; }
             .thumbnail { width: 50px; height: 35px; }
-            .immersive-landscape { height: 450px; }
-            .orb-core { width: 45px; height: 45px; }
-            .orb-icon { font-size: 1.1rem; }
-            .orb-ring { width: 55px; height: 55px; }
-            .label-text { font-size: 1rem; }
-            .label-sub { font-size: 0.6rem; }
-            .explore-hint { display: none; }
-            .forest-particles span { width: 3px; height: 3px; }
-        }
-        @media (max-width: 360px) {
-            .gallery-hero { min-height: 280px; }
-            .hero-title { font-size: 1.4rem; }
-            .gallery-grid { grid-auto-rows: 100px; }
-            .stats { flex-wrap: wrap; justify-content: center; }
         }
         
         /* Touch device improvements */
@@ -448,12 +396,6 @@
             .gallery-item .category-badge { opacity: 0; }
             .gallery-item:active { transform: scale(0.98); }
             .lightbox-nav:active { background: var(--gold); color: var(--deep-forest); }
-            .amenity-orb .orb-label { opacity: 0; visibility: hidden; }
-            .amenity-orb.active .orb-label { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(10px); }
-            .amenity-orb.active .orb-core { 
-                transform: scale(1.3); 
-                box-shadow: 0 0 50px rgba(201, 169, 98, 0.8), 0 0 100px rgba(201, 169, 98, 0.5);
-            }
         }
     </style>
 </head>
@@ -535,7 +477,6 @@
         </div>
         
         <div class="gallery-grid" id="photoGrid">
-            <!-- ROW 1: Main exterior + Aerial = 12 cols -->
             <div class="gallery-item size-3 animate" data-index="3" data-category="EXTERIOR">
                 <img src="IMG_0690.jpg" alt="Dublin Tree Haven exterior">
                 <div class="hover-glow"></div>
@@ -550,8 +491,6 @@
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
                 <div class="gallery-caption"><div class="caption-title">Aerial View</div><div class="caption-desc">Nestled in endless forest</div></div>
             </div>
-            
-            <!-- ROW 2: Evening + Living wide = 12 cols -->
             <div class="gallery-item size-2 animate" data-index="5" data-category="EXTERIOR">
                 <img src="IMG_0691.jpg" alt="Exterior side view">
                 <div class="hover-glow"></div>
@@ -566,8 +505,6 @@
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
                 <div class="gallery-caption"><div class="caption-title">Living Space</div><div class="caption-desc">Open plan with forest views</div></div>
             </div>
-            
-            <!-- ROW 3: Living deck + Staircase + Kitchen = 12 cols -->
             <div class="gallery-item size-2 animate" data-index="7" data-category="LIVING">
                 <img src="IMG_0702.jpg" alt="Living room deck view">
                 <div class="hover-glow"></div>
@@ -589,8 +526,6 @@
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
                 <div class="gallery-caption"><div class="caption-title">Gourmet Kitchen</div><div class="caption-desc">Professional-grade appliances</div></div>
             </div>
-            
-            <!-- ROW 4: Dining + Master + Guest = 12 cols -->
             <div class="gallery-item size-2 animate" data-index="10" data-category="KITCHEN">
                 <img src="IMG_0698.jpg" alt="Dining area">
                 <div class="hover-glow"></div>
@@ -612,8 +547,6 @@
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
                 <div class="gallery-caption"><div class="caption-title">Guest Bedroom</div><div class="caption-desc">Forest view window</div></div>
             </div>
-            
-            <!-- ROW 5: Spa bathrooms = 12 cols -->
             <div class="gallery-item size-3 animate" data-index="13" data-category="BATHROOMS">
                 <img src="IMG_0705.JPG" alt="Spa bathroom with forest view">
                 <div class="hover-glow"></div>
@@ -628,8 +561,6 @@
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
                 <div class="gallery-caption"><div class="caption-title">Spa Bathroom</div><div class="caption-desc">Floor-to-ceiling windows</div></div>
             </div>
-            
-            <!-- ROW 6: Shower + Powder + Deck = 12 cols -->
             <div class="gallery-item size-2 animate" data-index="15" data-category="BATHROOMS">
                 <img src="IMG_0694.jpg" alt="Shower">
                 <div class="hover-glow"></div>
@@ -651,8 +582,6 @@
                 <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite(this)">🤍</button>
                 <div class="gallery-caption"><div class="caption-title">Private Deck</div><div class="caption-desc">Relax among the trees</div></div>
             </div>
-            
-            <!-- ROW 7: Full width outdoor dining -->
             <div class="gallery-item size-full animate" data-index="18" data-category="OUTDOOR">
                 <img src="IMG_0706.JPG" alt="Outdoor dining">
                 <div class="hover-glow"></div>
@@ -670,7 +599,7 @@
             <h2 class="invite-title">What Awaits You</h2>
             <p class="invite-text">Discover the luxuries prepared for your stay</p>
             <a href="invitation.html" class="invite-btn">
-                <span class="btn-text">View Your Personal Invitation</span>
+                <span class="btn-text">View Your Personal Amenities</span>
                 <span class="btn-icon">→</span>
             </a>
         </div>
@@ -766,7 +695,6 @@
         function initStickyButton() { window.addEventListener('scroll', function() { document.querySelector('.sticky-book').classList.toggle('visible', window.scrollY > 500); }); }
         function initVideoHover() { document.querySelectorAll('.video-grid .gallery-item.video').forEach(function(item) { var v = item.querySelector('video'); if (v) { item.onmouseenter = function() { v.play(); }; item.onmouseleave = function() { v.pause(); v.currentTime = 0; }; } }); }
         
-        // Mobile swipe support for lightbox
         (function() {
             var touchStartX = 0, touchEndX = 0, touchStartY = 0, touchEndY = 0;
             var lightbox = document.getElementById('lightbox');
@@ -785,21 +713,11 @@
             function handleSwipe() {
                 var diffX = touchStartX - touchEndX;
                 var diffY = touchStartY - touchEndY;
-                
-                // Only trigger if horizontal swipe is greater than vertical (not scrolling)
                 if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        nextItem(); // Swipe left = next
-                    } else {
-                        prevItem(); // Swipe right = prev
-                    }
+                    if (diffX > 0) { nextItem(); } else { prevItem(); }
                 }
             }
         })();
-        
-        // Amenities section - links to invitation.html
-
-    
     </script>
 </body>
 </html>
