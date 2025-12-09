@@ -94,7 +94,11 @@
             align-items: center;
             z-index: 9999;
             transition: all 0.4s ease;
-            pointer-events: auto;
+            pointer-events: auto !important;
+        }
+        
+        nav * {
+            pointer-events: auto !important;
         }
 
         nav.scrolled {
@@ -1632,15 +1636,18 @@
             cursor: pointer;
             z-index: 10000;
             padding: 15px;
-            background: transparent;
+            background: rgba(26, 46, 26, 0.5);
             border: none;
-            -webkit-tap-highlight-color: transparent;
+            border-radius: 8px;
+            -webkit-tap-highlight-color: rgba(201, 169, 98, 0.3);
             touch-action: manipulation;
             position: relative;
-            min-width: 50px;
-            min-height: 50px;
+            min-width: 55px;
+            min-height: 55px;
             align-items: center;
             justify-content: center;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .mobile-menu-btn span {
@@ -1935,6 +1942,50 @@
             <a href="booking.html" class="mobile-book-btn">Book Now</a>
         </div>
     </div>
+    
+    <script>
+    (function() {
+        var btn = document.getElementById('mobileMenuBtn');
+        var menu = document.getElementById('mobileMenu');
+        
+        if (!btn || !menu) {
+            console.log('Menu elements not found');
+            return;
+        }
+        
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }, false);
+        
+        btn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }, {passive: false});
+        
+        var links = menu.querySelectorAll('a');
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function() {
+                menu.classList.remove('active');
+                btn.classList.remove('active');
+                document.body.style.overflow = '';
+            }, false);
+        }
+    })();
+    </script>
 
     <!-- Hero Section - CINEMATIC -->
     <section class="hero">
@@ -2537,64 +2588,8 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            var menu = document.getElementById('mobileMenu');
-            var btn = document.getElementById('mobileMenuBtn');
-            if (menu.classList.contains('active')) {
-                menu.classList.remove('active');
-                btn.classList.remove('active');
-                document.body.style.overflow = '';
-            } else {
-                menu.classList.add('active');
-                btn.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeMobileMenu() {
-            var menu = document.getElementById('mobileMenu');
-            var btn = document.getElementById('mobileMenuBtn');
-            menu.classList.remove('active');
-            btn.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // Add touch event for mobile
-        document.addEventListener('DOMContentLoaded', function() {
-            var menuBtn = document.getElementById('mobileMenuBtn');
-            var menu = document.getElementById('mobileMenu');
-            
-            if (menuBtn) {
-                menuBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    toggleMobileMenu();
-                });
-                menuBtn.addEventListener('touchend', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    toggleMobileMenu();
-                });
-            }
-            
-            // Close menu when clicking overlay
-            if (menu) {
-                menu.addEventListener('click', function(e) {
-                    if (e.target === menu) {
-                        closeMobileMenu();
-                    }
-                });
-            }
-            
-            // Add close events to mobile menu links
-            var mobileLinks = document.querySelectorAll('.mobile-menu-content a');
-            mobileLinks.forEach(function(link) {
-                link.addEventListener('click', closeMobileMenu);
-            });
-        });
-
         // Navigation scroll effect
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
             if (window.scrollY > 100) {
                 nav.classList.add('scrolled');
