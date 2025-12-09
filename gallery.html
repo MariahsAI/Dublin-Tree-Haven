@@ -135,18 +135,129 @@
         .hover-preview .preview-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--deep-forest); margin-bottom: 5px; }
         .hover-preview .preview-info p { font-size: 0.85rem; color: var(--sage); letter-spacing: 1px; }
         
-        .amenities-section { padding: 80px 60px; background: var(--deep-forest); }
-        .amenities-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .amenity-item { text-align: center; padding: 30px 20px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(201, 169, 98, 0.2); transition: all 0.4s ease; position: relative; overflow: hidden; }
-        .amenity-item:hover { background: rgba(255,255,255,0.1); transform: translateY(-5px); border-color: var(--gold); }
-        .amenity-item.has-image { background-size: cover; background-position: center; min-height: 140px; display: flex; flex-direction: column; justify-content: flex-end; padding: 15px; }
-        .amenity-item.has-image::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26, 46, 26, 0.9) 0%, rgba(26, 46, 26, 0.3) 100%); }
-        .amenity-item.has-image .amenity-icon { display: none; }
-        .amenity-item.has-image .amenity-name { position: relative; z-index: 1; }
-        .amenity-icon { width: 50px; height: 50px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; }
-        .amenity-icon svg { width: 32px; height: 32px; stroke: var(--gold); }
-        .amenity-name { font-size: 0.85rem; color: var(--cream); letter-spacing: 2px; text-transform: uppercase; }
         
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+        
+        /* Amenities Invitation Section */
+        .amenities-invite {
+            padding: 120px 40px;
+            background: linear-gradient(180deg, var(--deep-forest) 0%, #0d1a0d 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .amenities-invite::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(201,169,98,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .invite-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .invite-ornament {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+        
+        .invite-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--cream);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .invite-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: rgba(245, 241, 232, 0.7);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+        
+        .invite-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 45px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .invite-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+        
+        .invite-btn:hover {
+            color: var(--deep-forest);
+        }
+        
+        .invite-btn:hover::before {
+            left: 0;
+        }
+        
+        .btn-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .invite-btn:hover .btn-icon {
+            transform: translateX(5px);
+        }
+        
+        @media (max-width: 768px) {
+            .amenities-invite { padding: 80px 25px; }
+            .invite-title { font-size: 2rem; letter-spacing: 4px; }
+            .invite-text { font-size: 1rem; }
+            .invite-btn { padding: 16px 30px; font-size: 0.95rem; }
+        }
+
         .cta-section { padding: 100px 60px; background: var(--cream); text-align: center; }
         .cta-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--deep-forest); margin-bottom: 20px; letter-spacing: 3px; }
         .cta-title span { color: var(--gold); font-style: italic; }
@@ -255,6 +366,16 @@
             .gallery-controls { flex-direction: column; gap: 15px; margin-bottom: 30px; }
             .view-toggle button { width: 45px; height: 40px; font-size: 1.1rem; }
             .start-tour-btn { padding: 14px 30px; font-size: 0.75rem; letter-spacing: 2px; }
+            .amenities-section { padding: 50px 20px; }
+            .forest-scene-section .section-header { padding: 0 20px; }
+            .immersive-landscape { height: 500px; margin-top: 30px; }
+            .orb-core { width: 50px; height: 50px; }
+            .orb-icon { font-size: 1.3rem; }
+            .orb-ring { width: 65px; height: 65px; }
+            .label-text { font-size: 1.2rem; }
+            .label-sub { font-size: 0.65rem; }
+            .explore-hint { font-size: 0.7rem; bottom: 20px; }
+            .cabin-glow { width: 80px; height: 80px; }
             .amenities-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
             .amenity-item { padding: 20px 10px; }
             .amenity-icon { width: 40px; height: 40px; margin-bottom: 10px; }
@@ -303,6 +424,14 @@
             .lightbox-btn span:last-child { display: none; }
             .lightbox-btn { padding: 8px 10px; min-width: 40px; justify-content: center; }
             .thumbnail { width: 50px; height: 35px; }
+            .immersive-landscape { height: 450px; }
+            .orb-core { width: 45px; height: 45px; }
+            .orb-icon { font-size: 1.1rem; }
+            .orb-ring { width: 55px; height: 55px; }
+            .label-text { font-size: 1rem; }
+            .label-sub { font-size: 0.6rem; }
+            .explore-hint { display: none; }
+            .forest-particles span { width: 3px; height: 3px; }
         }
         @media (max-width: 360px) {
             .gallery-hero { min-height: 280px; }
@@ -319,6 +448,12 @@
             .gallery-item .category-badge { opacity: 0; }
             .gallery-item:active { transform: scale(0.98); }
             .lightbox-nav:active { background: var(--gold); color: var(--deep-forest); }
+            .amenity-orb .orb-label { opacity: 0; visibility: hidden; }
+            .amenity-orb.active .orb-label { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(10px); }
+            .amenity-orb.active .orb-core { 
+                transform: scale(1.3); 
+                box-shadow: 0 0 50px rgba(201, 169, 98, 0.8), 0 0 100px rgba(201, 169, 98, 0.5);
+            }
         }
     </style>
 </head>
@@ -528,21 +663,16 @@
         </div>
     </section>
     
-    <section class="amenities-section">
-        <div class="section-header animate">
-            <div class="section-subtitle" style="color: var(--gold);">What's Included</div>
-            <h2 class="section-title" style="color: var(--cream);">AMENITIES</h2>
-            <div class="section-divider"></div>
-        </div>
-        <div class="amenities-grid">
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div class="amenity-name">2 Bedrooms</div></div>
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg></div><div class="amenity-name">2.5 Baths</div></div>
-            <div class="amenity-item has-image" style="background-image: url('IMG_0698.jpg');"><div class="amenity-name">Full Kitchen</div></div>
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="amenity-name">Sleeps 6</div></div>
-            <div class="amenity-item has-image" style="background-image: url('IMG_8379.jpeg');"><div class="amenity-name">Forest Views</div></div>
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div class="amenity-name">Sauna</div></div>
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 14h20"/><path d="M12 4v10"/></svg></div><div class="amenity-name">Murphy Bed</div></div>
-            <div class="amenity-item"><div class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div class="amenity-name">Coffee Bar</div></div>
+    <!-- AMENITIES INVITATION -->
+    <section class="amenities-invite">
+        <div class="invite-content">
+            <div class="invite-ornament">✦</div>
+            <h2 class="invite-title">What Awaits You</h2>
+            <p class="invite-text">Discover the luxuries prepared for your stay</p>
+            <a href="invitation.html" class="invite-btn">
+                <span class="btn-text">View Your Personal Invitation</span>
+                <span class="btn-icon">→</span>
+            </a>
         </div>
     </section>
     
@@ -666,6 +796,10 @@
                 }
             }
         })();
+        
+        // Amenities section - links to invitation.html
+
+    
     </script>
 </body>
 </html>
