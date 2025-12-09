@@ -92,8 +92,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
+            z-index: 9999;
             transition: all 0.4s ease;
+            pointer-events: auto;
         }
 
         nav.scrolled {
@@ -1629,13 +1630,17 @@
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
-            z-index: 1001;
+            z-index: 10000;
             padding: 15px;
             background: transparent;
             border: none;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             position: relative;
+            min-width: 50px;
+            min-height: 50px;
+            align-items: center;
+            justify-content: center;
         }
 
         .mobile-menu-btn span {
@@ -1665,7 +1670,7 @@
             width: 100%;
             height: 100%;
             background: rgba(26, 46, 26, 0.98);
-            z-index: 999;
+            z-index: 9998;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1912,7 +1917,7 @@
             <li><a href="#testimonials">Reviews</a></li>
         </ul>
         <button class="nav-cta" onclick="window.location.href='booking.html'">Book Now</button>
-        <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
             <span></span>
             <span></span>
             <span></span>
@@ -1922,11 +1927,11 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-content">
-            <a href="#about" onclick="closeMobileMenu()">About</a>
-            <a href="#properties" onclick="closeMobileMenu()">Properties</a>
-            <a href="#experience" onclick="closeMobileMenu()">Experience</a>
-            <a href="gallery.html" onclick="closeMobileMenu()">Gallery</a>
-            <a href="#testimonials" onclick="closeMobileMenu()">Reviews</a>
+            <a href="#about">About</a>
+            <a href="#properties">Properties</a>
+            <a href="#experience">Experience</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="#testimonials">Reviews</a>
             <a href="booking.html" class="mobile-book-btn">Book Now</a>
         </div>
     </div>
@@ -2554,6 +2559,39 @@
             btn.classList.remove('active');
             document.body.style.overflow = '';
         }
+        
+        // Add touch event for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            var menuBtn = document.getElementById('mobileMenuBtn');
+            var menu = document.getElementById('mobileMenu');
+            
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleMobileMenu();
+                });
+                menuBtn.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleMobileMenu();
+                });
+            }
+            
+            // Close menu when clicking overlay
+            if (menu) {
+                menu.addEventListener('click', function(e) {
+                    if (e.target === menu) {
+                        closeMobileMenu();
+                    }
+                });
+            }
+            
+            // Add close events to mobile menu links
+            var mobileLinks = document.querySelectorAll('.mobile-menu-content a');
+            mobileLinks.forEach(function(link) {
+                link.addEventListener('click', closeMobileMenu);
+            });
+        });
 
         // Navigation scroll effect
         window.addEventListener('scroll', () => {
