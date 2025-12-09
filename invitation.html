@@ -8,52 +8,68 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --deep-forest: #1a2e1a;
             --forest: #2d4a2d;
             --sage: #4a6741;
-            --moss: #6b8c5a;
             --gold: #c9a962;
-            --gold-light: #dfc07a;
+            --gold-light: #e8d5a3;
             --gold-dark: #a8893d;
             --cream: #f5f1e8;
-            --cream-light: #faf8f3;
-            --paper: #fdfbf7;
-            --white: #ffffff;
+            --paper: #fefdfb;
+            --blush: #f8f5f2;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            background: linear-gradient(180deg, var(--white) 0%, var(--cream-light) 100%);
-            min-height: 600vh;
+            background: var(--blush);
+            min-height: 700vh;
             overflow-x: hidden;
             color: var(--deep-forest);
         }
 
-        /* Subtle pattern overlay */
-        body::before {
-            content: '';
+        /* Progress bar */
+        .progress-bar {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a962' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 1;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+            width: 0%;
+            z-index: 1000;
         }
 
-        /* Fixed scene container */
+        /* Back button */
+        .back-btn {
+            position: fixed;
+            top: 24px; left: 24px;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid rgba(201,169,98,0.25);
+            border-radius: 50px;
+            color: var(--deep-forest);
+            text-decoration: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover { background: var(--deep-forest); color: var(--cream); }
+        .back-btn svg { width: 14px; height: 14px; }
+
+        /* ==========================================
+           3D ENVELOPE SCENE
+           ========================================== */
         .scene {
             position: fixed;
             top: 0;
@@ -67,410 +83,432 @@
             z-index: 100;
         }
 
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
-        }
-
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatParticle 15s infinite ease-in-out;
-        }
-
-        @keyframes floatParticle {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-
-        /* Envelope container */
         .envelope-container {
             position: relative;
-            width: min(620px, 92vw);
-            height: min(434px, 64.4vw);
+            width: min(900px, 95vw);
+            aspect-ratio: 1.6 / 1;
             transform-style: preserve-3d;
         }
 
-        .envelope {
+        /* The flipping envelope card */
+        .envelope-card {
             position: absolute;
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
+            transition: transform 0.1s linear;
         }
 
-        /* Envelope back - elegant cream */
+        /* Back of envelope - Text side (shown first) */
         .envelope-back {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(145deg, #ffffff 0%, var(--cream) 50%, #e8e4db 100%);
-            border-radius: 8px;
-            box-shadow: 
-                0 40px 80px rgba(0,0,0,0.15),
-                0 15px 30px rgba(0,0,0,0.1),
-                inset 0 1px 0 rgba(255,255,255,0.8);
-            transform: translateZ(-2px);
-        }
-
-        /* Gold filigree border */
-        .envelope-back::before {
-            content: '';
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            right: 12px;
-            bottom: 12px;
-            border: 1px solid var(--gold);
-            opacity: 0.5;
-            border-radius: 4px;
-        }
-
-        .envelope-back::after {
-            content: '❧';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 16px;
-            color: var(--gold);
-            opacity: 0.6;
-        }
-
-        .corner-ornament {
-            position: absolute;
-            font-size: 16px;
-            color: var(--gold);
-            opacity: 0.6;
-            z-index: 5;
-        }
-
-        .corner-tr { top: 20px; right: 20px; transform: rotate(90deg); }
-        .corner-bl { bottom: 20px; left: 20px; transform: rotate(270deg); }
-        .corner-br { bottom: 20px; right: 20px; transform: rotate(180deg); }
-
-        /* Interior of envelope - FOREST IMAGE */
-        .envelope-interior {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('IMG_8379.jpeg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 8px;
-            transform: translateZ(-1px);
-            clip-path: polygon(0 18%, 50% 48%, 100% 18%, 100% 100%, 0 100%);
-        }
-
-        .envelope-interior::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(26, 46, 26, 0.3) 0%, rgba(26, 46, 26, 0.1) 100%);
-        }
-
-        /* Top flap - cream */
-        .flap-top {
-            position: absolute;
-            width: 100%;
-            height: 58%;
-            top: 0;
-            left: 0;
-            background: linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
-            transform-origin: top center;
-            transform: rotateX(0deg) translateZ(1px);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            z-index: 20;
-            transition: transform 0.1s linear;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .flap-top::before {
-            content: '';
-            position: absolute;
-            top: 18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 55%;
-            height: calc(100% - 50px);
-            border: 1px solid var(--gold);
-            opacity: 0.5;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-        }
-
-        /* Wax seal - forest green */
-        .wax-seal {
-            position: absolute;
-            top: 44%;
-            left: 50%;
-            transform: translate(-50%, -50%) translateZ(3px);
-            width: 85px;
-            height: 85px;
-            background: radial-gradient(circle at 30% 30%, var(--sage), var(--forest) 50%, var(--deep-forest) 100%);
-            border-radius: 50%;
-            box-shadow: 
-                0 6px 20px rgba(0,0,0,0.3),
-                inset 0 2px 4px rgba(255,255,255,0.15),
-                inset 0 -3px 6px rgba(0,0,0,0.4);
-            z-index: 30;
+            backface-visibility: hidden;
+            background: linear-gradient(145deg, #faf8f5 0%, #f0ebe2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            border-radius: 6px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+            overflow: hidden;
+        }
+
+        /* Gold border frame */
+        .envelope-back::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        /* Corner ornaments for back */
+        .envelope-back .corner-ornament {
+            position: absolute;
+            font-size: 14px;
+            color: var(--gold);
+            opacity: 0.5;
+        }
+        .envelope-back .corner-ornament.tl { top: 20px; left: 20px; }
+        .envelope-back .corner-ornament.tr { top: 20px; right: 20px; transform: scaleX(-1); }
+        .envelope-back .corner-ornament.bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+        .envelope-back .corner-ornament.br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+        /* Front of envelope - Photo side */
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .envelope-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+        }
+
+        .envelope-back-content {
+            text-align: center;
+            padding: 40px 60px;
+            width: 100%;
+        }
+
+        .back-pretext {
+            font-family: 'Raleway', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold-dark);
+            margin-bottom: 15px;
+        }
+
+        .back-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(50px, 10vw, 100px);
+            color: var(--deep-forest);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        .back-divider {
+            width: 100px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 20px;
+        }
+
+        .back-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--sage);
+            font-style: italic;
+        }
+
+        /* Envelope flap for opening animation */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            transform-origin: center top;
+            transform-style: preserve-3d;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .flap-outer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: linear-gradient(180deg, var(--forest) 0%, var(--deep-forest) 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            overflow: visible;
+        }
+
+        /* Gold border on flap */
+        .flap-outer::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: calc(100% - 40px);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+
+        .flap-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateX(180deg);
+            background: linear-gradient(180deg, var(--forest) 0%, var(--deep-forest) 100%);
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+
+        /* Gold border on inner flap */
+        .flap-inner::before {
+            content: '';
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: calc(100% - 40px);
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        }
+
+        /* Wax seal on envelope flap */
+        .wax-seal {
+            position: absolute;
+            top: calc(100% - 35px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, 
+                var(--sage) 0%, 
+                var(--forest) 40%, 
+                var(--deep-forest) 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 4px 15px rgba(0,0,0,0.3),
+                0 8px 25px rgba(0,0,0,0.2),
+                inset 0 2px 4px rgba(255,255,255,0.15),
+                inset 0 -3px 8px rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            backface-visibility: hidden;
         }
 
         .wax-seal::before {
-            content: 'DTH';
-            font-family: 'Great Vibes', cursive;
-            font-size: 26px;
-            color: var(--gold);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px solid rgba(201, 169, 98, 0.3);
+            border-radius: 50%;
         }
 
         .wax-seal::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 15px;
-            height: 15px;
+            width: 12px;
+            height: 12px;
             background: var(--forest);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             box-shadow: inset 0 -2px 4px rgba(0,0,0,0.3);
         }
 
-        /* The letter */
+        .seal-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 22px;
+            color: var(--gold);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Letter that emerges */
         .letter {
             position: absolute;
-            width: calc(100% - 50px);
-            left: 25px;
-            top: 28%;
+            width: calc(100% - 30px);
+            left: 15px;
+            top: 25%;
             background: var(--paper);
-            padding: 0;
-            transform-origin: top center;
-            transform: translateZ(0px) translateY(0px);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             opacity: 0;
-            transition: all 0.1s linear;
-            z-index: 10;
+            transform: translateY(0);
+            z-index: 5;
+            pointer-events: none;
         }
 
         .letter::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fdfbf7' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
-            opacity: 0.2;
-            pointer-events: none;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+            opacity: 0.02;
         }
 
         .letter-border {
             position: absolute;
-            top: 18px;
-            left: 18px;
-            right: 18px;
-            bottom: 18px;
-            border: 2px solid var(--gold);
-            pointer-events: none;
+            top: 16px; left: 16px; right: 16px; bottom: 16px;
+            border: 1.5px solid var(--gold);
+            opacity: 0.5;
         }
 
-        .letter-border::before,
-        .letter-border::after {
+        .letter-border::before, .letter-border::after {
             content: '';
             position: absolute;
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--gold);
+            width: 20px; height: 20px;
+            border: 1.5px solid var(--gold);
         }
 
-        .letter-border::before {
-            top: -10px;
-            left: -10px;
-            border-right: none;
-            border-bottom: none;
+        .letter-border::before { top: -8px; left: -8px; border-right: none; border-bottom: none; }
+        .letter-border::after { bottom: -8px; right: -8px; border-left: none; border-top: none; }
+
+        .letter-corner {
+            position: absolute;
+            font-size: 14px;
+            color: var(--gold);
+            opacity: 0.4;
         }
 
-        .letter-border::after {
-            bottom: -10px;
-            right: -10px;
-            border-left: none;
-            border-top: none;
-        }
+        .letter-corner.tl { top: 24px; left: 24px; }
+        .letter-corner.tr { top: 24px; right: 24px; transform: scaleX(-1); }
+        .letter-corner.bl { bottom: 24px; left: 24px; transform: scaleY(-1); }
+        .letter-corner.br { bottom: 24px; right: 24px; transform: scale(-1); }
 
         .letter-content {
-            padding: 50px 45px;
+            padding: 45px 40px;
             position: relative;
-            z-index: 1;
         }
 
-        .monogram {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+        .letter-header { text-align: center; margin-bottom: 25px; }
+        .letter-icon { font-size: 28px; margin-bottom: 8px; }
 
-        .tree-icon {
-            font-size: 28px;
-            margin-bottom: 6px;
-        }
-
-        .monogram-text {
+        .letter-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 38px;
+            font-size: 36px;
             background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .monogram-line {
-            width: 150px;
+        .letter-header-line {
+            width: 80px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
             margin: 10px auto;
         }
 
-        .monogram-subtitle {
+        .letter-tagline {
             font-family: 'Raleway', sans-serif;
-            font-size: 9px;
-            letter-spacing: 4px;
+            font-size: 8px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--sage);
         }
 
         .greeting {
             font-family: 'Great Vibes', cursive;
-            font-size: 24px;
+            font-size: 22px;
             color: var(--deep-forest);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        .letter-text {
+        .letter-body {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 15px;
+            font-size: 14px;
             line-height: 1.8;
-            color: #2a2a2a;
+            color: #3a3a3a;
             text-align: center;
             margin-bottom: 20px;
-            font-weight: 400;
         }
 
-        .property-highlight {
+        .property-card {
             text-align: center;
-            margin: 25px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(201, 169, 98, 0.08) 0%, rgba(201, 169, 98, 0.15) 100%);
-            border-radius: 8px;
+            margin: 22px 0;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(201,169,98,0.05) 0%, rgba(201,169,98,0.1) 100%);
+            border-radius: 6px;
+            border: 1px solid rgba(201,169,98,0.15);
         }
 
-        .property-highlight-title {
+        .property-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
             color: var(--deep-forest);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
-        .property-highlight-location {
+        .property-location {
             font-family: 'Raleway', sans-serif;
-            font-size: 10px;
+            font-size: 8px;
             letter-spacing: 2px;
             color: var(--sage);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .stats-row {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin: 25px 0;
+            gap: 22px;
+            margin: 20px 0;
         }
 
-        .stat-item {
-            text-align: center;
-        }
+        .stat-item { text-align: center; }
 
         .stat-value {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 500;
             color: var(--gold-dark);
         }
 
         .stat-label {
             font-family: 'Raleway', sans-serif;
-            font-size: 8px;
+            font-size: 7px;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--sage);
-            margin-top: 2px;
         }
 
         .signature-section {
-            margin-top: 30px;
+            margin-top: 24px;
             text-align: center;
         }
 
         .signature {
             font-family: 'Great Vibes', cursive;
-            font-size: 28px;
+            font-size: 22px;
             color: var(--deep-forest);
-            margin-bottom: 2px;
         }
 
         .signature-title {
             font-family: 'Raleway', sans-serif;
-            font-size: 8px;
-            letter-spacing: 3px;
+            font-size: 7px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: #666;
+            color: #888;
         }
 
-        .flourish {
+        .letter-flourish {
             text-align: center;
-            margin-top: 20px;
-            font-size: 18px;
+            margin-top: 16px;
+            font-size: 14px;
             color: var(--gold);
-            opacity: 0.7;
+            opacity: 0.5;
         }
 
         /* Scroll indicator */
         .scroll-indicator {
             position: fixed;
-            bottom: 50px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 200;
             text-align: center;
-            opacity: 1;
             transition: opacity 0.5s ease;
         }
 
-        .scroll-indicator.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        .scroll-indicator.hidden { opacity: 0; pointer-events: none; }
 
         .scroll-text {
             font-family: 'Raleway', sans-serif;
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--gold-dark);
@@ -478,24 +516,22 @@
         }
 
         .scroll-arrow {
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--gold);
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
             animation: bounce 2s infinite;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.9);
         }
 
         .scroll-arrow::before {
             content: '';
-            width: 8px;
-            height: 8px;
-            border-right: 1px solid var(--gold-dark);
-            border-bottom: 1px solid var(--gold-dark);
+            width: 8px; height: 8px;
+            border-right: 1.5px solid var(--gold-dark);
+            border-bottom: 1.5px solid var(--gold-dark);
             transform: rotate(45deg) translateY(-2px);
         }
 
@@ -505,28 +541,16 @@
             60% { transform: translateY(3px); }
         }
 
-        /* Progress indicator */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
-            width: 0%;
-            z-index: 300;
-            transition: width 0.1s linear;
-        }
-
-        /* CTA Button */
+        /* CTA */
         .cta-section {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 35px;
-            background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 50%, transparent 100%);
+            padding: 30px;
+            background: linear-gradient(0deg, var(--blush) 0%, var(--blush) 60%, transparent 100%);
             text-align: center;
-            z-index: 150;
+            z-index: 400;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
@@ -540,20 +564,18 @@
         }
 
         .cta-button {
-            display: inline-block;
             padding: 18px 55px;
             background: var(--deep-forest);
             color: var(--cream);
             font-family: 'Raleway', sans-serif;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 50px;
             border: none;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 35px rgba(26, 46, 26, 0.3);
+            box-shadow: 0 12px 35px rgba(26,46,26,0.25);
             transition: all 0.4s ease;
         }
 
@@ -561,101 +583,38 @@
             background: var(--gold);
             color: var(--deep-forest);
             transform: translateY(-3px);
-            box-shadow: 0 15px 45px rgba(201, 169, 98, 0.4);
         }
 
-        /* Back button */
-        .back-btn {
-            position: fixed;
-            top: 30px;
-            left: 30px;
-            z-index: 250;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            background: rgba(255,255,255,0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 169, 98, 0.3);
-            border-radius: 50px;
-            color: var(--deep-forest);
-            text-decoration: none;
-            font-family: 'Raleway', sans-serif;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-        }
-
-        .back-btn:hover {
-            background: var(--deep-forest);
-            color: var(--cream);
-            transform: translateX(-5px);
-        }
-
-        .back-btn svg {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .back-btn:hover svg {
-            transform: translateX(-3px);
-        }
-
-        /* ============================================
-           AMENITIES OVERLAY - LETTERHEAD STYLE
-           ============================================ */
+        /* ==========================================
+           AMENITIES OVERLAY
+           ========================================== */
         .amenities-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, var(--cream-light) 0%, var(--cream) 100%);
-            z-index: 500;
+            inset: 0;
+            background: linear-gradient(145deg, #faf8f5 0%, #f0ebe2 100%);
+            z-index: 800;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.6s ease;
+            transition: all 0.5s ease;
             overflow-y: auto;
         }
 
-        .amenities-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .amenities-overlay.active { opacity: 1; visibility: visible; }
 
-        /* Subtle pattern on overlay */
-        .amenities-overlay::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a962' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .amenities-overlay-content {
-            position: relative;
-            z-index: 1;
+        .amenities-content {
             min-height: 100vh;
-            padding: 50px 20px;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .close-amenities {
+        .close-btn {
             position: fixed;
-            top: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
+            top: 24px; right: 24px;
+            width: 48px; height: 48px;
             background: var(--paper);
-            border: 1px solid rgba(201, 169, 98, 0.3);
+            border: 1px solid rgba(201,169,98,0.2);
             border-radius: 50%;
             color: var(--deep-forest);
             font-size: 20px;
@@ -664,25 +623,18 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            z-index: 510;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 810;
         }
 
-        .close-amenities:hover {
-            background: var(--deep-forest);
-            border-color: var(--deep-forest);
-            color: var(--cream);
-        }
+        .close-btn:hover { background: var(--deep-forest); color: var(--cream); }
 
-        /* The amenities letterhead */
-        .amenities-letterhead {
+        .amenities-card {
             background: var(--paper);
             width: 100%;
-            max-width: 800px;
-            padding: 0;
-            box-shadow: 0 15px 60px rgba(0,0,0,0.12);
+            max-width: 750px;
+            box-shadow: 0 15px 60px rgba(0,0,0,0.1);
             position: relative;
-            animation: slideUp 0.8s ease forwards;
+            animation: slideUp 0.6s ease forwards;
         }
 
         @keyframes slideUp {
@@ -690,254 +642,190 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Paper texture on letterhead */
-        .amenities-letterhead::before {
-            content: '';
+        .amenities-border {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fdfbf7' surfaceScale='2'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
-            opacity: 0.15;
+            top: 18px; left: 18px; right: 18px; bottom: 18px;
+            border: 1.5px solid var(--gold);
+            opacity: 0.35;
             pointer-events: none;
         }
 
-        /* Gold border on letterhead */
-        .letterhead-border {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 2px solid var(--gold);
-            pointer-events: none;
-        }
-
-        .letterhead-border::before,
-        .letterhead-border::after {
+        .amenities-border::before, .amenities-border::after {
             content: '';
             position: absolute;
-            width: 28px;
-            height: 28px;
-            border: 2px solid var(--gold);
+            width: 22px; height: 22px;
+            border: 1.5px solid var(--gold);
         }
 
-        .letterhead-border::before {
-            top: -12px;
-            left: -12px;
-            border-right: none;
-            border-bottom: none;
-        }
+        .amenities-border::before { top: -9px; left: -9px; border-right: none; border-bottom: none; }
+        .amenities-border::after { bottom: -9px; right: -9px; border-left: none; border-top: none; }
 
-        .letterhead-border::after {
-            bottom: -12px;
-            right: -12px;
-            border-left: none;
-            border-top: none;
-        }
-
-        /* Corner flourishes */
-        .letterhead-corner {
+        .amenities-corner {
             position: absolute;
-            font-size: 18px;
+            font-size: 14px;
             color: var(--gold);
-            opacity: 0.5;
+            opacity: 0.35;
         }
 
-        .letterhead-corner.top-left { top: 30px; left: 30px; }
-        .letterhead-corner.top-right { top: 30px; right: 30px; transform: rotate(90deg); }
-        .letterhead-corner.bottom-left { bottom: 30px; left: 30px; transform: rotate(270deg); }
-        .letterhead-corner.bottom-right { bottom: 30px; right: 30px; transform: rotate(180deg); }
+        .amenities-corner.tl { top: 26px; left: 26px; }
+        .amenities-corner.tr { top: 26px; right: 26px; transform: scaleX(-1); }
+        .amenities-corner.bl { bottom: 26px; left: 26px; transform: scaleY(-1); }
+        .amenities-corner.br { bottom: 26px; right: 26px; transform: scale(-1); }
 
-        .letterhead-content {
-            padding: 60px 50px;
-            position: relative;
-            z-index: 1;
-        }
+        .amenities-inner { padding: 50px 45px; position: relative; }
 
-        /* Header with image */
-        .letterhead-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .letterhead-image {
-            width: calc(100% + 100px);
-            margin: -60px -50px 30px -50px;
-            height: 220px;
+        .amenities-hero {
+            width: calc(100% + 90px);
+            margin: -50px -45px 30px -45px;
+            height: 200px;
             overflow: hidden;
             position: relative;
         }
 
-        .letterhead-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .amenities-hero img { width: 100%; height: 100%; object-fit: cover; }
 
-        .letterhead-image::after {
+        .amenities-hero::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 80px;
             background: linear-gradient(to top, var(--paper), transparent);
         }
 
-        .letterhead-header .tree-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
+        .amenities-header { text-align: center; margin-bottom: 35px; }
+        .amenities-header .icon { font-size: 32px; margin-bottom: 10px; }
 
-        .letterhead-header h2 {
+        .amenities-header h2 {
             font-family: 'Great Vibes', cursive;
-            font-size: 48px;
+            font-size: 44px;
             background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 8px;
         }
 
-        .letterhead-header .tagline {
+        .amenities-header .tagline {
             font-family: 'Raleway', sans-serif;
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--sage);
         }
 
-        .letterhead-header .divider {
-            width: 100px;
+        .amenities-header .divider {
+            width: 80px;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 20px auto;
+            margin: 18px auto;
         }
 
-        /* Section title */
         .section-title {
             font-family: 'Raleway', sans-serif;
             font-size: 10px;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--gold-dark);
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
-        .section-title::before,
-        .section-title::after {
+        .section-title::before, .section-title::after {
             content: '✦';
-            margin: 0 15px;
+            margin: 0 14px;
             font-size: 8px;
             vertical-align: middle;
         }
 
-        /* Amenities grid */
         .amenities-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-bottom: 40px;
+            gap: 18px;
+            margin-bottom: 35px;
         }
 
-        .amenity-card {
+        .amenity-item {
             text-align: center;
-            padding: 25px 15px;
-            background: linear-gradient(135deg, rgba(26, 46, 26, 0.02) 0%, rgba(201, 169, 98, 0.06) 100%);
-            border: 1px solid rgba(201, 169, 98, 0.2);
+            padding: 22px 12px;
+            background: linear-gradient(135deg, rgba(26,46,26,0.015) 0%, rgba(201,169,98,0.05) 100%);
+            border: 1px solid rgba(201,169,98,0.15);
             border-radius: 8px;
             transition: all 0.4s ease;
-            animation: fadeInCard 0.6s ease forwards;
+            animation: fadeInItem 0.5s ease forwards;
             opacity: 0;
         }
 
-        .amenity-card:nth-child(1) { animation-delay: 0.2s; }
-        .amenity-card:nth-child(2) { animation-delay: 0.3s; }
-        .amenity-card:nth-child(3) { animation-delay: 0.4s; }
-        .amenity-card:nth-child(4) { animation-delay: 0.5s; }
-        .amenity-card:nth-child(5) { animation-delay: 0.6s; }
-        .amenity-card:nth-child(6) { animation-delay: 0.7s; }
-        .amenity-card:nth-child(7) { animation-delay: 0.8s; }
-        .amenity-card:nth-child(8) { animation-delay: 0.9s; }
+        .amenity-item:nth-child(1) { animation-delay: 0.1s; }
+        .amenity-item:nth-child(2) { animation-delay: 0.15s; }
+        .amenity-item:nth-child(3) { animation-delay: 0.2s; }
+        .amenity-item:nth-child(4) { animation-delay: 0.25s; }
+        .amenity-item:nth-child(5) { animation-delay: 0.3s; }
+        .amenity-item:nth-child(6) { animation-delay: 0.35s; }
+        .amenity-item:nth-child(7) { animation-delay: 0.4s; }
+        .amenity-item:nth-child(8) { animation-delay: 0.45s; }
 
-        @keyframes fadeInCard {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInItem {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .amenity-card:hover {
-            background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, rgba(201, 169, 98, 0.15) 100%);
+        .amenity-item:hover {
+            background: linear-gradient(135deg, rgba(201,169,98,0.08) 0%, rgba(201,169,98,0.12) 100%);
             border-color: var(--gold);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.15);
+            transform: translateY(-4px);
         }
 
-        .amenity-card .icon {
-            width: 50px;
-            height: 50px;
+        .amenity-item .icon {
+            width: 44px; height: 44px;
             background: linear-gradient(135deg, var(--gold-dark), var(--gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 5px 20px rgba(201, 169, 98, 0.3);
+            margin: 0 auto 12px;
+            box-shadow: 0 5px 18px rgba(201,169,98,0.3);
         }
 
-        .amenity-card .icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: white;
-            stroke-width: 1.5;
-            fill: none;
-        }
+        .amenity-item .icon svg { width: 20px; height: 20px; stroke: white; stroke-width: 1.5; fill: none; }
 
-        .amenity-card h3 {
+        .amenity-item h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--deep-forest);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
-        .amenity-card p {
+        .amenity-item p {
             font-family: 'Raleway', sans-serif;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--sage);
-            letter-spacing: 0.5px;
         }
 
-        /* Closing text */
-        .closing-text {
+        .closing-quote {
             text-align: center;
             margin: 30px 0;
             padding: 25px;
-            border-top: 1px solid rgba(201, 169, 98, 0.3);
-            border-bottom: 1px solid rgba(201, 169, 98, 0.3);
+            border-top: 1px solid rgba(201,169,98,0.25);
+            border-bottom: 1px solid rgba(201,169,98,0.25);
         }
 
-        .closing-text p {
+        .closing-quote p {
             font-family: 'Cormorant Garamond', serif;
             font-size: 18px;
             font-style: italic;
             color: var(--deep-forest);
-            line-height: 1.7;
         }
 
-        /* Book CTA */
-        .book-cta {
+        .book-btn-container {
             text-align: center;
             margin-top: 30px;
-            animation: fadeInCard 0.8s ease 1s forwards;
+            animation: fadeInItem 0.5s ease 0.6s forwards;
             opacity: 0;
         }
 
-        .book-cta-btn {
+        .book-btn {
             display: inline-block;
-            padding: 20px 60px;
+            padding: 18px 60px;
             background: var(--deep-forest);
             color: var(--cream);
             font-family: 'Raleway', sans-serif;
@@ -947,473 +835,357 @@
             text-transform: uppercase;
             text-decoration: none;
             border-radius: 50px;
-            box-shadow: 0 10px 40px rgba(26, 46, 26, 0.25);
             transition: all 0.4s ease;
         }
 
-        .book-cta-btn:hover {
+        .book-btn:hover {
             background: var(--gold);
             color: var(--deep-forest);
             transform: translateY(-3px);
-            box-shadow: 0 15px 50px rgba(201, 169, 98, 0.4);
         }
 
-        /* Signature on letterhead */
-        .letterhead-signature {
-            text-align: center;
-            margin-top: 40px;
-        }
+        .amenities-signature { text-align: center; margin-top: 35px; }
 
-        .letterhead-signature .signature {
+        .amenities-signature .sig {
             font-family: 'Great Vibes', cursive;
-            font-size: 32px;
+            font-size: 28px;
             color: var(--deep-forest);
-            margin-bottom: 5px;
         }
 
-        .letterhead-signature .title {
+        .amenities-signature .title {
             font-family: 'Raleway', sans-serif;
-            font-size: 9px;
+            font-size: 8px;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: #666;
+            color: #888;
         }
 
-        .letterhead-flourish {
+        .final-flourish {
             text-align: center;
             margin-top: 25px;
-            font-size: 22px;
+            font-size: 18px;
             color: var(--gold);
-            opacity: 0.6;
+            opacity: 0.45;
         }
 
         /* Responsive */
-        @media (max-width: 900px) {
-            .amenities-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-
-            .letterhead-header h2 {
-                font-size: 36px;
-            }
-
-            .letterhead-content {
-                padding: 50px 35px;
-            }
-
-            .letterhead-image {
-                width: calc(100% + 70px);
-                margin: -50px -35px 25px -35px;
-                height: 180px;
-            }
+        @media (max-width: 750px) {
+            .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .amenities-header h2 { font-size: 36px; }
+            .amenities-inner { padding: 40px 30px; }
+            .amenities-hero { width: calc(100% + 60px); margin: -40px -30px 25px -30px; height: 170px; }
         }
 
-        @media (max-width: 768px) {
-            .envelope-container {
-                width: 95vw;
-                height: 66.5vw;
-            }
-
-            .letter-content {
-                padding: 30px 25px;
-            }
-
-            .monogram-text {
-                font-size: 28px;
-            }
-
-            .greeting {
-                font-size: 20px;
-            }
-
-            .letter-text {
-                font-size: 13px;
-            }
-
-            .stats-row {
-                gap: 15px;
-            }
-
-            .stat-value {
-                font-size: 20px;
-            }
-
-            .wax-seal {
-                width: 65px;
-                height: 65px;
-            }
-
-            .wax-seal::before {
-                font-size: 20px;
-            }
-
-            .back-btn {
-                top: 15px;
-                left: 15px;
-                padding: 10px 16px;
-                font-size: 10px;
-            }
-
-            .back-btn span {
-                display: none;
-            }
-
-            .amenities-overlay-content {
-                padding: 30px 15px;
-            }
-
-            .letterhead-content {
-                padding: 40px 25px;
-            }
-
-            .letterhead-image {
-                width: calc(100% + 50px);
-                margin: -40px -25px 20px -25px;
-                height: 150px;
-            }
-
-            .letterhead-header h2 {
-                font-size: 28px;
-            }
-
-            .letterhead-border {
-                top: 15px;
-                left: 15px;
-                right: 15px;
-                bottom: 15px;
-            }
-
-            .amenity-card {
-                padding: 20px 12px;
-            }
-
-            .amenity-card .icon {
-                width: 42px;
-                height: 42px;
-            }
-
-            .amenity-card .icon svg {
-                width: 18px;
-                height: 18px;
-            }
-
-            .amenity-card h3 {
-                font-size: 15px;
-            }
-
-            .amenity-card p {
-                font-size: 10px;
-            }
-
-            .close-amenities {
-                top: 15px;
-                right: 15px;
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .closing-text p {
-                font-size: 15px;
-            }
+        @media (max-width: 550px) {
+            .envelope-container { width: 95vw; }
+            .back-title { font-size: clamp(40px, 14vw, 70px); }
+            .back-pretext { font-size: 10px; letter-spacing: 4px; }
+            .back-subtitle { font-size: 16px; }
+            .letter-content { padding: 35px 28px; }
+            .letter-title { font-size: 28px; }
+            .back-btn { top: 16px; left: 16px; padding: 10px 16px; }
+            .back-btn span { display: none; }
+            .amenities-content { padding: 30px 12px; }
+            .amenities-inner { padding: 30px 20px; }
+            .amenities-hero { width: calc(100% + 40px); margin: -30px -20px 20px -20px; height: 150px; }
+            .amenities-header h2 { font-size: 28px; }
+            .amenity-item { padding: 18px 8px; }
+            .amenity-item .icon { width: 38px; height: 38px; }
+            .amenity-item h3 { font-size: 14px; }
+            .close-btn { top: 16px; right: 16px; width: 42px; height: 42px; }
         }
 
-        @media (max-width: 480px) {
-            .letter-content {
-                padding: 25px 20px;
-            }
-
-            .amenities-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-
-            .amenity-card p {
-                display: none;
-            }
-
-            .amenity-card h3 {
-                font-size: 13px;
-            }
-
-            .letterhead-header h2 {
-                font-size: 24px;
-            }
-
-            .section-title {
-                font-size: 9px;
-                letter-spacing: 3px;
-            }
+        @media (max-width: 420px) {
+            .amenity-item p { display: none; }
         }
     </style>
 </head>
 <body>
     <div class="progress-bar" id="progressBar"></div>
-    
-    <a href="dublin-tree-haven-gallery.html" class="back-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
+
+    <a href="index.html" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         <span>BACK</span>
     </a>
 
-    <div class="particles" id="particles"></div>
-
+    <!-- 3D Envelope Scene -->
     <div class="scene">
         <div class="envelope-container">
-            <div class="envelope">
+            <!-- The flipping envelope card -->
+            <div class="envelope-card" id="envelopeCard">
+                <!-- Back of envelope (text - shown first) -->
                 <div class="envelope-back">
-                    <span class="corner-ornament corner-tr">❧</span>
-                    <span class="corner-ornament corner-bl">❧</span>
-                    <span class="corner-ornament corner-br">❧</span>
-                </div>
-                <div class="envelope-interior"></div>
-                
-                <div class="letter" id="letter">
-                    <div class="letter-border"></div>
-                    <div class="letter-content">
-                        <div class="monogram">
-                            <div class="tree-icon">🌲</div>
-                            <div class="monogram-text">Dublin Tree Haven</div>
-                            <div class="monogram-line"></div>
-                            <div class="monogram-subtitle">Luxury Forest Retreat</div>
-                        </div>
-
-                        <div class="greeting">Dear Distinguished Guest,</div>
-
-                        <p class="letter-text">
-                            It is with immense pleasure that we extend this personal invitation to experience 
-                            the unparalleled sanctuary of Dublin Tree Haven. Nestled within the Wicklow Mountains, 
-                            our retreat offers a rare union of contemporary luxury and Ireland's primordial beauty.
-                        </p>
-
-                        <div class="property-highlight">
-                            <div class="property-highlight-title">Your Private Forest Sanctuary</div>
-                            <div class="property-highlight-location">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                                Wicklow Mountains, Ireland
-                            </div>
-                        </div>
-
-                        <div class="stats-row">
-                            <div class="stat-item">
-                                <div class="stat-value">2</div>
-                                <div class="stat-label">Bedrooms</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">2.5</div>
-                                <div class="stat-label">Bathrooms</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">6</div>
-                                <div class="stat-label">Guests</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">$450</div>
-                                <div class="stat-label">Per Night</div>
-                            </div>
-                        </div>
-
-                        <div class="signature-section">
-                            <div class="signature">The Tree Haven Team</div>
-                            <div class="signature-title">Your Hosts in the Forest</div>
-                        </div>
-
-                        <div class="flourish">❧</div>
+                    <span class="corner-ornament tl">❧</span>
+                    <span class="corner-ornament tr">❧</span>
+                    <span class="corner-ornament bl">❧</span>
+                    <span class="corner-ornament br">❧</span>
+                    <div class="envelope-back-content">
+                        <p class="back-pretext">You Are Cordially Invited</p>
+                        <h1 class="back-title">Dublin Tree Haven</h1>
+                        <div class="back-divider"></div>
+                        <p class="back-subtitle">A sanctuary awaits in the Wicklow Mountains</p>
                     </div>
                 </div>
+                
+                <!-- Front of envelope (photo) -->
+                <div class="envelope-front">
+                    <img src="envelope-photo.webp" alt="Elegant invitation envelope with wax seal">
+                </div>
+            </div>
 
-                <div class="flap-top" id="flapTop"></div>
-                <div class="wax-seal" id="waxSeal"></div>
+            <!-- Envelope flap (appears after flip) -->
+            <div class="envelope-flap" id="envelopeFlap">
+                <div class="flap-outer"></div>
+                <div class="flap-inner"></div>
+                <div class="wax-seal">
+                    <span class="seal-text">DTH</span>
+                </div>
+            </div>
+
+            <!-- Letter inside -->
+            <div class="letter" id="letter">
+                <div class="letter-border"></div>
+                <span class="letter-corner tl">❧</span>
+                <span class="letter-corner tr">❧</span>
+                <span class="letter-corner bl">❧</span>
+                <span class="letter-corner br">❧</span>
+                
+                <div class="letter-content">
+                    <div class="letter-header">
+                        <div class="letter-icon">🌲</div>
+                        <h2 class="letter-title">Dublin Tree Haven</h2>
+                        <div class="letter-header-line"></div>
+                        <p class="letter-tagline">Luxury Forest Retreat</p>
+                    </div>
+
+                    <p class="greeting">Dear Distinguished Guest,</p>
+
+                    <p class="letter-body">
+                        It is with immense pleasure that we extend this personal invitation to experience 
+                        the unparalleled sanctuary of Dublin Tree Haven. Nestled within Ireland's ancient 
+                        Wicklow Mountains, our retreat offers a rare union of contemporary luxury and 
+                        primordial natural beauty.
+                    </p>
+
+                    <div class="property-card">
+                        <p class="property-name">Your Private Forest Sanctuary</p>
+                        <p class="property-location">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            Wicklow Mountains, Ireland
+                        </p>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Bedrooms</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">2.5</div>
+                            <div class="stat-label">Bathrooms</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Guests</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">$450</div>
+                            <div class="stat-label">Per Night</div>
+                        </div>
+                    </div>
+
+                    <div class="signature-section">
+                        <p class="signature">The Tree Haven Team</p>
+                        <p class="signature-title">Your Hosts in the Forest</p>
+                    </div>
+
+                    <div class="letter-flourish">❧</div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Scroll Indicator -->
     <div class="scroll-indicator" id="scrollIndicator">
-        <div class="scroll-text">Scroll to Open</div>
+        <div class="scroll-text">Scroll to Continue</div>
         <div class="scroll-arrow"></div>
     </div>
 
+    <!-- CTA -->
     <div class="cta-section" id="ctaSection">
         <button class="cta-button" onclick="showAmenities()">Accept Your Invitation</button>
     </div>
 
-    <!-- AMENITIES OVERLAY - LETTERHEAD STYLE -->
+    <!-- Amenities Overlay -->
     <div class="amenities-overlay" id="amenitiesOverlay">
-        <button class="close-amenities" onclick="hideAmenities()">✕</button>
-        <div class="amenities-overlay-content">
-            
-            <div class="amenities-letterhead">
-                <div class="letterhead-border"></div>
-                <span class="letterhead-corner top-left">❧</span>
-                <span class="letterhead-corner top-right">❧</span>
-                <span class="letterhead-corner bottom-left">❧</span>
-                <span class="letterhead-corner bottom-right">❧</span>
+        <button class="close-btn" onclick="hideAmenities()">✕</button>
+        <div class="amenities-content">
+            <div class="amenities-card">
+                <div class="amenities-border"></div>
+                <span class="amenities-corner tl">❧</span>
+                <span class="amenities-corner tr">❧</span>
+                <span class="amenities-corner bl">❧</span>
+                <span class="amenities-corner br">❧</span>
 
-                <div class="letterhead-content">
-                    <!-- Header with forest image -->
-                    <div class="letterhead-image">
-                        <img src="IMG_8379.jpeg" alt="Dublin Tree Haven Aerial View">
+                <div class="amenities-inner">
+                    <div class="amenities-hero">
+                        <img src="IMG_8379.jpeg" alt="Dublin Tree Haven Forest">
                     </div>
 
-                    <div class="letterhead-header">
-                        <div class="tree-icon">🌲</div>
+                    <div class="amenities-header">
+                        <div class="icon">🌲</div>
                         <h2>Dublin Tree Haven</h2>
-                        <div class="tagline">Luxury Forest Retreat</div>
+                        <p class="tagline">Luxury Forest Retreat</p>
                         <div class="divider"></div>
                     </div>
 
-                    <div class="section-title">What's Included in Your Stay</div>
+                    <h3 class="section-title">What's Included in Your Stay</h3>
 
                     <div class="amenities-grid">
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
                             <h3>2 Bedrooms</h3>
                             <p>Master & Guest Suites</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg></div>
                             <h3>2.5 Baths</h3>
                             <p>Spa-Inspired Design</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
                             <h3>Full Kitchen</h3>
                             <p>Professional Appliances</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                             <h3>Sleeps 6</h3>
                             <p>Perfect for Families</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
                             <h3>Forest Views</h3>
                             <p>Floor-to-Ceiling Glass</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 3z"/><path d="M17 4a2 2 0 0 0 2 2 2 2 0 0 0-2 2 2 2 0 0 0-2-2 2 2 0 0 0 2-2"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 3zM17 4a2 2 0 0 0 2 2 2 2 0 0 0-2 2 2 2 0 0 0-2-2 2 2 0 0 0 2-2"/></svg></div>
                             <h3>Sauna</h3>
                             <p>Private Finnish Sauna</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 14h20"/><path d="M12 4v10"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 14h20M12 4v10"/></svg></div>
                             <h3>Murphy Bed</h3>
                             <p>Flexible Living Space</p>
                         </div>
-                        <div class="amenity-card">
-                            <div class="icon">
-                                <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
-                            </div>
+                        <div class="amenity-item">
+                            <div class="icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
                             <h3>Coffee Bar</h3>
                             <p>Premium Espresso Setup</p>
                         </div>
                     </div>
 
-                    <div class="closing-text">
+                    <div class="closing-quote">
                         <p>"A secret too precious to share, yet too magnificent to keep hidden."</p>
                     </div>
 
-                    <div class="book-cta">
-                        <a href="booking.html" class="book-cta-btn">Book Your Stay</a>
+                    <div class="book-btn-container">
+                        <a href="booking.html" class="book-btn">Book Your Stay</a>
                     </div>
 
-                    <div class="letterhead-signature">
-                        <div class="signature">The Tree Haven Team</div>
-                        <div class="title">Your Hosts in the Forest</div>
+                    <div class="amenities-signature">
+                        <p class="sig">The Tree Haven Team</p>
+                        <p class="title">Your Hosts in the Forest</p>
                     </div>
 
-                    <div class="letterhead-flourish">❧</div>
+                    <div class="final-flourish">❧</div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        // Create particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 15; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (12 + Math.random() * 8) + 's';
-            particlesContainer.appendChild(particle);
-        }
-
-        // Elements
-        const flapTop = document.getElementById('flapTop');
-        const waxSeal = document.getElementById('waxSeal');
+        const envelopeCard = document.getElementById('envelopeCard');
+        const envelopeFlap = document.getElementById('envelopeFlap');
         const letter = document.getElementById('letter');
         const progressBar = document.getElementById('progressBar');
         const scrollIndicator = document.getElementById('scrollIndicator');
         const ctaSection = document.getElementById('ctaSection');
         const amenitiesOverlay = document.getElementById('amenitiesOverlay');
 
-        // Scroll handler
         function handleScroll() {
-            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            const progress = Math.min(scrollPercent * 100, 100);
-            
-            progressBar.style.width = progress + '%';
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const docHeight = document.body.scrollHeight - windowHeight;
+            const scrollPercent = scrollY / docHeight;
 
-            // Phase 1: Break seal (0-15%)
-            if (scrollPercent < 0.15) {
-                const sealPhase = scrollPercent / 0.15;
-                waxSeal.style.transform = `translate(-50%, -50%) translateZ(3px) scale(${1 - sealPhase * 0.3}) rotate(${sealPhase * 25}deg)`;
-                waxSeal.style.opacity = 1 - sealPhase;
-                scrollIndicator.classList.remove('hidden');
-            } else {
-                waxSeal.style.opacity = 0;
+            progressBar.style.width = (scrollPercent * 100) + '%';
+
+            // Phase 1: Card flips from back (text) to front (photo) (0% - 20%)
+            if (scrollPercent < 0.20) {
+                const flipProgress = scrollPercent / 0.20;
+                const flipAngle = flipProgress * 180;
+                
+                envelopeCard.style.transform = `rotateY(${flipAngle}deg)`;
+                envelopeFlap.style.opacity = '0';
+                letter.style.opacity = '0';
+                letter.style.pointerEvents = 'none';
+                
+                if (scrollPercent < 0.05) {
+                    scrollIndicator.classList.remove('hidden');
+                } else {
+                    scrollIndicator.classList.add('hidden');
+                }
+            }
+            // Phase 2: Show front, prepare for opening (20% - 30%)
+            else if (scrollPercent < 0.30) {
+                envelopeCard.style.transform = 'rotateY(180deg)';
+                envelopeFlap.style.opacity = '1';
+                envelopeFlap.style.transform = 'rotateX(0deg)';
+                letter.style.opacity = '0';
                 scrollIndicator.classList.add('hidden');
             }
-
-            // Phase 2: Open flap (15-40%)
-            if (scrollPercent >= 0.15 && scrollPercent < 0.4) {
-                const flapPhase = (scrollPercent - 0.15) / 0.25;
-                const flapAngle = flapPhase * 180;
-                flapTop.style.transform = `rotateX(${flapAngle}deg) translateZ(1px)`;
-            } else if (scrollPercent >= 0.4) {
-                flapTop.style.transform = 'rotateX(180deg) translateZ(1px)';
+            // Phase 3: Flap opens (30% - 45%) - rotates backward, tip swings up
+            else if (scrollPercent < 0.45) {
+                const flapProgress = (scrollPercent - 0.30) / 0.15;
+                const flapAngle = flapProgress * -180; // Negative = tip goes backward and up
+                
+                envelopeCard.style.transform = 'rotateY(180deg)';
+                envelopeFlap.style.opacity = '1';
+                envelopeFlap.style.transform = `rotateX(${flapAngle}deg)`;
+                letter.style.opacity = '0';
+            }
+            // Phase 4: Letter emerges (45% - 80%)
+            else if (scrollPercent < 0.80) {
+                const letterProgress = (scrollPercent - 0.45) / 0.35;
+                
+                envelopeCard.style.transform = 'rotateY(180deg)';
+                envelopeFlap.style.opacity = '1';
+                envelopeFlap.style.transform = 'rotateX(-180deg)';
+                
+                letter.style.opacity = Math.min(letterProgress * 1.5, 1);
+                letter.style.pointerEvents = 'all';
+                
+                // Letter rises and scales
+                const rise = letterProgress * 300;
+                const scale = 1 + (letterProgress * 0.5);
+                letter.style.transform = `translateY(-${rise}px) scale(${scale})`;
+            }
+            // Phase 5: Letter fully visible (80% - 100%)
+            else {
+                envelopeCard.style.transform = 'rotateY(180deg)';
+                envelopeFlap.style.transform = 'rotateX(-180deg)';
+                letter.style.opacity = '1';
+                letter.style.transform = 'translateY(-300px) scale(1.5)';
             }
 
-            // Phase 3: Letter emerges (40-100%)
-            if (scrollPercent >= 0.4) {
-                const letterPhase = (scrollPercent - 0.4) / 0.6;
-                letter.style.opacity = Math.min(letterPhase * 2, 1);
-                
-                const letterRise = Math.min(letterPhase * 1.5, 1);
-                const letterY = -25 - (letterRise * 360);
-                const letterScale = 1 + (letterRise * 0.5);
-                letter.style.transform = `translateZ(${letterRise * 100}px) translateY(${letterY}px) scale(${letterScale})`;
-                
-                if (scrollPercent > 0.85) {
-                    ctaSection.classList.add('visible');
-                } else {
-                    ctaSection.classList.remove('visible');
-                }
+            // Show CTA
+            if (scrollPercent > 0.70) {
+                ctaSection.classList.add('visible');
             } else {
-                letter.style.opacity = 0;
-                letter.style.transform = 'translateZ(0px) translateY(0px) scale(1)';
+                ctaSection.classList.remove('visible');
             }
         }
 
@@ -1427,8 +1199,7 @@
             document.body.style.overflow = '';
         }
 
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && amenitiesOverlay.classList.contains('active')) {
                 hideAmenities();
             }
