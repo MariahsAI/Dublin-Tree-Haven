@@ -148,8 +148,9 @@
             height: 100%;
             backface-visibility: hidden;
             transform: rotateY(180deg);
+            transform-style: preserve-3d;
             border-radius: 6px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 30px 80px rgba(0,0,0,0.15);
             background: linear-gradient(145deg, #faf8f5 0%, #f0ebe2 50%, #e8e3d8 100%);
         }
@@ -160,6 +161,7 @@
             inset: 0;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
             opacity: 0.015;
+            border-radius: 6px;
         }
         
         .envelope-front::after {
@@ -1179,16 +1181,16 @@
                     </div>
                 </div>
                 
-                <!-- Front of envelope (photo) -->
-                <div class="envelope-front"></div>
-            </div>
-
-            <!-- Envelope flap (appears after flip) -->
-            <div class="envelope-flap" id="envelopeFlap">
-                <div class="flap-outer"></div>
-                <div class="flap-inner"></div>
-                <div class="wax-seal">
-                    <span class="seal-text">DTH</span>
+                <!-- Front of envelope (paper) -->
+                <div class="envelope-front">
+                    <!-- Envelope flap attached to front -->
+                    <div class="envelope-flap" id="envelopeFlap">
+                        <div class="flap-outer"></div>
+                        <div class="flap-inner"></div>
+                        <div class="wax-seal">
+                            <span class="seal-text">DTH</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1379,7 +1381,15 @@
                 const flipAngle = flipProgress * 180;
                 
                 envelopeCard.style.transform = `rotateY(${flipAngle}deg)`;
-                envelopeFlap.style.opacity = '0';
+                envelopeFlap.style.transform = 'rotateX(0deg)';
+                
+                // Show flap once card passes 90 degrees (front side visible)
+                if (flipAngle > 90) {
+                    envelopeFlap.style.opacity = '1';
+                } else {
+                    envelopeFlap.style.opacity = '0';
+                }
+                
                 letter.style.opacity = '0';
                 letter.style.pointerEvents = 'none';
                 
@@ -1392,19 +1402,19 @@
             // Phase 2: Show front, prepare for opening (20% - 30%)
             else if (scrollPercent < 0.30) {
                 envelopeCard.style.transform = 'rotateY(180deg)';
-                envelopeFlap.style.opacity = '1';
                 envelopeFlap.style.transform = 'rotateX(0deg)';
+                envelopeFlap.style.opacity = '1';
                 letter.style.opacity = '0';
                 scrollIndicator.classList.add('hidden');
             }
-            // Phase 3: Flap opens (30% - 45%) - rotates backward, tip swings up
+            // Phase 3: Flap opens (30% - 45%) - rotates to open
             else if (scrollPercent < 0.45) {
                 const flapProgress = (scrollPercent - 0.30) / 0.15;
-                const flapAngle = flapProgress * -180; // Negative = tip goes backward and up
+                const flapAngle = flapProgress * 180; // Positive rotation to open
                 
                 envelopeCard.style.transform = 'rotateY(180deg)';
-                envelopeFlap.style.opacity = '1';
                 envelopeFlap.style.transform = `rotateX(${flapAngle}deg)`;
+                envelopeFlap.style.opacity = '1';
                 letter.style.opacity = '0';
             }
             // Phase 4: Letter emerges (45% - 80%)
@@ -1414,7 +1424,7 @@
                 envelopeCard.style.transform = 'rotateY(180deg)';
                 // Fade out flap as letter emerges
                 envelopeFlap.style.opacity = Math.max(1 - letterProgress * 2, 0).toString();
-                envelopeFlap.style.transform = 'rotateX(-180deg)';
+                envelopeFlap.style.transform = 'rotateX(180deg)';
                 
                 letter.style.opacity = Math.min(letterProgress * 1.5, 1);
                 letter.style.pointerEvents = 'all';
@@ -1460,7 +1470,7 @@
                 
                 envelopeCard.style.transform = 'rotateY(180deg)';
                 envelopeFlap.style.opacity = '0';
-                envelopeFlap.style.transform = 'rotateX(-180deg)';
+                envelopeFlap.style.transform = 'rotateX(180deg)';
                 letter.style.opacity = '1';
                 letter.style.transform = `translateY(-${maxRise}px) scale(${maxScale})`;
             }
