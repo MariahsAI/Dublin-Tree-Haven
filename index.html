@@ -791,6 +791,22 @@
             background: var(--gold);
             color: var(--deep-forest);
         }
+        
+        .property-btns {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .property-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--deep-forest);
+            color: var(--deep-forest);
+        }
+        
+        .property-btn.secondary:hover {
+            background: var(--deep-forest);
+            color: var(--white);
+        }
 
         /* Experience Section */
         .experience {
@@ -1793,6 +1809,23 @@
             .properties-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .property-footer {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .property-btns {
+                width: 100%;
+            }
+            
+            .property-btns .property-btn {
+                flex: 1;
+                text-align: center;
+                padding: 12px 15px;
+                font-size: 0.7rem;
+            }
 
             .gallery-grid {
                 display: grid;
@@ -2011,7 +2044,10 @@
                     </div>
                     <div class="property-footer">
                         <div class="property-price">$450 <span>/ night</span></div>
-                        <button class="property-btn" onclick="window.location.href='gallery.html'">View Gallery</button>
+                        <div class="property-btns">
+                            <button class="property-btn secondary" onclick="window.location.href='invitation.html'">Amenities</button>
+                            <button class="property-btn" onclick="window.location.href='gallery.html'">View Gallery</button>
+                        </div>
                     </div>
                 </div>
             </div>
